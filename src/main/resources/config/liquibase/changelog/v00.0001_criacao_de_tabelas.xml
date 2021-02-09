@@ -173,7 +173,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="pagamento" columnNames="id_pedido"/>
+        <addPrimaryKey tableName="pagamento" columnNames="id_pedido,id_estado"/>
         <addForeignKeyConstraint baseTableName="pagamento" baseColumnNames="id_pedido" constraintName="fk_pedido"
                                  referencedTableName="pedido"
                                  referencedColumnNames="id"/>
@@ -212,7 +212,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="pagamento_boleto" columnNames="id_pedido"/>
+        <addPrimaryKey tableName="pagamento_cartao" columnNames="id_pedido"/>
         <addForeignKeyConstraint baseTableName="pagamento_cartao" baseColumnNames="id_pedido" constraintName="fk_pedido"
                                  referencedTableName="pagamento"
                                  referencedColumnNames="id_pedido"/>
@@ -224,6 +224,9 @@
         <createTable tableName="produto" remarks="tabela de produtos">
 
             <column name="id" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_categoria" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
             <column name="nome" type="VARCHAR(50)">
@@ -239,26 +242,13 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="produto" columnNames="id" constraintName="pk_produto"/>
+        <addPrimaryKey tableName="produto" columnNames="id"/>
         <createSequence sequenceName="sq_produto" startValue="1" incrementBy="1"/>
+        <addForeignKeyConstraint baseTableName="produto" baseColumnNames="id_categoria" constraintName="fk_produto" referencedTableName="categoria"
+                                 referencedColumnNames="id"/>
     </changeSet>
 
-    <changeSet id="11" author="luan.augusto">
-        <createTable tableName="produto_categoria">
-            <column name="id_produto" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="id_categoria" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addForeignKeyConstraint baseTableName="produto_categoria" baseColumnNames="id_produto"
-                                 constraintName="fk_pc_produto" referencedTableName="produto"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="produto_categoria" baseColumnNames="id_categoria"
-                                 constraintName="fk_pc_categoria" referencedTableName="categoria"
-                                 referencedColumnNames="id"/>
-    </changeSet>
+
 
     <changeSet id="12" author="luan.augusto">
         <createTable tableName="item_pedido">
