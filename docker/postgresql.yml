@@ -1,0 +1,9 @@
+version: '2'
+services:
+  ecommerce-postgresql:
+    image: postgres:11.5
+    environment:
+      - POSTGRES_USER=ecommerce
+      - POSTGRES_PASSWORD=ecommerce
+    ports:
+      - 5432:5432
