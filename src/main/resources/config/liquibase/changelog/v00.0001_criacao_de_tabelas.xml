@@ -33,9 +33,7 @@
         </createTable>
 
         <!-- Chave primária e Constantes de Usuário -->
-        <addPrimaryKey tableName="usuario" columnNames="id" constraintName="pk_usuario"/>
-        <addForeignKeyConstraint baseTableName="" baseColumnNames="" constraintName="" referencedTableName=""
-                                 referencedColumnNames=""/>
+        <addPrimaryKey tableName="usuario" columnNames="id"/>
         <createSequence sequenceName="sq_usuario" incrementBy="1" startValue="1"/>
         <addUniqueConstraint tableName="usuario" columnNames="cpf" constraintName="un_cpf_usuario"/>
         <addUniqueConstraint tableName="usuario" columnNames="email" constraintName="un_email_usuario"/>
@@ -171,9 +169,16 @@
             <column name="id_pedido" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
+            <column name="id_estado" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
+        <addPrimaryKey tableName="pagamento" columnNames="id_pedido"/>
         <addForeignKeyConstraint baseTableName="pagamento" baseColumnNames="id_pedido" constraintName="fk_pedido"
                                  referencedTableName="pedido"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="pagamento" baseColumnNames="id_estado" constraintName="fk_estado"
+                                 referencedTableName="estado"
                                  referencedColumnNames="id"/>
     </changeSet>
 
@@ -190,6 +195,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <addPrimaryKey tableName="pagamento_boleto" columnNames="id_pedido"/>
         <addForeignKeyConstraint baseTableName="pagamento_boleto" baseColumnNames="id_pedido" constraintName="fk_pedido"
                                  referencedTableName="pagamento"
                                  referencedColumnNames="id_pedido"/>
@@ -206,6 +212,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <addPrimaryKey tableName="pagamento_boleto" columnNames="id_pedido"/>
         <addForeignKeyConstraint baseTableName="pagamento_cartao" baseColumnNames="id_pedido" constraintName="fk_pedido"
                                  referencedTableName="pagamento"
                                  referencedColumnNames="id_pedido"/>
