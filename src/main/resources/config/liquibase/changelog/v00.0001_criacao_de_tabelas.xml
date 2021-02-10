@@ -27,8 +27,8 @@
             <column name="data_nascimento" type="DATE">
                 <constraints nullable="false"/>
             </column>
-            <column name="admin" type="BOOLEAN">
-                <constraints nullable="false"/>
+            <column name="tipo_usuario" type="BOOLEAN">
+                <constraints nullable="true"/>
             </column>
         </createTable>
 
@@ -108,12 +108,6 @@
             <column name="id" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
-            <column name="id_usuario" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="id_cidade" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
             <column name="bairro" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
@@ -127,6 +121,12 @@
                 <constraints nullable="true"/>
             </column>
             <column name="numero" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_usuario" type="NUMBER">
+                <constraints nullable="true"/>
+            </column>
+            <column name="id_cidade" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -228,9 +228,6 @@
             <column name="id" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
-            <column name="id_categoria" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
             <column name="nome" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
@@ -243,6 +240,9 @@
             <column name="quantidade" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
+            <column name="id_categoria" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
         <addPrimaryKey tableName="produto" columnNames="id"/>
         <createSequence sequenceName="sq_produto" startValue="1" incrementBy="1"/>
@@ -252,7 +252,7 @@
 
 
 
-    <changeSet id="12" author="luan.augusto">
+    <changeSet id="11" author="luan.augusto">
         <createTable tableName="item_pedido">
             <column name="desconto" type="DOUBLE">
                 <constraints nullable="false"/>

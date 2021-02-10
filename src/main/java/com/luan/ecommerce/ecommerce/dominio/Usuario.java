@@ -27,6 +27,6 @@ public class Usuario implements Serializable {
     private String email;
     @Column(name = "data_aniversario")
     private LocalDate dataAniversario;
-    @Column(name = "admin")
+    @Column(name = "tipo_usuario")
     private Boolean admin;
 }
