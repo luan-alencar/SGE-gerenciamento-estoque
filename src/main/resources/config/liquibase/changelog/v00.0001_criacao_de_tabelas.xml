@@ -175,7 +175,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="pagamento" columnNames="id_pedido,id_estado"/>
+        <addPrimaryKey tableName="pagamento" columnNames="id_pedido"/>
         <addForeignKeyConstraint baseTableName="pagamento" baseColumnNames="id_pedido" constraintName="fk_pedido"
                                  referencedTableName="pedido"
                                  referencedColumnNames="id"/>
@@ -272,10 +272,10 @@
         </createTable>
         <addPrimaryKey tableName="item_pedido" columnNames="id_pedido, id_produto"
                        constraintName="pk_item_pedido"/>
-        <addForeignKeyConstraint baseTableName="item_pedido" baseColumnNames="id_usuario"
-                                 constraintName="fk_item_pedido_usuario" referencedTableName="usuario"
+        <addForeignKeyConstraint baseTableName="item_pedido" baseColumnNames="id_pedido"
+                                 constraintName="fk_item_pedido_pedido" referencedTableName="pedido"
                                  referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="pedido_produtos" baseColumnNames="id_produto"
+        <addForeignKeyConstraint baseTableName="item_pedido" baseColumnNames="id_produto"
                                  constraintName="pk_item_pedido_produto" referencedTableName="produto"
                                  referencedColumnNames="id"/>
     </changeSet>
