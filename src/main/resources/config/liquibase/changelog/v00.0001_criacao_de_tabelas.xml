@@ -51,7 +51,9 @@
             </column>
         </createTable>
         <addPrimaryKey tableName="categoria" columnNames="id"/>
+    </changeSet>
 
+    <changeSet id="14" author="luan.augusto">
         <!-- Insertes da tabela Categoria com valores já fixos -->
         <insert tableName="categoria">
             <column name="id" value="1"/>
