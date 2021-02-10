@@ -3,10 +3,7 @@ package com.luan.ecommerce.ecommerce.dominio;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -18,6 +15,7 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_usuario")
     private Integer id;
     @Column(name = "nome")
     private String nome;
