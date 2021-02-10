@@ -3,80 +3,6 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <changeSet id="1" author="luan.augusto" context="ChangSet da tabela de Usuario">
-        <createTable tableName="usuario" remarks="Tabela de Usuarios">
-
-            <column name="id" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="nome" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="cpf" type="VARCHAR(11)">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="rg" type="VARCHAR(11)">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="numero_cartao" type="VARCHAR(16)">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="email" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="data_nascimento" type="DATE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="tipo_usuario" type="BOOLEAN">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <!-- Chave primária e Constantes de Usuário -->
-        <addPrimaryKey tableName="usuario" columnNames="id" constraintName="pk_usuario"/>
-        <createSequence sequenceName="sq_usuario" incrementBy="1" startValue="1"/>
-        <addUniqueConstraint tableName="usuario" columnNames="cpf" constraintName="un_cpf_usuario"/>
-        <addUniqueConstraint tableName="usuario" columnNames="email" constraintName="un_email_usuario"/>
-        <addUniqueConstraint tableName="usuario" columnNames="rg" constraintName="un_rg_usuario"/>
-    </changeSet>
-
-    <changeSet id="2" author="luan.augusto" context="ChangeSet da tabela de Categoria">
-        <createTable tableName="categoria" remarks="Tabela de Categorias de um Produto">
-
-            <column name="id" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="descricao" type="VARCHAR(50)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addPrimaryKey tableName="categoria" columnNames="id" constraintName="pk_categoria"/>
-    </changeSet>
-
-    <changeSet id="14" author="luan.augusto">
-        <!-- Insertes da tabela Categoria com valores já fixos -->
-        <insert tableName="categoria">
-            <column name="id" value="1"/>
-            <column name="descricao" value="Acessórios"/>
-        </insert>
-        <insert tableName="categoria">
-            <column name="id" value="2"/>
-            <column name="descricao" value="Eletrônicos"/>
-        </insert>
-        <insert tableName="categoria">
-            <column name="id" value="3"/>
-            <column name="descricao" value="Vestuário"/>
-        </insert>
-        <insert tableName="categoria">
-            <column name="id" value="4"/>
-            <column name="descricao" value="Fitness"/>
-        </insert>
-    </changeSet>
-
     <changeSet id="3" author="luan.augusto">
         <createTable tableName="estado">
             <column name="id" type="NUMBER">
@@ -86,7 +12,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="estado" columnNames="id" constraintName="pk_estado"/>
+        <addPrimaryKey tableName="estado" columnNames="id"/>
     </changeSet>
 
     <changeSet id="4" author="luan.augusuto">
@@ -101,8 +27,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="cidade" columnNames="id" constraintName="pk_cidade"/>
-        <addForeignKeyConstraint baseTableName="cidade" baseColumnNames="id_estado" constraintName="fk_cidade"
+        <addPrimaryKey tableName="cidade" columnNames="id"/>
+        <addForeignKeyConstraint baseTableName="cidade" baseColumnNames="id_estado" constraintName="fk_id_estado"
                                  referencedTableName="estado"
                                  referencedColumnNames="id"/>
     </changeSet>
@@ -127,21 +53,95 @@
             <column name="numero" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="id_usuario" type="NUMBER">
-                <constraints nullable="true"/>
-            </column>
             <column name="id_cidade" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="endereco" columnNames="id" constraintName="pk_endereco"/>
-        <addForeignKeyConstraint baseTableName="endereco" baseColumnNames="id_usuario" constraintName="fk_endereco"
-                                 referencedTableName="usuario"
-                                 referencedColumnNames="id"/>
+        <addPrimaryKey tableName="endereco" columnNames="id"/>
         <addForeignKeyConstraint baseTableName="endereco" baseColumnNames="id_cidade" constraintName="fk_cidade"
                                  referencedTableName="cidade"
                                  referencedColumnNames="id"/>
     </changeSet>
+
+    <changeSet id="1" author="luan.augusto" context="ChangSet da tabela de Usuario">
+        <createTable tableName="usuario" remarks="Tabela de Usuarios">
+
+            <column name="id" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nome" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cpf" type="VARCHAR(11)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="rg" type="VARCHAR(11)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="data_nascimento" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tipo_usuario" type="BOOLEAN">
+                <constraints nullable="true"/>
+            </column>
+            <column name="id_endereco" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Chave primária e Constantes de Usuário -->
+        <addPrimaryKey tableName="usuario" columnNames="id"/>
+        <createSequence sequenceName="sq_usuario" incrementBy="1" startValue="1"/>
+        <addForeignKeyConstraint baseTableName="usuario" baseColumnNames="id_endereco" constraintName="fk_endereco"
+                                 referencedTableName="endereco"
+                                 referencedColumnNames="id"/>
+        <addUniqueConstraint tableName="usuario" columnNames="cpf" constraintName="un_cpf_usuario"/>
+        <addUniqueConstraint tableName="usuario" columnNames="email" constraintName="un_email_usuario"/>
+        <addUniqueConstraint tableName="usuario" columnNames="rg" constraintName="un_rg_usuario"/>
+    </changeSet>
+
+    <changeSet id="2" author="luan.augusto" context="ChangeSet da tabela de Categoria">
+        <createTable tableName="categoria" remarks="Tabela de Categorias de um Produto">
+
+            <column name="id" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descricao" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="categoria" columnNames="id"/>
+    </changeSet>
+
+    <changeSet id="14" author="luan.augusto">
+        <!-- Insertes da tabela Categoria com valores já fixos -->
+        <insert tableName="categoria">
+            <column name="id" value="1"/>
+            <column name="descricao" value="Acessórios"/>
+        </insert>
+        <insert tableName="categoria">
+            <column name="id" value="2"/>
+            <column name="descricao" value="Eletrônicos"/>
+        </insert>
+        <insert tableName="categoria">
+            <column name="id" value="3"/>
+            <column name="descricao" value="Vestuário"/>
+        </insert>
+        <insert tableName="categoria">
+            <column name="id" value="4"/>
+            <column name="descricao" value="Fitness"/>
+        </insert>
+    </changeSet>
+
+
+
+
 
     <changeSet id="6" author="luan.augusto">
 
@@ -159,12 +159,12 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="pedido" columnNames="id" constraintName="pk_pedido"/>
-        <addForeignKeyConstraint baseTableName="pedido" baseColumnNames="id_usuario" constraintName="fk_pedido_usuario"
+        <addPrimaryKey tableName="pedido" columnNames="id"/>
+        <addForeignKeyConstraint baseTableName="pedido" baseColumnNames="id_usuario" constraintName="fk_usuario"
                                  referencedTableName="usuario"
                                  referencedColumnNames="id"/>
         <addForeignKeyConstraint baseTableName="pedido" baseColumnNames="id_endereco_de_entrega"
-                                 constraintName="fk_pedido_endereco"
+                                 constraintName="fk_id_endereco_de_entrega"
                                  referencedTableName="endereco"
                                  referencedColumnNames="id"/>
     </changeSet>
@@ -179,13 +179,11 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="pagamento" columnNames="id_pedido" constraintName="pk_pagamento"/>
-        <addForeignKeyConstraint baseTableName="pagamento" baseColumnNames="id_pedido"
-                                 constraintName="fk_pagamento_pedido"
+        <addPrimaryKey tableName="pagamento" columnNames="id_pedido"/>
+        <addForeignKeyConstraint baseTableName="pagamento" baseColumnNames="id_pedido" constraintName="fk_pedido"
                                  referencedTableName="pedido"
                                  referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="pagamento" baseColumnNames="id_estado"
-                                 constraintName="fk_pagamento_estado"
+        <addForeignKeyConstraint baseTableName="pagamento" baseColumnNames="id_estado" constraintName="fk_estado"
                                  referencedTableName="estado"
                                  referencedColumnNames="id"/>
     </changeSet>
@@ -203,11 +201,11 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="pagamento_boleto" columnNames="id_pedido" constraintName="pk_pagamento_boleto"/>
-        <addForeignKeyConstraint baseTableName="pagamento_boleto" baseColumnNames="id_pedido"
-                                 constraintName="fk_pagamento_boleto"
+        <addPrimaryKey tableName="pagamento_boleto" columnNames="id_pedido"/>
+        <addForeignKeyConstraint baseTableName="pagamento_boleto" baseColumnNames="id_pedido" constraintName="fk_pedido"
                                  referencedTableName="pagamento"
                                  referencedColumnNames="id_pedido"/>
+
     </changeSet>
 
     <changeSet id="9" author="luan.augusto">
@@ -220,9 +218,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="pagamento_cartao" columnNames="id_pedido" constraintName="pk_pagamento_cartao"/>
-        <addForeignKeyConstraint baseTableName="pagamento_cartao" baseColumnNames="id_pedido"
-                                 constraintName="fk_pagamento_cartao"
+        <addPrimaryKey tableName="pagamento_cartao" columnNames="id_pedido"/>
+        <addForeignKeyConstraint baseTableName="pagamento_cartao" baseColumnNames="id_pedido" constraintName="fk_pedido"
                                  referencedTableName="pagamento"
                                  referencedColumnNames="id_pedido"/>
     </changeSet>
@@ -236,8 +233,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <addPrimaryKey tableName="tipo_situacao" columnNames="id" constraintName="pk_tipo_situacao"/>
     </changeSet>
 
     <changeSet id="13" author="luan.augusto">
@@ -281,7 +276,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="produto" columnNames="id" constraintName="pk_produto"/>
+        <addPrimaryKey tableName="produto" columnNames="id"/>
         <createSequence sequenceName="sq_produto" startValue="1" incrementBy="1"/>
         <addForeignKeyConstraint baseTableName="produto" baseColumnNames="id_categoria" constraintName="fk_produto"
                                  referencedTableName="categoria"

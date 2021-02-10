@@ -9,7 +9,7 @@ import com.luan.ecommerce.ecommerce.dominio.Pagamento;
 
 @Getter
 @Setter
-public abstract class PagamentoBoletoDTO extends Pagamento implements Serializable {
+public class PagamentoBoletoDTO extends Pagamento implements Serializable {
 
     private Integer pedido;
     private LocalDate dataPagamento;

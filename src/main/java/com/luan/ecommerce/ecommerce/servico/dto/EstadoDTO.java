@@ -11,5 +11,4 @@ public class EstadoDTO implements Serializable {
 
     private Integer id;
     private String nome;
-    private Integer estado;
 }

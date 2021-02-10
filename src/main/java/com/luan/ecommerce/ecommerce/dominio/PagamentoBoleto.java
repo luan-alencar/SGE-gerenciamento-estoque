@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "pagamento_boleto")
-public abstract class PagamentoBoleto extends Pagamento implements Serializable {
+public class PagamentoBoleto extends Pagamento implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "id_pedido")

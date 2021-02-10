@@ -12,6 +12,7 @@ public class PedidoDTO implements Serializable {
 
     private Integer id;
     private LocalDateTime instante;
+    private Integer pagamento;
     private Integer usuario;
     private Integer endereco;
 }

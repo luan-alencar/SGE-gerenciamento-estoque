@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,5 +27,5 @@ public class Produto implements Serializable {
     @Column(name = "quantidade")
     private Integer quantidade;
     @Column(name = "id_categoria")
-    private List<Categoria> categoria;
+    private List<Categoria> categorias = new ArrayList<>();
 }

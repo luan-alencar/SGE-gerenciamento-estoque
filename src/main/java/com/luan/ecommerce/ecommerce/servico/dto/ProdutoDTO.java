@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -16,5 +17,5 @@ public class ProdutoDTO implements Serializable {
     private Double preco;
     private String descricao;
     private Integer quantidade;
-    private List<Categoria> categorias;
+    private List categorias = new ArrayList<>();
 }
