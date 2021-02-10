@@ -12,8 +12,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name = "estado")
-public class Estado implements Serializable {
+@Table(name = "cidade")
+public class Cidade implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
