@@ -1,9 +1,11 @@
 package com.luan.ecommerce.ecommerce.servico.dto;
 
+import com.luan.ecommerce.ecommerce.dominio.Categoria;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,5 +16,5 @@ public class ProdutoDTO implements Serializable {
     private Double preco;
     private String descricao;
     private Integer quantidade;
-    private Integer categoria;
+    private List<Categoria> categorias;
 }

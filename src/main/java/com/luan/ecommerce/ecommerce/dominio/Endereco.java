@@ -20,10 +20,16 @@ public class Endereco implements Serializable {
 
     @Id
     private Integer id;
+    @Column(name = "bairro")
     private String bairro;
+    @Column(name = "cep")
     private String cep;
+    @Column(name = "complemento")
     private String complemento;
+    @Column(name = "logradouro")
     private String logradouro;
+    @Column(name = "numero")
     private Integer numero;
+    @Column(name = "id_usario")
     private Usuario usuario;
 }

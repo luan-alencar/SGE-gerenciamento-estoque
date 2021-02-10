@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,6 +17,7 @@ public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_usuario")
+    @SequenceGenerator(name = "sq_usuario", sequenceName = "sq_usuario", allocationSize = 1)
     private Integer id;
     @Column(name = "nome")
     private String nome;
@@ -28,5 +30,7 @@ public class Usuario implements Serializable {
     @Column(name = "data_aniversario")
     private LocalDate dataAniversario;
     @Column(name = "tipo_usuario")
-    private Boolean admin;
+    private Boolean tipoUsuario;
+    @Column(name = "id_endereco")
+    private List<Endereco> enderecos;
 }
