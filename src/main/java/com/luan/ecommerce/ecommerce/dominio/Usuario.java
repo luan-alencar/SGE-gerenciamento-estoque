@@ -31,13 +31,6 @@ public class Usuario implements Serializable {
     @Column(name = "rg")
     private String rg;
 
-    @Column(name = "numero_cartao")
-    private String numeroCartao;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "usuario")
-    private List<Pedido> pedidos = new ArrayList<>();
-
     @Column(name = "email")
     private String email;
 

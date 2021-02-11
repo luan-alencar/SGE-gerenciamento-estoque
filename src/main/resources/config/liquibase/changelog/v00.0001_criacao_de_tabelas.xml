@@ -20,10 +20,6 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="numero_cartao" type="VARCHAR(16)">
-                <constraints nullable="false"/>
-            </column>
-
             <column name="email" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
@@ -143,63 +139,6 @@
                                  referencedColumnNames="id"/>
     </changeSet>
 
-    <changeSet id="6" author="luan.augusto">
-
-        <createTable tableName="pedido">
-            <column name="id" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="instante" type="TIMESTAMP">
-                <constraints nullable="false"/>
-            </column>
-            <column name="id_usuario" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="id_endereco_de_entrega" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addPrimaryKey tableName="pedido" columnNames="id" constraintName="pk_pedido"/>
-        <addForeignKeyConstraint baseTableName="pedido" baseColumnNames="id_usuario" constraintName="fk_pedido_usuario"
-                                 referencedTableName="usuario"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="pedido" baseColumnNames="id_endereco_de_entrega"
-                                 constraintName="fk_pedido_endereco"
-                                 referencedTableName="endereco"
-                                 referencedColumnNames="id"/>
-    </changeSet>
-
-    <changeSet id="7" author="luan.augusto">
-
-        <createTable tableName="pagamento">
-            <column name="id" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="id_usuario" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="id_pedido" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="id_estado" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addPrimaryKey tableName="pagamento" columnNames="id_pedido" constraintName="pk_pagamento"/>
-        <createSequence sequenceName="sq_pagamento"/>
-        <addForeignKeyConstraint baseTableName="pagamento" baseColumnNames="id_usuario" constraintName="fk_usuario"
-                                 referencedTableName="usuario"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="pagamento" baseColumnNames="id_pedido"
-                                 constraintName="fk_pagamento_pedido"
-                                 referencedTableName="pedido"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="pagamento" baseColumnNames="id_estado"
-                                 constraintName="fk_pagamento_estado"
-                                 referencedTableName="estado"
-                                 referencedColumnNames="id"/>
-    </changeSet>
-
     <changeSet id="12" author="luan.augusto">
         <createTable tableName="tipo_situacao">
             <column name="id" type="NUMBER">
@@ -247,7 +186,7 @@
             <column name="quantidade" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
-            <column name="id_tipo_situacao">
+            <column name="id_tipo_situacao" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
             <column name="id_categoria" type="NUMBER">
