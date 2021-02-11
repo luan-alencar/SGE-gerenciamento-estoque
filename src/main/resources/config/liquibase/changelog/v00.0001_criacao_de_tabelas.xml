@@ -172,6 +172,12 @@
     <changeSet id="7" author="luan.augusto">
 
         <createTable tableName="pagamento">
+            <column name="id" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_usuario" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
             <column name="id_pedido" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
@@ -180,6 +186,10 @@
             </column>
         </createTable>
         <addPrimaryKey tableName="pagamento" columnNames="id_pedido" constraintName="pk_pagamento"/>
+        <createSequence sequenceName="sq_pagamento"/>
+        <addForeignKeyConstraint baseTableName="pagamento" baseColumnNames="id_usuario" constraintName="fk_usuario"
+                                 referencedTableName="usuario"
+                                 referencedColumnNames="id"/>
         <addForeignKeyConstraint baseTableName="pagamento" baseColumnNames="id_pedido"
                                  constraintName="fk_pagamento_pedido"
                                  referencedTableName="pedido"
@@ -188,43 +198,6 @@
                                  constraintName="fk_pagamento_estado"
                                  referencedTableName="estado"
                                  referencedColumnNames="id"/>
-    </changeSet>
-
-    <changeSet id="8" author="luan.augusto">
-
-        <createTable tableName="pagamento_boleto">
-            <column name="id_pedido" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="data_pagamento" type="DATE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="data_vencimento" type="DATE">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addPrimaryKey tableName="pagamento_boleto" columnNames="id_pedido" constraintName="pk_pagamento_boleto"/>
-        <addForeignKeyConstraint baseTableName="pagamento_boleto" baseColumnNames="id_pedido"
-                                 constraintName="fk_pagamento_boleto"
-                                 referencedTableName="pagamento"
-                                 referencedColumnNames="id_pedido"/>
-    </changeSet>
-
-    <changeSet id="9" author="luan.augusto">
-
-        <createTable tableName="pagamento_cartao">
-            <column name="id_pedido" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="parcelas" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addPrimaryKey tableName="pagamento_cartao" columnNames="id_pedido" constraintName="pk_pagamento_cartao"/>
-        <addForeignKeyConstraint baseTableName="pagamento_cartao" baseColumnNames="id_pedido"
-                                 constraintName="fk_pagamento_cartao"
-                                 referencedTableName="pagamento"
-                                 referencedColumnNames="id_pedido"/>
     </changeSet>
 
     <changeSet id="12" author="luan.augusto">
@@ -288,35 +261,6 @@
                                  referencedColumnNames="id"/>
         <addForeignKeyConstraint baseTableName="produto" baseColumnNames="id_tipo_situacao" constraintName="fk_ts"
                                  referencedTableName="tipo_situacao"
-                                 referencedColumnNames="id"/>
-    </changeSet>
-
-
-    <changeSet id="11" author="luan.augusto">
-        <createTable tableName="item_pedido">
-            <column name="desconto" type="DOUBLE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="preco" type="DOUBLE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="quantidade" type="INTEGER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="id_pedido" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="id_produto" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addPrimaryKey tableName="item_pedido" columnNames="id_pedido, id_produto"
-                       constraintName="pk_item_pedido"/>
-        <addForeignKeyConstraint baseTableName="item_pedido" baseColumnNames="id_pedido"
-                                 constraintName="fk_item_pedido_pedido" referencedTableName="pedido"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="item_pedido" baseColumnNames="id_produto"
-                                 constraintName="pk_item_pedido_produto" referencedTableName="produto"
                                  referencedColumnNames="id"/>
     </changeSet>
 

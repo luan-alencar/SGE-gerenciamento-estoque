@@ -1,27 +1,34 @@
 package com.luan.ecommerce.ecommerce.dominio;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "pagamento")
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
-public abstract class Pagamento implements Serializable {
+public class Pagamento implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @MapsId
-    @OneToOne
-    @JsonIgnore
-    @Column(name = "id_pedido")
-    private Pedido pedido;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_pagamento")
+    @SequenceGenerator(name = "sq_pagamento", allocationSize = 1, sequenceName = "sq_pagamento")
+    private Integer id;
 
-    @Column(name = "id_estado")
-    private Integer estado;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario")
+    private Usuario idUsuario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_pedido")
+    private List<Pedido> pedidos = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "id_estado")
+    private Integer idEstado;
 }
