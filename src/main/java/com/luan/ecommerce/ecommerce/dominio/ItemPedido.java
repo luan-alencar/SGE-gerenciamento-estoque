@@ -1,9 +1,11 @@
 package com.luan.ecommerce.ecommerce.dominio;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -15,14 +17,22 @@ import java.io.Serializable;
 public class ItemPedido implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore // isso não vai ser sereliarizado
+    @EmbeddedId
+    private ItemPedidoPK id = new ItemPedidoPK();
+
     @Column(name = "desconto")
     private Double desconto;
+
     @Column(name = "preco")
     private Double preco;
+
     @Column(name = "quantidade")
     private Integer quantidade;
+
     @Column(name = "id_pedido")
     private Pedido pedido;
+
     @Column(name = "id_produto")
     private Produto produto;
 }

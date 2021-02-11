@@ -6,7 +6,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -29,8 +30,12 @@ public class Pedido implements Serializable {
     @Column(name = "id_usuario")
     private Usuario usuario;
 
+    @ManyToOne
     @Column(name = "id_endereco_de_entrega")
     private Endereco endereco;
+
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedido> itens = new HashSet<>();
 }
 
 

@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class PagamentoDTO implements Serializable {
+public abstract class PagamentoDTO implements Serializable {
 
     private Integer pedido;
     private Integer estado;

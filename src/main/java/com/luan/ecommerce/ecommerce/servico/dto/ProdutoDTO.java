@@ -17,5 +17,5 @@ public class ProdutoDTO implements Serializable {
     private Double preco;
     private String descricao;
     private Integer quantidade;
-    private List categorias = new ArrayList<>();
+    private List<Categoria> categorias = new ArrayList<>();
 }

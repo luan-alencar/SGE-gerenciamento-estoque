@@ -6,4 +6,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = {PagamentoMapper.class})
 public interface PedidoMapper extends EntityMapper<PedidoDTO, Pedido> {
+
 }

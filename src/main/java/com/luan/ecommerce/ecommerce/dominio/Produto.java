@@ -18,14 +18,20 @@ public class Produto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_produto")
     private Integer id;
+
     @Column(name = "nome")
     private String nome;
+
     @Column(name = "preco")
     private Double preco;
+
     @Column(name = "descricao")
     private String descricao;
+
     @Column(name = "quantidade")
     private Integer quantidade;
-    @Column(name = "id_categoria")
+
+    @ManyToMany
+    @JoinColumn(name = "id_categoria")
     private List<Categoria> categorias = new ArrayList<>();
 }

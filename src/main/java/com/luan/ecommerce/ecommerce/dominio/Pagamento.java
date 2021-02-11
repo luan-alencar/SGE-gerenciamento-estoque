@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "pagamento")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
-public class Pagamento implements Serializable {
+public abstract class Pagamento implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @MapsId

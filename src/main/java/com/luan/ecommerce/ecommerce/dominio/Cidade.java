@@ -16,8 +16,10 @@ public class Cidade implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "nome")
     private String nome;
-    @JoinColumn(name = "id_estado")
+
+    @ManyToOne
+    @JoinColumn(name = "id_estado") // definindo o nome da chave estrangeira no DB
     private Estado estado;
+
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -35,7 +36,7 @@ public class Usuario implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "usuario")
-    private List<Pedido> pedidos;
+    private List<Pedido> pedidos = new ArrayList<>();
 
     @Column(name = "email")
     private String email;
