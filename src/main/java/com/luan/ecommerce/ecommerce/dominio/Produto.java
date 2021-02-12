@@ -35,7 +35,7 @@ public class Produto implements Serializable {
     @JoinColumn(name = "id_tipo_situacao")
     private TipoSituacao tipoSituacao;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_categoria")
     private List<Categoria> categorias = new ArrayList<>();
 }
