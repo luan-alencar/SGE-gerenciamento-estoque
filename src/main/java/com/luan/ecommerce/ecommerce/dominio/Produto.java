@@ -31,7 +31,7 @@ public class Produto implements Serializable {
     @Column(name = "quantidade")
     private Integer quantidade;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_situacao")
     private TipoSituacao tipoSituacao;
 

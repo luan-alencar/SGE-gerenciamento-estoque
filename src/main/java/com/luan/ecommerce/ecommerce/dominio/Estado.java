@@ -23,7 +23,6 @@ public class Estado implements Serializable {
     @Column(name = "nome")
     private String nome;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "estado")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "estado")
     private List<Cidade> cidades = new ArrayList<>();
 }

@@ -15,6 +15,7 @@ public class EnderecoDTO implements Serializable {
     private String completo;
     private String logradouro;
     private Integer numero;
-    private Integer usuario;
     private Integer cidade;
+    private Integer estado;
+    private Integer usuario;
 }

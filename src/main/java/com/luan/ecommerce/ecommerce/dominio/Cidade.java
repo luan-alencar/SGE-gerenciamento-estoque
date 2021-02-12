@@ -16,6 +16,8 @@ public class Cidade implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "nome")
     private String nome;
 
     @ManyToOne

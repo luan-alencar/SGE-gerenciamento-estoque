@@ -36,6 +36,12 @@ public class Endereco implements Serializable {
     @Column(name = "numero")
     private Integer numero;
 
+    @Column(name = "id_cidade")
+    private Cidade cidade;
+
+    @Column(name = "id_estado")
+    private Estado estado;
+
     @Column(name = "id_usario")
     private Usuario usuario;
 }
