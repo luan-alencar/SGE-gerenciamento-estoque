@@ -2,12 +2,14 @@ package com.luan.ecommerce.ecommerce.servico;
 
 import com.luan.ecommerce.ecommerce.dominio.Usuario;
 import com.luan.ecommerce.ecommerce.repositorio.UsuarioRepositorio;
+import com.luan.ecommerce.ecommerce.servico.dto.EmailDTO;
 import com.luan.ecommerce.ecommerce.servico.dto.UsuarioDTO;
 import com.luan.ecommerce.ecommerce.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,13 +18,14 @@ public class UsuarioServico {
 
     private final UsuarioRepositorio usuarioRepositorio;
     private final UsuarioMapper usuarioMapper;
+    private final ProdutorServico produtorServico;
 
     public List<UsuarioDTO> listar() {
         return usuarioMapper.toDto(usuarioRepositorio.findAll());
     }
 
-    public UsuarioDTO buscarPorId(Usuario usuario) {
-        return usuarioMapper.toDto(usuarioRepositorio.findById(usuario.getId())
+    public UsuarioDTO buscarPorId(Integer idUsuario) {
+        return usuarioMapper.toDto(usuarioRepositorio.findById(idUsuario)
                 .orElseThrow(() -> new RuntimeException("Usuário não existe!")));
     }
 
@@ -44,8 +47,21 @@ public class UsuarioServico {
         validarIdade(usuarioDTO);
         validarCpf(usuarioDTO);
         validarEmail(usuarioDTO);
+        enviarEmailCadastro(usuario);
         return usuarioMapper.toDto(usuarioRepositorio.save(usuario));
     }
+
+    // Metodo com servico de mensageria
+    private void enviarEmailCadastro(Usuario usuario) {
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Cadastro de usuário");
+        emailDTO.setCorpo("<h1> Você foi cadastrado com sucesso na plataforma</h1>!");
+        emailDTO.setDestinatario(usuario.getEmail());
+        emailDTO.setCopias(new ArrayList<>());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        this.produtorServico.enviarEmail(emailDTO);
+    }
+
 
     public UsuarioDTO editar(UsuarioDTO usuarioDTO) throws RuntimeException {
         validarDadosNull(usuarioDTO);
