@@ -51,18 +51,6 @@ public class UsuarioServico {
         return usuarioMapper.toDto(usuarioRepositorio.save(usuario));
     }
 
-    // Metodo com servico de mensageria
-    private void enviarEmailCadastro(Usuario usuario) {
-        EmailDTO emailDTO = new EmailDTO();
-        emailDTO.setAssunto("Cadastro de usuário");
-        emailDTO.setCorpo("<h1> Você foi cadastrado com sucesso na plataforma</h1>!");
-        emailDTO.setDestinatario(usuario.getEmail());
-        emailDTO.setCopias(new ArrayList<>());
-        emailDTO.getCopias().add(emailDTO.getDestinatario());
-        this.produtorServico.enviarEmail(emailDTO);
-    }
-
-
     public UsuarioDTO editar(UsuarioDTO usuarioDTO) throws RuntimeException {
         validarDadosNull(usuarioDTO);
         validarEmail(usuarioDTO);
@@ -79,6 +67,18 @@ public class UsuarioServico {
     }
 
     // Métodos privados de validacao
+
+    // Metodo com servico de mensageria
+    private void enviarEmailCadastro(Usuario usuario) {
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Cadastro de usuário");
+        emailDTO.setCorpo("<h1> Você foi cadastrado com sucesso na plataforma</h1>!");
+        emailDTO.setDestinatario(usuario.getEmail());
+        emailDTO.setCopias(new ArrayList<>());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        this.produtorServico.enviarEmail(emailDTO);
+    }
+
     private void validarDadosNull(UsuarioDTO usuario) {
         if (usuario.getNome() == null) {
             throw new RuntimeException("Nome de usuário não informado");
@@ -103,7 +103,6 @@ public class UsuarioServico {
             throw new RuntimeException("Data de nascimento inválida");
         }
     }
-
 
     private Usuario obter(Integer id) {
         return usuarioRepositorio.findById(id)
