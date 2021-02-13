@@ -19,7 +19,7 @@ public class ConsumidorServico {
 
     @StreamListener(target = ConsumidorTarget.BINDING_MAILER)
     public void sendMail(@Payload EmailDTO emailDTO) {
-        log.info("Evento recebido {}", emailDTO);
+        log.info("Email recebido {}", emailDTO);
         emailServico.sendEmail(emailDTO);
     }
 
