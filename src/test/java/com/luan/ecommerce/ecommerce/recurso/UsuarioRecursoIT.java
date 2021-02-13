@@ -1,9 +1,12 @@
 package com.luan.ecommerce.ecommerce.recurso;
 
 import com.luan.ecommerce.ecommerce.builder.UsuarioBuilder;
+import com.luan.ecommerce.ecommerce.dominio.Usuario;
 import com.luan.ecommerce.ecommerce.repositorio.UsuarioRepositorio;
 import com.luan.ecommerce.ecommerce.servico.mapper.UsuarioMapper;
 import com.luan.ecommerce.ecommerce.utills.IntTestComum;
+import org.apache.http.util.Asserts;
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,12 +37,15 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void listarTest() throws Exception {
-        usuarioBuilder.construir();
+    void listarTest() throws Exception {
+        Usuario usuario = usuarioBuilder.construir();
+        usuarioBuilder.persistir(usuario);
 
         getMockMvc().perform(get("/api/usuarios"))
                 .andExpect(status().isOk());
+        Assert.assertEquals(1, usuarioRepositorio.findAll().size());
     }
+
     @Test
     public void listarNullTest() throws Exception {
         getMockMvc().perform(get("/api/usuarios"))

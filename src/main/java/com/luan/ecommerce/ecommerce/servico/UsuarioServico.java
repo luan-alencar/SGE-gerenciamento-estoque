@@ -42,22 +42,18 @@ public class UsuarioServico {
     }
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) {
+        usuarioDTO.setTipoUsuario(false);
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
         validarDadosNull(usuarioDTO);
         validarIdade(usuarioDTO);
         validarCpf(usuarioDTO);
         validarEmail(usuarioDTO);
         enviarEmailCadastro(usuario);
-        return usuarioMapper.toDto(usuarioRepositorio.save(usuario));
+        usuarioRepositorio.save(usuario);
+        return usuarioMapper.toDto(usuario);
     }
 
     public UsuarioDTO editar(UsuarioDTO usuarioDTO) throws RuntimeException {
-        validarDadosNull(usuarioDTO);
-        validarEmail(usuarioDTO);
-        validarCpf(usuarioDTO);
-        validarIdade(usuarioDTO);
-        obter(usuarioDTO.getId());
-
         return usuarioMapper.toDto(usuarioRepositorio.save(usuarioMapper.toEntity(usuarioDTO)));
     }
 
@@ -78,6 +74,7 @@ public class UsuarioServico {
         emailDTO.getCopias().add(emailDTO.getDestinatario());
         this.produtorServico.enviarEmail(emailDTO);
     }
+
 
     private void validarDadosNull(UsuarioDTO usuario) {
         if (usuario.getNome() == null) {

@@ -44,15 +44,14 @@ public class UsuarioRecurso {
     }
 
 
-    @PostMapping
-    @SneakyThrows
-    public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO usuarioDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioServico.salvar(usuarioDTO));
-    }
-
     @PutMapping
     public ResponseEntity<UsuarioDTO> editar(@RequestBody UsuarioDTO usuarioDTO) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioServico.editar(usuarioDTO));
+    }
+
+    @PostMapping
+    public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO usuarioDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioServico.salvar(usuarioDTO));
     }
 
     @DeleteMapping("/{id}")
