@@ -31,10 +31,10 @@ public class UsuarioRecursoIT extends IntTestComum {
     @Autowired
     private UsuarioMapper usuarioMapper;
 
-    @BeforeEach
-    public void inicializar() {
-        usuarioRepositorio.deleteAll();
-    }
+//    @BeforeEach
+//    public void inicializar() {
+//        usuarioRepositorio.deleteAll();
+//    }
 
     @Test
     void listarTest() throws Exception {
@@ -49,6 +49,14 @@ public class UsuarioRecursoIT extends IntTestComum {
     @Test
     public void listarNullTest() throws Exception {
         getMockMvc().perform(get("/api/usuarios"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void buscarPorIdTest() throws Exception{
+        Usuario usuario = usuarioBuilder.construir();
+
+        getMockMvc().perform(get("/api/usuarios/", usuario.getId()))
                 .andExpect(status().isOk());
     }
 }

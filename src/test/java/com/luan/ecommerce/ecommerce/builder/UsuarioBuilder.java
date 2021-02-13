@@ -28,7 +28,7 @@ public class UsuarioBuilder extends ConstrutorDeEntidade<Usuario> {
         Usuario usuario = new Usuario();
         usuario.setId(1);
         usuario.setNome("test1");
-        usuario.setCpf("51585015059");
+        usuario.setCpf("58296536056");
         usuario.setEmail("test@test.com");
         usuario.setRg("31231222");
         usuario.setDataNascimento(LocalDate.of(1996, 11, 10));
@@ -43,14 +43,14 @@ public class UsuarioBuilder extends ConstrutorDeEntidade<Usuario> {
     }
 
     @Override
-    protected Collection<Usuario> obterTodos() {
+    public Collection<Usuario> obterTodos() {
         List<UsuarioDTO> listaDTO = usuarioServico.listar();
         List<Usuario> listaDominio = usuarioMapper.toEntity(listaDTO);
         return listaDominio;
     }
 
     @Override
-    protected Usuario obterPorId(Integer id) {
+    public Usuario obterPorId(Integer id) {
         return usuarioMapper.toEntity(usuarioServico.buscarPorId(id));
     }
 }
