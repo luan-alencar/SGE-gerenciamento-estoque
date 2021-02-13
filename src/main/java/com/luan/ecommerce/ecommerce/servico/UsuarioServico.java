@@ -52,10 +52,9 @@ public class UsuarioServico {
         validarEmail(usuarioDTO);
         validarCpf(usuarioDTO);
         validarIdade(usuarioDTO);
-        Usuario usuarioBD = obter(usuarioDTO.getId());
-        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
-        usuarioRepositorio.save(usuario);
-        return usuarioMapper.toDto(usuario);
+        obter(usuarioDTO.getId());
+
+        return usuarioMapper.toDto(usuarioRepositorio.save(usuarioMapper.toEntity(usuarioDTO)));
     }
 
     public void remover(Integer id) {
@@ -63,6 +62,7 @@ public class UsuarioServico {
                 .orElseThrow(() -> new RuntimeException("Id informado não encontrado")));
     }
 
+    // Métodos privados de validacao
     private void validarDadosNull(UsuarioDTO usuario) {
         if (usuario.getNome() == null) {
             throw new RuntimeException("Nome de usuário não informado");

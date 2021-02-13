@@ -17,6 +17,7 @@ public class Produto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_produto")
+    @SequenceGenerator(name = "sq_produto", sequenceName = "sq_produto", initialValue = 1, allocationSize = 1)
     private Integer id;
 
     @Column(name = "nome")
@@ -35,7 +36,7 @@ public class Produto implements Serializable {
     @JoinColumn(name = "id_tipo_situacao")
     private TipoSituacao tipoSituacao;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_categoria")
-    private List<Categoria> categorias = new ArrayList<>();
+    private Categoria categorias;
 }
