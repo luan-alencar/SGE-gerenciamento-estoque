@@ -4,7 +4,6 @@ import com.luan.ecommerce.ecommerce.builder.UsuarioBuilder;
 import com.luan.ecommerce.ecommerce.repositorio.UsuarioRepositorio;
 import com.luan.ecommerce.ecommerce.servico.mapper.UsuarioMapper;
 import com.luan.ecommerce.ecommerce.utills.IntTestComum;
-import org.apache.http.util.Asserts;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -41,7 +38,11 @@ public class UsuarioRecursoIT extends IntTestComum {
         usuarioBuilder.construir();
 
         getMockMvc().perform(get("/api/usuarios"))
-
+                .andExpect(status().isOk());
+    }
+    @Test
+    public void listarNullTest() throws Exception {
+        getMockMvc().perform(get("/api/usuarios"))
                 .andExpect(status().isOk());
     }
 }

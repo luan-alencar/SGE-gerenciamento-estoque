@@ -26,6 +26,7 @@ public class UsuarioBuilder extends ConstrutorDeEntidade<Usuario> {
     @Override
     public Usuario construirEntidade() throws ParseException {
         Usuario usuario = new Usuario();
+        usuario.setId(1);
         usuario.setCpf("111.111.111-11");
         usuario.setEmail("test@test.com");
         usuario.setRg("31231222");
