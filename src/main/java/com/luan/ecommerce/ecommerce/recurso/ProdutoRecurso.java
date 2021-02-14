@@ -26,7 +26,7 @@ public class ProdutoRecurso {
         return ResponseEntity.ok(produtoServico.listar());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{idProduto}")
     public ResponseEntity<ProdutoDTO> buscarPorId(@PathVariable Integer idProduto) {
         return ResponseEntity.ok(produtoServico.buscarPorId(idProduto));
     }
@@ -41,7 +41,7 @@ public class ProdutoRecurso {
         return ResponseEntity.ok(produtoServico.editar(produto));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{idProduto}")
     public void remover(@PathVariable Integer idProduto) {
         produtoServico.remover(idProduto);
     }

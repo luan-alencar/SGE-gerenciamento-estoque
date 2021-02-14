@@ -23,35 +23,34 @@ public class UsuarioRecurso {
         return new ResponseEntity<>(usuarioServico.listar(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{idUsuario}")
     public ResponseEntity<UsuarioDTO> buscarPorId(@PathVariable Integer idUsuario) {
-        return new ResponseEntity<>(usuarioServico.buscarPorId(idUsuario), HttpStatus.OK);
+        return ResponseEntity.ok(usuarioServico.buscarPorId(idUsuario));
     }
 
-    @GetMapping("/{cpf}")
+    @GetMapping("/cpf/{cpf}")
     public ResponseEntity<UsuarioDTO> buscarPorCpf(String cpf) {
-        return new ResponseEntity<>(usuarioServico.buscarPorCpf(cpf), HttpStatus.OK);
+        return ResponseEntity.ok(usuarioServico.buscarPorCpf(cpf));
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     public ResponseEntity<UsuarioDTO> buscarPorEmail(String email) {
         return new ResponseEntity<>(usuarioServico.buscarPorEmail(email), HttpStatus.OK);
     }
 
-    @GetMapping("/{rg}")
+    @GetMapping("/rg/{rg}")
     public ResponseEntity<UsuarioDTO> buscarPorRg(String rg) {
         return new ResponseEntity<>(usuarioServico.buscarPorRg(rg), HttpStatus.OK);
-    }
-
-
-    @PutMapping
-    public ResponseEntity<UsuarioDTO> editar(@RequestBody UsuarioDTO usuarioDTO) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioServico.editar(usuarioDTO));
     }
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO usuarioDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioServico.salvar(usuarioDTO));
+    }
+
+    @PutMapping
+    public ResponseEntity<UsuarioDTO> editar(@RequestBody UsuarioDTO usuarioDTO) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioServico.editar(usuarioDTO));
     }
 
     @DeleteMapping("/{id}")
