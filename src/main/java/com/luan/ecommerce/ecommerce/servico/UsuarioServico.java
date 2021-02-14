@@ -4,6 +4,7 @@ import com.luan.ecommerce.ecommerce.dominio.Usuario;
 import com.luan.ecommerce.ecommerce.repositorio.UsuarioRepositorio;
 import com.luan.ecommerce.ecommerce.servico.dto.EmailDTO;
 import com.luan.ecommerce.ecommerce.servico.dto.UsuarioDTO;
+import com.luan.ecommerce.ecommerce.servico.exception.RegraDeNegocioException;
 import com.luan.ecommerce.ecommerce.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class UsuarioServico {
 
     public UsuarioDTO buscarPorId(Integer idUsuario) {
         return usuarioMapper.toDto(usuarioRepositorio.findById(idUsuario)
-                .orElseThrow(() -> new RuntimeException("Usuário não existe!")));
+                .orElseThrow(() -> new RegraDeNegocioException("Usuário não existe!")));
     }
 
     public UsuarioDTO buscarPorCpf(String cpf) {
@@ -53,13 +54,13 @@ public class UsuarioServico {
         return usuarioMapper.toDto(usuario);
     }
 
-    public UsuarioDTO editar(UsuarioDTO usuarioDTO) throws RuntimeException {
+    public UsuarioDTO editar(UsuarioDTO usuarioDTO) throws RegraDeNegocioException {
         return usuarioMapper.toDto(usuarioRepositorio.save(usuarioMapper.toEntity(usuarioDTO)));
     }
 
     public void remover(Integer id) {
         usuarioRepositorio.delete(usuarioRepositorio.findById(id)
-                .orElseThrow(() -> new RuntimeException("Id informado não encontrado")));
+                .orElseThrow(() -> new RegraDeNegocioException("Id informado não encontrado")));
     }
 
     // Métodos privados de validacao
@@ -78,11 +79,11 @@ public class UsuarioServico {
 
     private void validarDadosNull(UsuarioDTO usuario) {
         if (usuario.getNome() == null) {
-            throw new RuntimeException("Nome de usuário não informado");
+            throw new RegraDeNegocioException("Nome de usuário não informado");
         }
 
         if (usuario.getCpf() == null) {
-            throw new RuntimeException("Cpf não informado");
+            throw new RegraDeNegocioException("Cpf não informado");
         }
 
         if (usuario.getEmail() == null) {
@@ -90,33 +91,33 @@ public class UsuarioServico {
         }
 
         if (usuario.getDataNascimento() == null) {
-            throw new RuntimeException("Data de nascimento não informada");
+            throw new RegraDeNegocioException("Data de nascimento não informada");
         }
     }
 
     private void validarIdade(UsuarioDTO usuario) {
         int idade = LocalDate.now().getYear() - usuario.getDataNascimento().getYear();
         if (idade > 115 || idade < 10) {
-            throw new RuntimeException("Data de nascimento inválida");
+            throw new RegraDeNegocioException("Data de nascimento inválida");
         }
     }
 
     private Usuario obter(Integer id) {
         return usuarioRepositorio.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new RegraDeNegocioException("Usuário não encontrado"));
     }
 
     private void validarEmail(UsuarioDTO usuarioDTO) {
         Usuario usuario = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
         if (usuario != null && !usuario.getId().equals(usuarioDTO.getId())) {
-            throw new RuntimeException("Email já cadastrado");
+            throw new RegraDeNegocioException("Email já cadastrado");
         }
     }
 
     private void validarCpf(UsuarioDTO usuarioDTO) {
         Usuario usuario = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
         if (usuario != null && !usuario.getId().equals(usuarioDTO.getId())) {
-            throw new RuntimeException("CPF já cadastrado");
+            throw new RegraDeNegocioException("CPF já cadastrado");
         }
     }
 }
