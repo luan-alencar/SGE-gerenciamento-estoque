@@ -19,8 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -101,5 +100,23 @@ public class UsuarioRecursoIT extends IntTestComum {
                 .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
                 .andExpect(status().isCreated());
         Assert.assertEquals(1, usuarioRepositorio.findAll().size());
+    }
+
+    @Test
+    public void editarTest() throws Exception {
+
+        Usuario usuario = usuarioBuilder.construir();
+        usuario.setNome("Alterando usuario");
+        usuario.setTipoUsuario(true);
+        usuario.setEmail("test2@gmail.com");
+        usuario.setCpf("234231234");
+        usuario.setRg("232345234");
+        usuario.setDataNascimento(LocalDate.of(1970,01,02));
+
+        getMockMvc().perform(put( "/api/usuarios")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
+                .andExpect(status().isOk());
+
     }
 }
