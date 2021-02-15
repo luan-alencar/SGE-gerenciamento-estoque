@@ -4,10 +4,8 @@ import com.luan.ecommerce.ecommerce.dominio.Usuario;
 import com.luan.ecommerce.ecommerce.servico.UsuarioServico;
 import com.luan.ecommerce.ecommerce.servico.dto.UsuarioDTO;
 import com.luan.ecommerce.ecommerce.servico.mapper.UsuarioMapper;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.ParseException;
 import java.time.LocalDate;

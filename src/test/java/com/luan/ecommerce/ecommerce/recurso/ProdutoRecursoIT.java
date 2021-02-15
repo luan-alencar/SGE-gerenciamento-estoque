@@ -1,9 +1,10 @@
 package com.luan.ecommerce.ecommerce.recurso;
 
-import com.luan.ecommerce.ecommerce.builder.CategoriaBuilder;
-import com.luan.ecommerce.ecommerce.dominio.Categoria;
+import com.luan.ecommerce.ecommerce.builder.ProdutoBuilder;
+import com.luan.ecommerce.ecommerce.repositorio.ProdutoRepositorio;
 import com.luan.ecommerce.ecommerce.utills.IntTestComum;
 import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +17,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Transactional
 @ExtendWith(SpringExtension.class)
-public class CategoriaRecursoIT extends IntTestComum {
+public class ProdutoRecursoIT extends IntTestComum {
 
     @Autowired
-    private CategoriaBuilder categoriaBuilder;
+    private ProdutoBuilder produtoBuilder;
 
-    @Test
-    void listarCategoriasTest() throws Exception {
-        categoriaBuilder.construir();
+    @Autowired
+    private ProdutoRepositorio produtoRepositorio;
 
-        getMockMvc().perform(get("/api/categorias/"))
-                .andExpect(status().isOk());
+    @BeforeEach
+    void inicializar() {
+        produtoRepositorio.deleteAll();
     }
 
     @Test
-    void buscarCategoriaPorIdTest() throws Exception {
-        Categoria categoria = categoriaBuilder.construir();
+    void listarTest() throws Exception {
+        produtoBuilder.construir();
 
-        getMockMvc().perform(get("/api/categorias/", categoria.getId()))
+        getMockMvc().perform(get("/api/produtos/"))
                 .andExpect(status().isOk());
-        Assert.assertEquals("Eletrônicos", categoria.getDescricao());
+        Assert.assertEquals(1, produtoRepositorio.findAll().size());
     }
 }
