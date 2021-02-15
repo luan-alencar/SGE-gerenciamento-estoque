@@ -69,12 +69,20 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
+    public void buscarPorCpf() throws Exception {
+        Usuario usuario = usuarioBuilder.construir();
+
+        getMockMvc().perform(get("/api/usuarios/cpf/{cpf}", usuario.getCpf()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void salvarTest() throws Exception {
         Usuario usuario = usuarioBuilder.construirEntidade();
 
         getMockMvc().perform(post("/api/usuarios")
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
                 .andExpect(status().isCreated());
         Assert.assertEquals(1, usuarioRepositorio.findAll().size());
     }
