@@ -85,6 +85,14 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
+    public void buscarPorEmailTest() throws Exception {
+        Usuario usuario = usuarioBuilder.construir();
+
+        getMockMvc().perform(get("/api/usuarios/email/{email}", usuario.getEmail()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void salvarTest() throws Exception {
         Usuario usuario = usuarioBuilder.construirEntidade();
 
