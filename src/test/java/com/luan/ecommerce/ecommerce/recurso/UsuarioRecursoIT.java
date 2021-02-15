@@ -3,7 +3,6 @@ package com.luan.ecommerce.ecommerce.recurso;
 import com.luan.ecommerce.ecommerce.builder.UsuarioBuilder;
 import com.luan.ecommerce.ecommerce.dominio.Usuario;
 import com.luan.ecommerce.ecommerce.repositorio.UsuarioRepositorio;
-import com.luan.ecommerce.ecommerce.servico.UsuarioServico;
 import com.luan.ecommerce.ecommerce.servico.mapper.UsuarioMapper;
 import com.luan.ecommerce.ecommerce.utills.IntTestComum;
 import com.luan.ecommerce.ecommerce.utills.TestUtil;
@@ -11,8 +10,10 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @Transactional
-@ExtendWith(SpringExtension.class)
+@RunWith(SpringRunner.class)
 public class UsuarioRecursoIT extends IntTestComum {
 
     @Autowired
@@ -45,6 +46,7 @@ public class UsuarioRecursoIT extends IntTestComum {
 
         getMockMvc().perform(get("/api/usuarios"))
                 .andExpect(status().isOk());
+
         Assert.assertEquals(1, usuarioRepositorio.findAll().size());
     }
 
@@ -94,6 +96,7 @@ public class UsuarioRecursoIT extends IntTestComum {
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
                 .andExpect(status().isCreated());
+
         Assert.assertEquals(1, usuarioRepositorio.findAll().size());
     }
 
@@ -114,7 +117,7 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
-     void removerTest() throws Exception {
+    void removerTest() throws Exception {
         Usuario usuario = usuarioBuilder.construir();
 
         getMockMvc().perform(delete("/api/usuarios/" + usuario.getId()))
