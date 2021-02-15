@@ -2,8 +2,8 @@ application:
   appName: ecommerce
 
   mail:
-    endereco-remetente: basistreinamento@gmail.com
-    nome-remetente: ecommerce
+    endereco-remetente: plataformaecommercecg@gmail.com
+    nome-remetente: Plataforma Ecommerce de CG
 
 spring:
   application:
@@ -49,8 +49,8 @@ spring:
     host: smtp.gmail.com
     port: 587
     protocol: smtp
-    username: basistreinamento@gmail.com
-    password: basis123123
+    username: plataformaecommercecg@gmail.com
+    password: testecommerce123
     properties:
       mail:
         smtp:
