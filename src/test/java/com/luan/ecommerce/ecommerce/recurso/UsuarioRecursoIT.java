@@ -69,10 +69,18 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void buscarPorCpf() throws Exception {
+    public void buscarPorCpfTest() throws Exception {
         Usuario usuario = usuarioBuilder.construir();
 
         getMockMvc().perform(get("/api/usuarios/cpf/{cpf}", usuario.getCpf()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void buscarPorRgTest() throws Exception {
+        Usuario usuario = usuarioBuilder.construir();
+
+        getMockMvc().perform(get("/api/usuarios/rg/{rg}", usuario.getRg()))
                 .andExpect(status().isOk());
     }
 
