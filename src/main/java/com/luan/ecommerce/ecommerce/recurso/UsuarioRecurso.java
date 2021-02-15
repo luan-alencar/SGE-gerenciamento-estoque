@@ -50,10 +50,10 @@ public class UsuarioRecurso {
 
     @PutMapping
     public ResponseEntity<UsuarioDTO> editar(@RequestBody UsuarioDTO usuarioDTO) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioServico.editar(usuarioDTO));
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioServico.editar(usuarioDTO));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{idUsuario}")
     public ResponseEntity<Void> remover(@PathVariable Integer idUsuario) {
         usuarioServico.remover(idUsuario);
         return ResponseEntity.ok().build();
