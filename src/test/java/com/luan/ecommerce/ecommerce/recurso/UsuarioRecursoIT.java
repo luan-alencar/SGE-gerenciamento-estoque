@@ -7,8 +7,6 @@ import com.luan.ecommerce.ecommerce.servico.UsuarioServico;
 import com.luan.ecommerce.ecommerce.servico.mapper.UsuarioMapper;
 import com.luan.ecommerce.ecommerce.utills.IntTestComum;
 import com.luan.ecommerce.ecommerce.utills.TestUtil;
-import org.apache.http.HttpStatus;
-import org.apache.http.util.Asserts;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,9 +30,6 @@ public class UsuarioRecursoIT extends IntTestComum {
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
-
-    @Autowired
-    private UsuarioServico usuarioServico;
 
     @Autowired
     private UsuarioMapper usuarioMapper;
@@ -104,19 +99,27 @@ public class UsuarioRecursoIT extends IntTestComum {
 
     @Test
     public void editarTest() throws Exception {
-
         Usuario usuario = usuarioBuilder.construir();
         usuario.setNome("Alterando usuario");
         usuario.setTipoUsuario(true);
         usuario.setEmail("test2@gmail.com");
         usuario.setCpf("234231234");
         usuario.setRg("232345234");
-        usuario.setDataNascimento(LocalDate.of(1970,01,02));
+        usuario.setDataNascimento(LocalDate.of(1970, 01, 02));
 
-        getMockMvc().perform(put( "/api/usuarios")
+        getMockMvc().perform(put("/api/usuarios")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
                 .andExpect(status().isOk());
+    }
 
+    @Test
+     void removerTest() throws Exception {
+        Usuario usuario = usuarioBuilder.construir();
+
+        getMockMvc().perform(delete("/api/usuarios/" + usuario.getId()))
+                .andExpect(status().isOk());
+
+        Assert.assertEquals(0, usuarioRepositorio.findAll().size());
     }
 }

@@ -26,7 +26,6 @@ public class UsuarioBuilder extends ConstrutorDeEntidade<Usuario> {
     @Override
     public Usuario construirEntidade() throws ParseException {
         Usuario usuario = new Usuario();
-        usuario.setId(1);
         usuario.setNome("test1");
         usuario.setCpf("58296536056");
         usuario.setEmail("test@test.com");
@@ -37,20 +36,20 @@ public class UsuarioBuilder extends ConstrutorDeEntidade<Usuario> {
     }
 
     @Override
-    public Usuario persistir(Usuario entidade) {
+    protected Usuario persistir(Usuario entidade) {
         usuarioServico.salvar(usuarioMapper.toDto(entidade));
         return entidade;
     }
 
     @Override
-    public Collection<Usuario> obterTodos() {
+    protected Collection<Usuario> obterTodos() {
         List<UsuarioDTO> listaDTO = usuarioServico.listar();
         List<Usuario> listaDominio = usuarioMapper.toEntity(listaDTO);
         return listaDominio;
     }
 
     @Override
-    public Usuario obterPorId(Integer id) {
+    protected Usuario obterPorId(Integer id) {
         return usuarioMapper.toEntity(usuarioServico.buscarPorId(id));
     }
 }
