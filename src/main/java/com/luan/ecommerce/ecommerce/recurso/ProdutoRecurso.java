@@ -6,6 +6,7 @@ import com.luan.ecommerce.ecommerce.servico.ProdutorServico;
 import com.luan.ecommerce.ecommerce.servico.dto.ProdutoDTO;
 import com.luan.ecommerce.ecommerce.servico.mapper.ProdutoMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,9 @@ public class ProdutoRecurso {
     }
 
     @PostMapping
-    public ResponseEntity<ProdutoDTO> salvar(@RequestBody Produto produto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(produtoServico.salvar(produto));
+    @SneakyThrows
+    public ResponseEntity<ProdutoDTO> salvar(@RequestBody ProdutoDTO produto) {
+        return ResponseEntity.created(new URI("/api/produtos")).body(produtoServico.salvar(produto));
     }
 
     @PutMapping
