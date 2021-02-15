@@ -31,7 +31,8 @@ public class ProdutoServico {
                         -> new RuntimeException()));
     }
 
-    public ProdutoDTO salvar(Produto produto) {
+    public ProdutoDTO salvar(ProdutoDTO produtoDTO) {
+        Produto produto = produtoMapper.toEntity(produtoDTO);
         Categoria categoria = produto.getCategorias();
         produto.setCategorias(categoria);
         TipoSituacao tipoSituacao = new TipoSituacao();
