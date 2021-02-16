@@ -30,10 +30,10 @@ export class ProdutoService {
   }
 
   editarProduto(produto: Produto): Observable<Produto> {
-    return this.http.put<Produto> (this.url, produto);
+    return this.http.put<Produto>(this.url, produto);
   }
 
   deletarProduto(id: number): Observable<Produto> {
-    return this.http.delete<Produto> (`${this.url}/${id}`);
+    return this.http.delete<Produto>(`${this.url}/${id}`);
   }
 }

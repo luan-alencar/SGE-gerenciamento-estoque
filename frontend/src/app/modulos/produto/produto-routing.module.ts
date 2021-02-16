@@ -11,7 +11,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'produto-cadastro',
+    path: 'cadastro',
     component: ProdutoCadastroComponent
   }
 
