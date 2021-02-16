@@ -39,12 +39,27 @@
             <br>
 
             <div class="p-field p-col-12 p-md-6 ui-float-label">
-                <p-dropdown [options]="categorias" [(ngModel)]="categoria" placeholder="Select"
+                <p-dropdown [options]="categorias" [(ngModel)]="categoria" placeholder="Categorias"
                     formControlName="categoria" optionLabel="descricao" optionValue="id">
                 </p-dropdown>
             </div>
 
             <br>
+
+            <div class="p-field p-col-12 p-md-6 ui-float-label">
+                <p-dropdown [options]="tipoSituacaoLista" [(ngModel)]="tipoSituacao" placeholder="Estoque"
+                    formControlName="tipoSituacao" optionLabel="descricao" optionValue="id">
+                </p-dropdown>
+            </div>
+
+
+            <br>
+
+            <p-splitButton [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" label="Save"
+                icon="pi pi-check" (onClick)="salvar()" [model]="items"></p-splitButton>
+
+            <br>
+
 
             <!-- <div class="p-field p-col-12 p-md-3 ui-float-label">
                 <label for="zip">Zip</label>

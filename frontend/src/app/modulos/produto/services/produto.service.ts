@@ -9,37 +9,37 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class ProdutoService {
 
-  url = `${environment.apiUrl}/produtos`;
-  url2 = `${environment.apiUrl}/categorias`;
-  url3 = `${environment.apiUrl}/tipos-situacao`
+  urlProduto = `${environment.apiUrl}/produtos`;
+  urlCategoria = `${environment.apiUrl}/categorias`;
+  urlTipoSituacao = `${environment.apiUrl}/tipossituacao`;
 
   constructor(private http: HttpClient) { }
 
   buscarProdutoPorId(id: number): Observable<Produto> {
-    return this.http.get<Produto>(`${this.url}/${id}`);
+    return this.http.get<Produto>(`${this.urlProduto}/${id}`);
   }
 
   buscarTodosProdutos(): Observable<Produto[]> {
-    return this.http.get<Produto[]>(`${this.url}`);
+    return this.http.get<Produto[]>(`${this.urlProduto}`);
   }
 
   buscarTodasCategorias(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(`${this.url2}`);
+    return this.http.get<Categoria[]>(`${this.urlCategoria}`);
   }
 
   buscarTodasSituacoes(): Observable<TipoSituacao[]> {
-    return this.http.get<TipoSituacao[]>(`${this.url3}`);
+    return this.http.get<TipoSituacao[]>(`${this.urlTipoSituacao}`);
   }
 
   salvarProduto(produto: Produto): Observable<Produto> {
-    return this.http.post<Produto>(this.url, produto)
+    return this.http.post<Produto>(this.urlProduto, produto)
   }
 
   editarProduto(produto: Produto): Observable<Produto> {
-    return this.http.put<Produto>(this.url, produto);
+    return this.http.put<Produto>(this.urlProduto, produto);
   }
 
   deletarProduto(id: number): Observable<Produto> {
-    return this.http.delete<Produto>(`${this.url}/${id}`);
+    return this.http.delete<Produto>(`${this.urlProduto}/${id}`);
   }
 }

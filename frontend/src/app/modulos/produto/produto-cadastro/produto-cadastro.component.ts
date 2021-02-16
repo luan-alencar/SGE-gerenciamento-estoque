@@ -32,17 +32,21 @@ export class ProdutoCadastroComponent implements OnInit {
 
   display: boolean;
 
+  items: any[];
+
   constructor(
 
     private produtoService: ProdutoService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private messageService: MessageService,
     private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
 
     this.buscarProdutos();
     this.buscarCategorias();
+    this.buscarTipoSituacao();
 
     this.route.params.subscribe(params => {
       if (params.id) {
@@ -50,6 +54,22 @@ export class ProdutoCadastroComponent implements OnInit {
         this.buscarProdutos();
       }
     });
+
+    this.items = [
+      {
+        label: 'Update', icon: 'pi pi-refresh', command: () => {
+          this.update();
+        }
+      },
+      {
+        label: 'Delete', icon: 'pi pi-times', command: () => {
+          this.delete();
+        }
+      },
+      { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
+      { separator: true },
+      { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+    ];
 
     this.formProduto = this.fb.group({
       nome: '',
@@ -60,6 +80,21 @@ export class ProdutoCadastroComponent implements OnInit {
       categoria: ''
     });
   }
+
+  // Metodos de Mensagem do MessageService - Início
+  save(severity: string) {
+    this.messageService.add({ severity: severity, summary: 'Success', detail: 'Data Saved' });
+  }
+
+  update() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
+  }
+
+  delete() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
+  }
+  // Metodos de Mensagem do MessageService - Fim
+
 
   showDialog() {
     this.display = true;
