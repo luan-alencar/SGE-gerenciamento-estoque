@@ -33,8 +33,8 @@ public class ProdutoServico {
 
     public ProdutoDTO salvar(ProdutoDTO produtoDTO) {
         Produto produto = produtoMapper.toEntity(produtoDTO);
-        Categoria categoria = produto.getCategorias();
-        produto.setCategorias(categoria);
+        Categoria categoria = produto.getCategoria();
+        produto.setCategoria(categoria);
         TipoSituacao tipoSituacao = new TipoSituacao();
         tipoSituacao.setId(1);
 

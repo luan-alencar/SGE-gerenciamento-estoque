@@ -9,12 +9,12 @@ import org.mapstruct.Mapping;
 public interface ProdutoMapper extends EntityMapper<ProdutoDTO, Produto> {
 
     @Override
-    @Mapping(source="tipoSituacao", target = "tipoSituacao.id")
-    @Mapping(source = "categorias", target = "categorias.id")
+    @Mapping(source = "categoria", target = "categoria.id")
+    @Mapping(source = "tipoSituacao", target = "tipoSituacao.id")
     Produto toEntity(ProdutoDTO dto);
 
     @Override
-    @Mapping(source = "categorias.id", target = "categorias")
-    @Mapping(source="tipoSituacao.id", target = "tipoSituacao")
+    @Mapping(source = "categoria.id", target = "categoria")
+    @Mapping(source = "tipoSituacao.id", target = "tipoSituacao")
     ProdutoDTO toDto(Produto entity);
 }
