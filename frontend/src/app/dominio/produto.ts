@@ -8,6 +8,6 @@ export class Produto {
     preco: number;
     descricao: string;
     quantidade: number;
-    tipoSituacao: TipoSituacao;
+    tipoSituacao: number;
     categoria: Categoria;
 }

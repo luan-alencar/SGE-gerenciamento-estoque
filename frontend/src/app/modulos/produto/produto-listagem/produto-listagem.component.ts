@@ -14,7 +14,7 @@ export class ProdutoListagemComponent implements OnInit {
   produtos: Produto[] = [];
   produto: Produto;
 
-  cols: any[];
+  cols: any[] = [];
   _selectedColumns: any[];
 
 
@@ -24,9 +24,9 @@ export class ProdutoListagemComponent implements OnInit {
 
 
     this.cols = [
-      { field: 'name', header: 'Name' },
-      { field: 'category', header: 'Category' },
-      { field: 'quantity', header: 'Quantity' }
+      { field: 'nome', header: 'Nome' },
+      { field: 'categoria', header: 'Categoria' },
+      { field: 'quantidade', header: 'Quantidade' }
     ];
 
     this._selectedColumns = this.cols;

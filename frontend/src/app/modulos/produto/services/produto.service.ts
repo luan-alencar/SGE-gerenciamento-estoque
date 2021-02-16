@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Categoria } from 'src/app/dominio/categoria';
 import { Produto } from 'src/app/dominio/produto';
+import { TipoSituacao } from 'src/app/dominio/tipo-situacao';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -10,6 +11,7 @@ export class ProdutoService {
 
   url = `${environment.apiUrl}/produtos`;
   url2 = `${environment.apiUrl}/categorias`;
+  url3 = `${environment.apiUrl}/tipos-situacao`
 
   constructor(private http: HttpClient) { }
 
@@ -23,6 +25,10 @@ export class ProdutoService {
 
   buscarTodasCategorias(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(`${this.url}`);
+  }
+
+  buscarTodasSituacoes(): Observable<TipoSituacao[]> {
+    return this.http.get<TipoSituacao[]>(`${this.url3}`);
   }
 
   salvarProduto(produto: Produto): Observable<Produto> {

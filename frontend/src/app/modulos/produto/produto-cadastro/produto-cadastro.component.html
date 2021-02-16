@@ -1,4 +1,58 @@
 <p>produto-cadastro works!</p>
 
+<p-card>
 
-<p-toast></p-toast>
+    <form [formGroup]="formProduto">
+
+        <div class="p-fluid p-formgrid p-grid">
+
+            <div class="p-field p-col-12 p-md-6 ui-float-label">
+                <label for="float-input" class="label">Nome: </label>
+                <input id="float-input" class="input" type="text" [(ngModel)]="produto.nome" formControlName="nome"
+                    pInputText>
+            </div>
+
+            <br>
+
+            <div class="p-field p-col-12 p-md-6 ">
+                <input class="input " type="number" pKeyFilter="pnum" [(ngModel)]="produto.preco" size="30"
+                    formControlName="preco" placeholder="Preço:" pInputText />
+            </div>
+
+
+            <br>
+
+            <div class="p-field p-col-12 p-md-6 ui-float-label">
+                <label for="preco" class="label">Descrição</label>
+                <textarea type="text" rows="4" [(ngModel)]="produto.descricao" formControlName="descricao"
+                    pInputTextarea></textarea>
+            </div>
+
+            <br>
+
+            <div class="p-field p-col-12 p-md-6 ui-float-label">
+                <label for="quantidade">Quantidade</label>
+                <input id="quantidade" type="number" [(ngModel)]="produto.quantidade" formControlName="qantidade"
+                    pInputText>
+            </div>
+
+            <br>
+
+            <div class="p-field p-col-12 p-md-6 ui-float-label">
+                <label for="tipoSituacaoLista"></label>
+                <p-dropdown [options]="tipoSituacaoLista" [(ngModel)]="produto.tipoSituacao" placeholder="Select"
+                    formControlName="tipoSituacao" optionLabel="name"></p-dropdown>
+            </div>
+
+            <br>
+
+            <div class="p-field p-col-12 p-md-3 ui-float-label">
+                <label for="zip">Zip</label>
+                <input id="zip" type="text" pInputText>
+            </div>
+
+        </div>
+
+    </form>
+
+</p-card>
