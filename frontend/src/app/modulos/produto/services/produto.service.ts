@@ -24,7 +24,7 @@ export class ProdutoService {
   }
 
   buscarTodasCategorias(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(`${this.url}`);
+    return this.http.get<Categoria[]>(`${this.url2}`);
   }
 
   buscarTodasSituacoes(): Observable<TipoSituacao[]> {

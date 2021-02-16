@@ -32,24 +32,24 @@
 
             <div class="p-field p-col-12 p-md-6 ui-float-label">
                 <label for="quantidade">Quantidade</label>
-                <input id="quantidade" type="number" [(ngModel)]="produto.quantidade" formControlName="qantidade"
+                <input id="quantidade" type="number" [(ngModel)]="produto.quantidade" formControlName="quantidade"
                     pInputText>
             </div>
 
             <br>
 
             <div class="p-field p-col-12 p-md-6 ui-float-label">
-                <label for="tipoSituacaoLista"></label>
-                <p-dropdown [options]="tipoSituacaoLista" [(ngModel)]="produto.tipoSituacao" placeholder="Select"
-                    formControlName="tipoSituacao" optionLabel="name"></p-dropdown>
+                <p-dropdown [options]="categorias" [(ngModel)]="categoria" placeholder="Select"
+                    formControlName="categoria" optionLabel="descricao" optionValue="id">
+                </p-dropdown>
             </div>
 
             <br>
 
-            <div class="p-field p-col-12 p-md-3 ui-float-label">
+            <!-- <div class="p-field p-col-12 p-md-3 ui-float-label">
                 <label for="zip">Zip</label>
-                <input id="zip" type="text" pInputText>
-            </div>
+                <input id="zip" type="text" formControlName="qantidade" pInputText>
+            </div> -->
 
         </div>
 

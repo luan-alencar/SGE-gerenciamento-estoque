@@ -21,11 +21,15 @@ export class ProdutoCadastroComponent implements OnInit {
   formProduto: FormGroup;
 
   tipoSituacaoLista: TipoSituacao[] = [];
+  tipoSituacao: TipoSituacao;
+
+  categoria: Categoria;
   categorias: Categoria[] = [];
 
-  tipoSituacao: TipoSituacao;
   @Input() produto = new Produto();
+
   @Input() edicao = false;
+
   display: boolean;
 
   constructor(
@@ -38,6 +42,7 @@ export class ProdutoCadastroComponent implements OnInit {
   ngOnInit(): void {
 
     this.buscarProdutos();
+    this.buscarCategorias();
 
     this.route.params.subscribe(params => {
       if (params.id) {
@@ -47,7 +52,12 @@ export class ProdutoCadastroComponent implements OnInit {
     });
 
     this.formProduto = this.fb.group({
-
+      nome: '',
+      preco: '',
+      descricao: '',
+      quantidade: '',
+      tipoSituacao: '',
+      categoria: ''
     });
   }
 
@@ -63,6 +73,14 @@ export class ProdutoCadastroComponent implements OnInit {
     this.produtoService.buscarTodasSituacoes()
       .subscribe((tipoSituacao: TipoSituacao[]) => {
         this.tipoSituacaoLista = tipoSituacao;
+      });
+  }
+
+  buscarCategorias() {
+    this.produtoService.buscarTodasCategorias()
+      .subscribe((categorias: Categoria[]) => {
+        this.categorias = categorias;
+        console.log(categorias);
       });
   }
 
@@ -82,6 +100,7 @@ export class ProdutoCadastroComponent implements OnInit {
             alert(erro.error.message);
           });
         }
+        this.produto.categoria = this.categoria.id;
         this.produto.tipoSituacao = this.tipoSituacao.id;
       }
     });

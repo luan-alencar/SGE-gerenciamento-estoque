@@ -9,5 +9,7 @@ export class Produto {
     descricao: string;
     quantidade: number;
     tipoSituacao: number;
-    categoria: Categoria;
+    categoria: number;
+
+    constructor() { }
 }
