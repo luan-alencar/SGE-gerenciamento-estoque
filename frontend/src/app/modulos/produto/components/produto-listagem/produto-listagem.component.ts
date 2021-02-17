@@ -1,7 +1,8 @@
-import { Input } from '@angular/core';
+import { Input, Output } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Produto } from 'src/app/dominio/produto';
+import { ProdutoService } from '../../services/produto.service';
 
 @Component({
   selector: 'app-produto-listagem',
@@ -14,14 +15,17 @@ export class ProdutoListagemComponent implements OnInit {
   produtos: Produto[] = [];
   produto: Produto;
 
+  @Output() display = false;
+
   cols: any[] = [];
   _selectedColumns: any[];
 
 
-  constructor() { }
+  constructor(private produtoService: ProdutoService) { }
 
   ngOnInit(): void {
 
+    this.buscarProdutos();
 
     this.cols = [
       { field: 'nome', header: 'Nome' },
@@ -39,6 +43,13 @@ export class ProdutoListagemComponent implements OnInit {
   set selectedColumns(val: any[]) {
     //restore original order
     this._selectedColumns = this.cols.filter(col => val.includes(col));
+  }
+
+  buscarProdutos() {
+    this.produtoService.buscarTodosProdutos().subscribe((produtos: Produto[]) => {
+      this.produtos = produtos;
+    });
+
   }
 }
 

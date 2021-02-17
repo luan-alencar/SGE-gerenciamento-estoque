@@ -1,14 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
-import { MessageService } from 'primeng/api';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Categoria } from 'src/app/dominio/categoria';
-
 import { Produto } from 'src/app/dominio/produto';
 import { TipoSituacao } from 'src/app/dominio/tipo-situacao';
-import { ProdutoService } from '../services/produto.service';
+import { ProdutoService } from '../../services/produto.service';
+
 
 @Component({
   selector: 'app-produto-cadastro',
@@ -27,10 +26,11 @@ export class ProdutoCadastroComponent implements OnInit {
   categorias: Categoria[] = [];
 
   @Input() produto = new Produto();
+  @Output() produtoSalvo = new EventEmitter<Produto>();
 
   @Input() edicao = false;
 
-  display: boolean;
+  @Output() display = false;
 
   items: any[];
 
@@ -40,7 +40,8 @@ export class ProdutoCadastroComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService,
+    private router: Router) { }
 
   ngOnInit(): void {
 
@@ -51,7 +52,7 @@ export class ProdutoCadastroComponent implements OnInit {
     this.route.params.subscribe(params => {
       if (params.id) {
         this.edicao = true;
-        this.buscarProdutos();
+        this.buscarProduto(params.id);
       }
     });
 
@@ -99,18 +100,19 @@ export class ProdutoCadastroComponent implements OnInit {
   showDialog() {
     this.display = true;
   }
-
+  buscarProduto(id: number) {
+    this.produtoService.buscarProdutoPorId(id)
+      .subscribe(produto => this.produto = produto);
+  }
   private buscarProdutos() {
     this.produtoService.buscarTodosProdutos();
   }
-
   buscarTipoSituacao() {
     this.produtoService.buscarTodasSituacoes()
       .subscribe((tipoSituacao: TipoSituacao[]) => {
         this.tipoSituacaoLista = tipoSituacao;
       });
   }
-
   buscarCategorias() {
     this.produtoService.buscarTodasCategorias()
       .subscribe((categorias: Categoria[]) => {
@@ -118,26 +120,43 @@ export class ProdutoCadastroComponent implements OnInit {
         console.log(categorias);
       });
   }
-
+  confirm() {
+    this.confirmationService.confirm({
+      message: 'Deseja salvar mesmo esse produto?',
+      accept: () => {
+        this.salvar()
+      }
+    });
+  }
   salvar() {
+
+    this.produto.categoria = this.categoria.id;
+    this.produto.tipoSituacao = this.tipoSituacao.id;
+
     if (this.formProduto.invalid) {
       alert('formulario invalido');
       return;
     }
-    this.confirmationService.confirm({
-      message: 'Você deseja confirmar o cadastro?',
-      accept: () => {
-        if (this.edicao) {
-          this.produtoService.editarProduto(this.produto).subscribe(produto => {
-            alert('Produto salvo!');
-            console.log(produto);
-          }, (erro: HttpErrorResponse) => {
-            alert(erro.error.message);
-          });
-        }
-        this.produto.categoria = this.categoria.id;
-        this.produto.tipoSituacao = this.tipoSituacao.id;
-      }
-    });
+
+    if (this.edicao) {
+      this.produtoService.editarProduto(this.produto).subscribe(produto => {
+        alert('Produto editado!');
+        console.log(produto);
+      }, (erro: HttpErrorResponse) => {
+        alert(erro.error.message);
+      });
+    } else {
+      this.produtoService.salvarProduto(this.produto)
+        .subscribe(produto => {
+          alert('Produto salvo!');
+          this.fecharDialog(produto);
+        }, (erro: HttpErrorResponse) => {
+          alert(erro.error.message)
+        });
+    }
+    console.log(this.produto);
+  }
+  fecharDialog(produtoSalvo: Produto) {
+    this.produtoSalvo.emit(produtoSalvo);
   }
 }

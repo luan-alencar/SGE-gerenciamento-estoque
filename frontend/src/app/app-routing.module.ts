@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginSuccessComponent } from '@nuvem/angular-base';
-import { ProdutoListagemComponent } from './modulos/produto/produto-listagem/produto-listagem.component';
+import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
+import { ProdutoListagemComponent } from './modulos/produto/components/produto-listagem/produto-listagem.component';
 import { ProdutoModule } from './modulos/produto/produto.module';
 
 const routes: Routes = [
+
+  {
+    path: '',
+    component: ProdutoListagemComponent
+  },
 
   {
     path: 'produtos',

@@ -9,18 +9,18 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class ProdutoService {
 
-  urlProduto = `${environment.apiUrl}/produtos`;
+  url = `${environment.apiUrl}/produtos`;
   urlCategoria = `${environment.apiUrl}/categorias`;
   urlTipoSituacao = `${environment.apiUrl}/tipossituacao`;
 
   constructor(private http: HttpClient) { }
 
   buscarProdutoPorId(id: number): Observable<Produto> {
-    return this.http.get<Produto>(`${this.urlProduto}/${id}`);
+    return this.http.get<Produto>(`${this.url}/${id}`);
   }
 
   buscarTodosProdutos(): Observable<Produto[]> {
-    return this.http.get<Produto[]>(`${this.urlProduto}`);
+    return this.http.get<Produto[]>(`${this.url}`);
   }
 
   buscarTodasCategorias(): Observable<Categoria[]> {
@@ -32,14 +32,14 @@ export class ProdutoService {
   }
 
   salvarProduto(produto: Produto): Observable<Produto> {
-    return this.http.post<Produto>(this.urlProduto, produto)
+    return this.http.post<Produto>(this.url, produto);
   }
 
   editarProduto(produto: Produto): Observable<Produto> {
-    return this.http.put<Produto>(this.urlProduto, produto);
+    return this.http.put<Produto>(this.url, produto);
   }
 
   deletarProduto(id: number): Observable<Produto> {
-    return this.http.delete<Produto>(`${this.urlProduto}/${id}`);
+    return this.http.delete<Produto>(`${this.url}/${id}`);
   }
 }
