@@ -8,6 +8,8 @@ export class Produto {
     preco: number;
     descricao: string;
     quantidade: number;
-    tipoSituacao: TipoSituacao;
-    categoria: Categoria;
+    tipoSituacao: number;
+    categoria: number;
+
+    constructor() { }
 }

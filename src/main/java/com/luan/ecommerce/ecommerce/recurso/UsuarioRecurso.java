@@ -2,9 +2,7 @@ package com.luan.ecommerce.ecommerce.recurso;
 
 import com.luan.ecommerce.ecommerce.servico.UsuarioServico;
 import com.luan.ecommerce.ecommerce.servico.dto.UsuarioDTO;
-import com.luan.ecommerce.ecommerce.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -59,4 +57,3 @@ public class UsuarioRecurso {
         return ResponseEntity.ok().build();
     }
 }
-

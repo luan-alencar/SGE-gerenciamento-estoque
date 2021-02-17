@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "api/tipos-situacao")
+@RequestMapping(value = "api/tipossituacao")
 public class TipoSituacaoRecurso {
 
     private final TipoSituacaoServico tipoSituacaoServico;
@@ -25,7 +25,7 @@ public class TipoSituacaoRecurso {
         return ResponseEntity.ok(tipoSituacaoServico.listar());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{idTipoSituacao}")
     public ResponseEntity<TipoSituacaoDTO> buscarPorId(@PathVariable Integer idTipoSituacao) {
         return ResponseEntity.ok(tipoSituacaoServico.buscarPorId(idTipoSituacao));
     }
