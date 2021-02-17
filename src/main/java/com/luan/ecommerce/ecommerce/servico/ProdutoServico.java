@@ -33,15 +33,7 @@ public class ProdutoServico {
 
     public ProdutoDTO salvar(ProdutoDTO produtoDTO) {
         Produto produto = produtoMapper.toEntity(produtoDTO);
-        Categoria categoria = produto.getCategoria();
-        produto.setCategoria(categoria);
-        TipoSituacao tipoSituacao = new TipoSituacao();
-        tipoSituacao.setId(1);
-
-        produtoRepositorio.save(produto);
-        categoriaRepositorio.saveAll(Arrays.asList(categoria));
-
-        return produtoMapper.toDto(produto);
+        return produtoMapper.toDto(produtoRepositorio.save(produto));
     }
 
     public ProdutoDTO editar(Produto produto) {
