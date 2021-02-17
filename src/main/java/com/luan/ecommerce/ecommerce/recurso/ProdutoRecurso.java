@@ -32,15 +32,15 @@ public class ProdutoRecurso {
         return ResponseEntity.ok(produtoServico.buscarPorId(idProduto));
     }
 
-    @PostMapping
-    @SneakyThrows
-    public ResponseEntity<ProdutoDTO> salvar(@RequestBody ProdutoDTO produto) {
-        return ResponseEntity.created(new URI("/api/produtos")).body(produtoServico.salvar(produto));
-    }
-
     @PutMapping
     public ResponseEntity<ProdutoDTO> editar(Produto produto) {
         return ResponseEntity.ok(produtoServico.editar(produto));
+    }
+
+    @PostMapping
+    @SneakyThrows
+    public ResponseEntity<ProdutoDTO> salvar(@RequestBody ProdutoDTO produto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtoServico.salvar(produto));
     }
 
     @DeleteMapping("/{idProduto}")

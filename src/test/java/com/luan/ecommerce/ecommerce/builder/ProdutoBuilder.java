@@ -20,8 +20,8 @@ public class ProdutoBuilder extends ConstrutorDeEntidade<Produto> {
     @Autowired
     private CategoriaBuilder categoriaBuilder;
 
-    @Autowired
-    private TipoSituacaoBuilder tipoSituacaoBuilder;
+//    @Autowired
+//    private TipoSituacaoBuilder tipoSituacaoBuilder;
 
     @Autowired
     private ProdutoMapper produtoMapper;
@@ -36,14 +36,14 @@ public class ProdutoBuilder extends ConstrutorDeEntidade<Produto> {
     protected Produto construirEntidade() throws ParseException {
         Produto produto = new Produto();
         Categoria categoria = categoriaBuilder.construir();
-        TipoSituacao tipoSituacao = tipoSituacaoBuilder.construir();
+//        TipoSituacao tipoSituacao = tipoSituacaoBuilder.construir();
 
         produto.setNome("Notebook");
-        produto.setCategorias(categoria);
+//        produto.setCategorias(categoria);
         produto.setPreco(10.000);
         produto.setDescricao("Encomenda de 3 notebooks Dell");
         produto.setQuantidade(3);
-        produto.setTipoSituacao(tipoSituacao);
+        produto.setTipoSituacao(null);
         return produto;
     }
 
