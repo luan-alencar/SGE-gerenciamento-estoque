@@ -1,6 +1,6 @@
 import { Input, Output } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, ConfirmationService } from 'primeng/api';
 import { Produto } from 'src/app/dominio/produto';
 import { ProdutoService } from '../../services/produto.service';
 
@@ -15,13 +15,19 @@ export class ProdutoListagemComponent implements OnInit {
   produtos: Produto[] = [];
   produto: Produto;
 
+  formularioEdicao: boolean;
+  exibirDialog = false;
+
   @Output() display = false;
 
   cols: any[] = [];
   _selectedColumns: any[];
 
 
-  constructor(private produtoService: ProdutoService) { }
+  constructor(
+    private produtoService: ProdutoService,
+    private confirmationService: ConfirmationService
+  ) { }
 
   ngOnInit(): void {
 
@@ -45,11 +51,47 @@ export class ProdutoListagemComponent implements OnInit {
     this._selectedColumns = this.cols.filter(col => val.includes(col));
   }
 
-  buscarProdutos() {
+  private buscarProdutos() {
     this.produtoService.buscarTodosProdutos().subscribe((produtos: Produto[]) => {
       this.produtos = produtos;
     });
 
   }
-}
 
+  mostrarDialogEditar(id: number) {
+    this.produtoService.buscarProdutoPorId(id)
+      .subscribe(produto => {
+        this.produto = produto;
+        this.mostrarDialog(true);
+      });
+  }
+
+  mostrarDialog(edicao = false) {
+    this.exibirDialog = true;
+    this.formularioEdicao = edicao;
+  }
+
+  fecharDialog(usuarioProduto: Produto) {
+    console.log(usuarioProduto);
+    this.exibirDialog = false;
+    this.buscarProdutos();
+  }
+
+  confirmarDeletarProduto(id: number) {
+    this.confirmationService.confirm({
+      message: 'Deseja confirmar excluir o produto?',
+      accept: () => {
+        this.deletarProduto(id);
+      }
+    })
+  }
+
+  deletarProduto(id: number) {
+    this.produtoService.deletarProduto(id)
+      .subscribe(() => {
+        alert('Produto deletado!');
+        this.buscarProdutos();
+      },
+        err => alert(err));
+  }
+}
