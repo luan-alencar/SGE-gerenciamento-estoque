@@ -37,7 +37,7 @@ public class ProdutoServico {
     }
 
     public ProdutoDTO editar(Produto produto) {
-        if (!produtoRepositorio.existsById(produto.getId())) {
+        if (!produtoRepositorio.existsById(produto  .getId())) {
             throw new RuntimeException("Produto nao existe!");
         }
         return produtoMapper.toDto(produto);
