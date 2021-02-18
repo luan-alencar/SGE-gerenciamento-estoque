@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Produto } from 'src/app/dominio/produto';
+import { ProdutoService } from '../../services/produto.service';
 
 @Component({
   selector: 'app-informacao-produto',
@@ -8,11 +9,28 @@ import { Produto } from 'src/app/dominio/produto';
 })
 export class InformacaoProdutoComponent implements OnInit {
 
-  produto: Produto;
+  @Input() produto = new Produto();
+  @Input() categoria: string;
+  exibirDialog = false;
+  formularioEdicao: boolean;
 
-  constructor() { }
+
+  constructor(private produtoService: ProdutoService) { }
 
   ngOnInit(): void {
+  }
+
+  mostrarDialogEditar(id: number) {
+    this.produtoService.buscarProdutoPorId(id)
+      .subscribe(produto => {
+        this.produto = produto;
+        this.mostrarDialog(true);
+      });
+  }
+
+  mostrarDialog(edicao = false) {
+    this.exibirDialog = true;
+    this.formularioEdicao = edicao;
   }
 
 }
