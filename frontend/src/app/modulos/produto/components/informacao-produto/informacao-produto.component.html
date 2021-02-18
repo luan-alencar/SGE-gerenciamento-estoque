@@ -3,25 +3,30 @@
         <tbody>
             <tr>
                 <div class="informacao-produto">
+                    <p-card class="botao-editar">
+                        Editar Produto:
+                        <button (click)="mostrarDialogEditar(produto.id)" pButton type="button"
+                            icon="pi pi-pencil"></button>
+                    </p-card>
                     <div class="atributo p-shadow-1">
                         <h3>Descrição</h3>
-                        <td>{{ produto.nome }}</td>
-                    </div>
-                    <div class="atributo p-shadow-1">
-                        <h3>Local do evento</h3>
                         <td>{{ produto.descricao }}</td>
                     </div>
                     <div class="atributo p-shadow-1">
-                        <h3>Tipo do evento</h3>
+                        <h3>Categoria</h3>
                         <td>{{ produto.categoria }}</td>
                     </div>
+                    <!-- <div class="atributo p-shadow-1">
+                        <h3>Tipo do produto</h3>
+                        <td>{{ produto.categoria }}</td>
+                    </div> -->
 
                     <div>
                         <p-table [scrollable]="true" scrollHeight="200px">
 
                             <ng-template pTemplate="header">
             <tr>
-                <th>Perguntas do evento</th>
+                <th>Perguntas sobre o Produto</th>
             </tr>
             </ng-template>
             <ng-template pTemplate="body" let-produto>
@@ -38,7 +43,7 @@
     </table>
 
     <div class="p-d-flex p-jc-left">
-        <p-button label="Inscrições" icon="pi pi-check" styleClass="p-button-warning"
+        <p-button label="Confirmar" icon="pi pi-check" styleClass="p-button-warning"
             [routerLink]="['/produtos/listagem' , produto.id ]"></p-button>
     </div>
     <!-- <div class="p-d-flex p-jc-end">
