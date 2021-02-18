@@ -14,13 +14,15 @@ import { DiarioErrosComponent } from './components/diario-erros/diario-erros.com
 import { AppFooterComponent } from './components/footer/app.footer.component';
 import { AppTopbarComponent } from './components/topbar/app.topbar.component';
 import { SharedModule } from './shared/shared.module';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         AppTopbarComponent,
         AppFooterComponent,
-        DiarioErrosComponent
+        DiarioErrosComponent,
+        HomeComponent
     ],
     imports: [
         BlockUIModule.forRoot({
