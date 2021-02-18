@@ -13,11 +13,12 @@ export class ProdutoListagemComponent implements OnInit {
 
   items: MenuItem[] = [];
   produtos: Produto[] = [];
-  produto: Produto;
+  produto = new Produto();
 
   formularioEdicao: boolean;
   exibirDialog = false;
 
+  @Input() categoria: string;
   @Output() display = false;
 
   cols: any[] = [];
@@ -58,11 +59,12 @@ export class ProdutoListagemComponent implements OnInit {
 
   }
 
-  mostrarDialogEditar(id: number) {
+
+  showDialog(id: number) {
     this.produtoService.buscarProdutoPorId(id)
       .subscribe(produto => {
         this.produto = produto;
-        this.mostrarDialog(true);
+        this.display = true;
       });
   }
 
@@ -85,6 +87,8 @@ export class ProdutoListagemComponent implements OnInit {
       }
     })
   }
+
+
 
   deletarProduto(id: number) {
     this.produtoService.deletarProduto(id)

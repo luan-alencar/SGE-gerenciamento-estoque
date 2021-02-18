@@ -1,8 +1,9 @@
+import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng';
 import { Categoria } from 'src/app/dominio/categoria';
 import { Produto } from 'src/app/dominio/produto';
 import { TipoSituacao } from 'src/app/dominio/tipo-situacao';

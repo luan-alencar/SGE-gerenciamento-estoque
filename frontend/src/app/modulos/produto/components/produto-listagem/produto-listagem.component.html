@@ -1,7 +1,7 @@
 <p>produto-listagem works!</p>
 
 <div class="p-d-flex p-jc-end">
-    <button routerLink="cadastro" pButton type="button" label="Adicionar Produto"></button>
+    <button routerLink="cadastro"   pButton type="button" label="Adicionar Produto"></button>
 </div>
 
 <p-card>
@@ -19,13 +19,11 @@
                 <td>{{produto.nome}}</td>
                 <td>{{produto.descricao}}</td>
                 <td>{{produto.preco | currency:"BRL"}}</td>
-                <td>{{produto.categoria}}</td>
+                <td>{{produto.categoria.descricao}}</td>
                 <td>
-                    <button (click)="mostrarDialogEditar(produto.id)" pButton type="button"
-                        icon="pi pi-pencil"></button>
                     <button (click)="confirmarDeletarProduto(produto.id)" class="p-ml-2" pButton type="button"
                         icon="pi pi-trash"></button>
-                    <button id="botao-info" class="p-ml-2" (click)="$event" pButton type="button"
+                    <button id="botao-info" class="p-ml-2" (click)="showDialog(produto.id)" pButton type="button"
                         icon="pi pi-info-circle"></button>
                 </td>
             </tr>
@@ -35,16 +33,9 @@
     <p-confirmDialog header="Confirmar Remover Produto" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 
     <p-dialog header="Informação do produto" [(visible)]="display" styleClass="mydialog">
-        <!-- <app-informacao-produto
-            [produto]="produto"
-            [categoria]="categoria"
-            [descricao]="descricao"
-        ></app-informacao-produto> -->
-        <!-- <app-informacao 
-        [evento]="evento"
-        [tipoEvento]="tipoEvento"
-        [perguntas]="perguntas"
-        (eventoDeletado)="fecharDialog($event)"
-     ></app-informacao> -->
+
+        <app-informacao-produto [produto]="produto" [categoria]="categoria"></app-informacao-produto>
+
     </p-dialog>
+
 </p-card>
