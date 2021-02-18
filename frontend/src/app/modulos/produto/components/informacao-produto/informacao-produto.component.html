@@ -5,8 +5,9 @@
                 <div class="informacao-produto">
                     <p-card class="botao-editar">
                         Editar Produto:
-                        <button (click)="mostrarDialogEditar(produto.id)" pButton type="button"
-                            icon="pi pi-pencil"></button>
+                        <button (click)="mostrarDialogEditar(produto.id)" routerLink="editar" pButton
+                            type="button" icon="pi pi-pencil"></button>
+
                     </p-card>
                     <div class="atributo p-shadow-1">
                         <h3>Descrição</h3>
@@ -26,7 +27,7 @@
 
                             <ng-template pTemplate="header">
             <tr>
-                <th>Perguntas sobre o Produto</th>
+                <th>Feedback</th>
             </tr>
             </ng-template>
             <ng-template pTemplate="body" let-produto>

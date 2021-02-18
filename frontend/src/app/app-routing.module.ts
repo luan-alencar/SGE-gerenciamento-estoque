@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginSuccessComponent } from '@nuvem/angular-base';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { HomeComponent } from './components/home/home.component';
+import { InformacaoProdutoComponent } from './modulos/produto/components/informacao-produto/informacao-produto.component';
 import { ProdutoListagemComponent } from './modulos/produto/components/produto-listagem/produto-listagem.component';
 import { ProdutoModule } from './modulos/produto/produto.module';
 

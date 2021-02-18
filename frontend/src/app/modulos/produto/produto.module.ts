@@ -9,11 +9,12 @@ import { ProdutoListagemComponent } from './components/produto-listagem/produto-
 import { ProdutoRoutingModule } from './produto-routing.module';
 import { ProdutoService } from './services/produto.service';
 import { InformacaoProdutoComponent } from './components/informacao-produto/informacao-produto.component';
+import { EditarProdutoComponent } from './components/editar-produto/editar-produto.component';
 
 
 
 @NgModule({
-  declarations: [ProdutoListagemComponent, ProdutoCadastroComponent, InformacaoProdutoComponent],
+  declarations: [ProdutoListagemComponent, ProdutoCadastroComponent, InformacaoProdutoComponent, EditarProdutoComponent],
   providers: [
     ProdutoService
   ],

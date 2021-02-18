@@ -1,9 +1,9 @@
-import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng';
+import { MessageService } from 'primeng/api';
 import { Categoria } from 'src/app/dominio/categoria';
 import { Produto } from 'src/app/dominio/produto';
 import { TipoSituacao } from 'src/app/dominio/tipo-situacao';
@@ -101,19 +101,23 @@ export class ProdutoCadastroComponent implements OnInit {
   showDialog() {
     this.display = true;
   }
+
   buscarProduto(id: number) {
     this.produtoService.buscarProdutoPorId(id)
       .subscribe(produto => this.produto = produto);
   }
+
   private buscarProdutos() {
     this.produtoService.buscarTodosProdutos();
   }
+
   buscarTipoSituacao() {
     this.produtoService.buscarTodasSituacoes()
       .subscribe((tipoSituacao: TipoSituacao[]) => {
         this.tipoSituacaoLista = tipoSituacao;
       });
   }
+
   buscarCategorias() {
     this.produtoService.buscarTodasCategorias()
       .subscribe((categorias: Categoria[]) => {
@@ -121,6 +125,7 @@ export class ProdutoCadastroComponent implements OnInit {
         console.log(categorias);
       });
   }
+
   confirm() {
     this.confirmationService.confirm({
       message: 'Deseja salvar mesmo esse produto?',
@@ -129,6 +134,7 @@ export class ProdutoCadastroComponent implements OnInit {
       }
     });
   }
+
   salvar() {
 
     this.produto.categoria = this.categoria.id;
@@ -139,24 +145,16 @@ export class ProdutoCadastroComponent implements OnInit {
       return;
     }
 
-    if (this.edicao) {
-      this.produtoService.editarProduto(this.produto).subscribe(produto => {
-        alert('Produto editado!');
-        console.log(produto);
+    this.produtoService.salvarProduto(this.produto)
+      .subscribe(produto => {
+        alert('Produto salvo!');
+        this.fecharDialog(produto);
       }, (erro: HttpErrorResponse) => {
-        alert(erro.error.message);
+        alert(erro.error.message)
       });
-    } else {
-      this.produtoService.salvarProduto(this.produto)
-        .subscribe(produto => {
-          alert('Produto salvo!');
-          this.fecharDialog(produto);
-        }, (erro: HttpErrorResponse) => {
-          alert(erro.error.message)
-        });
-    }
     console.log(this.produto);
   }
+
   fecharDialog(produtoSalvo: Produto) {
     this.produtoSalvo.emit(produtoSalvo);
   }
