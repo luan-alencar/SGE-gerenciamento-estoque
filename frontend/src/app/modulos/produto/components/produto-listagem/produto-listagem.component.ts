@@ -13,16 +13,11 @@ export class ProdutoListagemComponent implements OnInit {
   items: MenuItem[] = [];
   produtos: Produto[] = [];
   produto = new Produto();
-
   formularioEdicao: boolean;
   exibirDialog = false;
 
   @Input() categoria: string;
   @Output() display = false;
-
-  cols: any[] = [];
-  _selectedColumns: any[];
-
 
   constructor(
     private produtoService: ProdutoService,
@@ -33,20 +28,6 @@ export class ProdutoListagemComponent implements OnInit {
 
     this.buscarProdutos();
 
-    this.cols = [
-      { field: 'nome', header: 'Nome' },
-      { field: 'categoria', header: 'Categoria' },
-      { field: 'quantidade', header: 'Quantidade' }
-    ];
-    this._selectedColumns = this.cols;
-  }
-
-  @Input() get selectedColumns(): any[] {
-    return this._selectedColumns;
-  }
-
-  set selectedColumns(val: any[]) {
-    this._selectedColumns = this.cols.filter(col => val.includes(col));
   }
 
   showDialog(id: number) {
