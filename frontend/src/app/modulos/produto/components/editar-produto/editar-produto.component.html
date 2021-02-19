@@ -1,3 +1,5 @@
-<app-produto-cadastro>
-    
-</app-produto-cadastro>
+<p-dialog>
+    <app-produto-cadastro [produto]="produto" [edicao]="formularioEdicao" (produtoSalvo)="fecharDialog($event)">
+
+    </app-produto-cadastro>
+</p-dialog>

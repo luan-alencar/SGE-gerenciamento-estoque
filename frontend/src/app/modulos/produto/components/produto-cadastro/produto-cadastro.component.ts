@@ -27,10 +27,8 @@ export class ProdutoCadastroComponent implements OnInit {
   categorias: Categoria[] = [];
 
   @Input() produto = new Produto();
-  @Output() produtoSalvo = new EventEmitter<Produto>();
-
   @Input() edicao = false;
-
+  @Output() produtoSalvo = new EventEmitter<Produto>();
   @Output() display = false;
 
   items: any[];
@@ -49,6 +47,15 @@ export class ProdutoCadastroComponent implements OnInit {
     this.buscarProdutos();
     this.buscarCategorias();
     this.buscarTipoSituacao();
+
+    this.formProduto = this.fb.group({
+      nome: '',
+      preco: '',
+      descricao: '',
+      quantidade: '',
+      tipoSituacao: '',
+      categoria: ''
+    });
 
     this.route.params.subscribe(params => {
       if (params.id) {
@@ -72,15 +79,6 @@ export class ProdutoCadastroComponent implements OnInit {
       { separator: true },
       { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
     ];
-
-    this.formProduto = this.fb.group({
-      nome: '',
-      preco: '',
-      descricao: '',
-      quantidade: '',
-      tipoSituacao: '',
-      categoria: ''
-    });
   }
 
   // Metodos de Mensagem do MessageService - Início

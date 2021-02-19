@@ -9,8 +9,8 @@
         <ng-template pTemplate="header">
             <tr>
                 <th>Nome</th>
+                <th>Quantidade</th>
                 <th>Preço</th>
-                <th>Categoria</th>
                 <th>Estoque</th>
             </tr>
         </ng-template>
@@ -19,7 +19,7 @@
                 <td>{{produto.nome}}</td>
                 <td>{{produto.descricao}}</td>
                 <td>{{produto.preco | currency:"BRL"}}</td>
-                <td>{{produto.categoria.descricao}}</td>
+                <td>{{produto.categoria}}</td>
                 <td>
                     <button (click)="confirmarDeletarProduto(produto.id)" class="p-ml-2" pButton type="button"
                         icon="pi pi-trash"></button>

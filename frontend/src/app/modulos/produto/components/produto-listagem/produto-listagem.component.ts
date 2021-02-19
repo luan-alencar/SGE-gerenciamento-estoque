@@ -1,6 +1,5 @@
-import { Input, Output } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
-import { MenuItem, ConfirmationService } from 'primeng/api';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { ConfirmationService, MenuItem } from 'primeng/api';
 import { Produto } from 'src/app/dominio/produto';
 import { ProdutoService } from '../../services/produto.service';
 
@@ -39,7 +38,6 @@ export class ProdutoListagemComponent implements OnInit {
       { field: 'categoria', header: 'Categoria' },
       { field: 'quantidade', header: 'Quantidade' }
     ];
-
     this._selectedColumns = this.cols;
   }
 
@@ -48,17 +46,8 @@ export class ProdutoListagemComponent implements OnInit {
   }
 
   set selectedColumns(val: any[]) {
-    //restore original order
     this._selectedColumns = this.cols.filter(col => val.includes(col));
   }
-
-  private buscarProdutos() {
-    this.produtoService.buscarTodosProdutos().subscribe((produtos: Produto[]) => {
-      this.produtos = produtos;
-    });
-
-  }
-
 
   showDialog(id: number) {
     this.produtoService.buscarProdutoPorId(id)
@@ -73,12 +62,6 @@ export class ProdutoListagemComponent implements OnInit {
     this.formularioEdicao = edicao;
   }
 
-  fecharDialog(usuarioProduto: Produto) {
-    console.log(usuarioProduto);
-    this.exibirDialog = false;
-    this.buscarProdutos();
-  }
-
   confirmarDeletarProduto(id: number) {
     this.confirmationService.confirm({
       message: 'Deseja confirmar excluir o produto?',
@@ -88,8 +71,6 @@ export class ProdutoListagemComponent implements OnInit {
     })
   }
 
-
-
   deletarProduto(id: number) {
     this.produtoService.deletarProduto(id)
       .subscribe(() => {
@@ -97,5 +78,17 @@ export class ProdutoListagemComponent implements OnInit {
         this.buscarProdutos();
       },
         err => alert(err));
+  }
+
+  fecharDialog(usuarioProduto: Produto) {
+    console.log(usuarioProduto);
+    this.exibirDialog = false;
+    this.buscarProdutos();
+  }
+
+  private buscarProdutos() {
+    this.produtoService.buscarTodosProdutos().subscribe((produtos: Produto[]) => {
+      this.produtos = produtos;
+    });
   }
 }
