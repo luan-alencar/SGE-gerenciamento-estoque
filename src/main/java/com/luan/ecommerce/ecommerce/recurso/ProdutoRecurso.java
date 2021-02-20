@@ -33,8 +33,9 @@ public class ProdutoRecurso {
     }
 
     @PutMapping
-    public ResponseEntity<ProdutoDTO> editar(Produto produto) {
-        return ResponseEntity.ok(produtoServico.editar(produto));
+    public ResponseEntity<ProdutoDTO> editar(ProdutoDTO produtoDTO) {
+        ProdutoDTO novoProdutoDTO = produtoServico.editar(produtoDTO);
+        return ResponseEntity.ok(novoProdutoDTO);
     }
 
     @PostMapping

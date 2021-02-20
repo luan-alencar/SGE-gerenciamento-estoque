@@ -2,15 +2,14 @@ package com.luan.ecommerce.ecommerce.servico;
 
 import com.luan.ecommerce.ecommerce.dominio.Categoria;
 import com.luan.ecommerce.ecommerce.dominio.Produto;
-import com.luan.ecommerce.ecommerce.dominio.TipoSituacao;
 import com.luan.ecommerce.ecommerce.repositorio.CategoriaRepositorio;
 import com.luan.ecommerce.ecommerce.repositorio.ProdutoRepositorio;
 import com.luan.ecommerce.ecommerce.servico.dto.ProdutoDTO;
+import com.luan.ecommerce.ecommerce.servico.exception.RegraDeNegocioException;
 import com.luan.ecommerce.ecommerce.servico.mapper.ProdutoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -33,13 +32,22 @@ public class ProdutoServico {
 
     public ProdutoDTO salvar(ProdutoDTO produtoDTO) {
         Produto produto = produtoMapper.toEntity(produtoDTO);
-        return produtoMapper.toDto(produtoRepositorio.save(produto));
+
+        Categoria categoria = produto.getCategoria();
+        produto.setCategoria(categoria);
+        produtoRepositorio.save(produto);
+
+        return produtoMapper.toDto(produto);
     }
 
-    public ProdutoDTO editar(Produto produto) {
-        if (!produtoRepositorio.existsById(produto  .getId())) {
+    public ProdutoDTO editar(ProdutoDTO produtoDTO) {
+        if (!produtoRepositorio.existsById(produtoDTO.getId())) {
             throw new RuntimeException("Produto nao existe!");
         }
+        produtoRepositorio.findById(produtoDTO.getId())
+                .orElseThrow(() -> new RegraDeNegocioException(("Produto não encontrado")));
+        Produto produto = produtoRepositorio.save(produtoMapper.toEntity(produtoDTO));
+
         return produtoMapper.toDto(produto);
     }
 
