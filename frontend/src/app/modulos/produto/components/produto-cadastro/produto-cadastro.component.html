@@ -1,7 +1,7 @@
 <p-card>
     <h2>Cadastro de Produto</h2>
 
-    <form [formGroup]="formProduto">
+    <form [formGroup]="formProduto" *ngFor="let produto of produtos">
 
         <div class="p-fluid p-formgrid p-grid">
 
@@ -56,14 +56,10 @@
 
             <br>
 
-            <!-- <div class="p-field p-col-12 p-md-3 ui-float-label">
-                <label for="zip">Zip</label>
-                <input id="zip" type="text" formControlName="qantidade" pInputText>
-            </div> -->
-
         </div>
 
+        <button (click)="salvar()" pButton icon="pi pi-check" type="button"
+            [label]="edicao ?'Editar' : 'Cadastrar' "></button>
     </form>
-    <button (click)="confirm()" pButton icon="pi pi-check" [label]="edicao ?'Editar' : 'Cadastrar' "></button>
 
 </p-card>

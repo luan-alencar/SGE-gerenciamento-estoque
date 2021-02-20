@@ -3,7 +3,7 @@
 
     <form [formGroup]="formProduto">
 
-        <div class="p-fluid p-formgrid p-grid" >
+        <div class="p-fluid p-formgrid p-grid">
 
             <div class="p-field p-col-12 p-md-6 ui-float-label">
                 <input id="float-input" placeholder="Nome" class="input" type="text" [(ngModel)]="produto.nome"
@@ -50,7 +50,7 @@
             <br>
 
             <!-- <p-splitButton [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" label="Save"
-                    icon="pi pi-check" (onClick)="salvar()" [model]="items"></p-splitButton> -->
+                    icon="pi pi-check" (onClick)="" [model]="items"></p-splitButton> -->
 
             <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 
@@ -59,6 +59,6 @@
         </div>
 
     </form>
-    <!-- <button (click)="confirm()" pButton icon="pi pi-check" [label]="edicao ?'Editar' : 'Cadastrar' "></button> -->
+    <button (click)="confirm()" pButton icon="pi pi-check" [label]="edicao ?'Editar' : 'Cadastrar' "></button>
 
 </p-card>

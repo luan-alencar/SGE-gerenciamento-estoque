@@ -52,7 +52,7 @@ export class InformacaoProdutoComponent implements OnInit {
 
   mostrarDialogEditar(id: number) {
     this.produtoService.buscarProdutoPorId(id)
-    .subscribe(produto => {
+      .subscribe(produto => {
         this.produto = produto;
         console.log(this.produto);
         this.mostrarDialog(true);

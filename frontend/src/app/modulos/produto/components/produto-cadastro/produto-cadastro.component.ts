@@ -27,6 +27,7 @@ export class ProdutoCadastroComponent implements OnInit {
   categorias: Categoria[] = [];
 
   @Input() produto = new Produto();
+  produtos: Produto[] = [];
   @Input() edicao = false;
   @Output() produtoSalvo = new EventEmitter<Produto>();
   @Output() display = false;
