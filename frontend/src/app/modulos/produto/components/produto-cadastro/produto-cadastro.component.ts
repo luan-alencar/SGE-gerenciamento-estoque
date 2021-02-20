@@ -31,14 +31,11 @@ export class ProdutoCadastroComponent implements OnInit {
   @Output() produtoSalvo = new EventEmitter<Produto>();
   @Output() display = false;
 
-  items: any[];
-
   constructor(
 
     private produtoService: ProdutoService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router) { }
 
@@ -63,38 +60,7 @@ export class ProdutoCadastroComponent implements OnInit {
         this.buscarProduto(params.id);
       }
     });
-
-    this.items = [
-      {
-        label: 'Update', icon: 'pi pi-refresh', command: () => {
-          this.update();
-        }
-      },
-      {
-        label: 'Delete', icon: 'pi pi-times', command: () => {
-          this.delete();
-        }
-      },
-      { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
-      { separator: true },
-      { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
-    ];
   }
-
-  // Metodos de Mensagem do MessageService - Início
-  save(severity: string) {
-    this.messageService.add({ severity: severity, summary: 'Success', detail: 'Data Saved' });
-  }
-
-  update() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
-  }
-
-  delete() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
-  }
-  // Metodos de Mensagem do MessageService - Fim
-
 
   showDialog() {
     this.display = true;
@@ -143,13 +109,28 @@ export class ProdutoCadastroComponent implements OnInit {
       return;
     }
 
-    this.produtoService.salvarProduto(this.produto)
-      .subscribe(produto => {
-        alert('Produto salvo!');
-        this.fecharDialog(produto);
-      }, (erro: HttpErrorResponse) => {
-        alert(erro.error.message)
-      });
+    if (this.edicao) {
+      this.produtoService.editarProduto(this.produto).subscribe(
+        produto => {
+          this.produto = produto;
+          alert("Produto salvo com sucesso");
+          setTimeout(() => {
+            this.router.navigate(['/produtos'])
+          }, 1500)
+        }, erro => {
+          alert("dados inválidos")
+
+        });
+    } else {
+
+      this.produtoService.salvarProduto(this.produto)
+        .subscribe(produto => {
+          alert('Produto salvo!');
+          this.fecharDialog(produto);
+        }, (erro: HttpErrorResponse) => {
+          alert(erro.error.message)
+        });
+    }
     console.log(this.produto);
   }
 

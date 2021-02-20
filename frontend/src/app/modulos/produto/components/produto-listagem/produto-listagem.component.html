@@ -1,7 +1,7 @@
-<p>produto-listagem works!</p>
+<h1>Listagem de produtos</h1>
 
 <div class="p-d-flex p-jc-end">
-    <button routerLink="cadastro"   pButton type="button" label="Adicionar Produto"></button>
+    <button routerLink="cadastro" pButton type="button" label="Adicionar Produto"></button>
 </div>
 
 <p-card>
@@ -34,7 +34,8 @@
 
     <p-dialog header="Informação do produto" [(visible)]="display" styleClass="mydialog">
 
-        <app-informacao-produto [produto]="produto" [categoria]="categoria"></app-informacao-produto>
+        <app-informacao-produto [produto]="produto" [categoria]="categoria">
+        </app-informacao-produto>
 
     </p-dialog>
 

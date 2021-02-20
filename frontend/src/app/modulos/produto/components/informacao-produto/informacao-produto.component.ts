@@ -1,5 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng';
 import { Produto } from 'src/app/dominio/produto';
 import { ProdutoService } from '../../services/produto.service';
@@ -19,7 +19,8 @@ export class InformacaoProdutoComponent implements OnInit {
 
   constructor(
     private produtoService: ProdutoService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -38,18 +39,22 @@ export class InformacaoProdutoComponent implements OnInit {
 
   editar() {
     this.produtoService.editarProduto(this.produto)
-      .subscribe(produto => {
+      .subscribe(() => {
         alert('Produto editado!');
-        console.log(produto);
-      }, (erro: HttpErrorResponse) => {
-        alert(erro.error.message);
+        setTimeout(() => {
+          this.router.navigate(['/produtos']);
+        }, 1500)
+      }, erro => {
+        alert("dados inválidos");
+
       });
   }
 
   mostrarDialogEditar(id: number) {
     this.produtoService.buscarProdutoPorId(id)
-      .subscribe(produto => {
+    .subscribe(produto => {
         this.produto = produto;
+        console.log(this.produto);
         this.mostrarDialog(true);
       });
   }

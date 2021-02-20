@@ -5,8 +5,8 @@
                 <div class="informacao-produto">
                     <p-card class="botao-editar">
                         Editar Produto:
-                        <button (click)="mostrarDialogEditar(produto.id)" routerLink="editar" pButton
-                            type="button" icon="pi pi-pencil"></button>
+                        <button (click)="confirm()" pButton type="button" icon="pi pi-pencil"></button>
+
 
                     </p-card>
                     <div class="atributo p-shadow-1">
@@ -48,8 +48,7 @@
             [routerLink]="['/produtos/listagem' , produto.id ]"></p-button>
     </div>
     <!-- <div class="p-d-flex p-jc-end">
-        <button pButton type="button" icon="pi pi-pencil" [routerLink]="['/eventos/formulario' , evento.id ]"></button>
-        <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-        <button pButton type="button" icon="pi pi-trash" (click)="confirm(evento.id)"></button>
+        <button pButton type="button" icon="pi pi-pencil" [routerLink]="['editar' , produto.id ]"></button>
+      
     </div> -->
 </p-card>
