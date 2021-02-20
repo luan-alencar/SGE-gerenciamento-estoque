@@ -10,9 +10,12 @@ import com.luan.ecommerce.ecommerce.servico.mapper.ProdutoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ProdutoServico {
 
@@ -35,6 +38,7 @@ public class ProdutoServico {
 
         Categoria categoria = produto.getCategoria();
         produto.setCategoria(categoria);
+
         produtoRepositorio.save(produto);
 
         return produtoMapper.toDto(produto);
@@ -42,12 +46,10 @@ public class ProdutoServico {
 
     public ProdutoDTO editar(ProdutoDTO produtoDTO) {
         if (!produtoRepositorio.existsById(produtoDTO.getId())) {
-            throw new RuntimeException("Produto nao existe!");
+            throw new RegraDeNegocioException("Produto não existe");
         }
-        produtoRepositorio.findById(produtoDTO.getId())
-                .orElseThrow(() -> new RegraDeNegocioException(("Produto não encontrado")));
-        Produto produto = produtoRepositorio.save(produtoMapper.toEntity(produtoDTO));
-
+        Produto produto = produtoMapper.toEntity(produtoDTO);
+        produtoRepositorio.save(produto);
         return produtoMapper.toDto(produto);
     }
 
