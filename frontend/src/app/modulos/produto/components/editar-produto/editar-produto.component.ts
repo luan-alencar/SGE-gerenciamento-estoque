@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng';
 import { Categoria } from 'src/app/dominio/categoria';
 import { TipoSituacao } from 'src/app/dominio/tipo-situacao';
@@ -35,7 +35,8 @@ export class EditarProdutoComponent implements OnInit {
     private fb: FormBuilder,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -98,11 +99,24 @@ export class EditarProdutoComponent implements OnInit {
       });
   }
 
+  editar() {
+    this.produtoServico.editarProduto(this.produto)
+      .subscribe(() => {
+        alert('Produto editado!');
+        setTimeout(() => {
+          this.router.navigate(['/produtos']);
+        }, 1500)
+      }, erro => {
+        alert("dados inválidos");
+
+      });
+  }
+
   confirm() {
     this.confirmationService.confirm({
-      message: 'Deseja salvar mesmo esse produto?',
+      message: 'Deseja confirmar a edição do produto?',
       accept: () => {
-
+        this.editar();
       }
     });
   }

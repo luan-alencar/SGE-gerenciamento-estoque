@@ -5,7 +5,7 @@
                 <div class="informacao-produto">
                     <p-card class="botao-editar">
                         Editar Produto:
-                        <button (click)="mostrarDialogEditar(produto.id)" [routerLink]="editar" pButton type="button"
+                        <button (click)="mostrarDialogEditar(produto.id)" [routerLink]="['editar' ,produto]" pButton type="button"
                             icon="pi pi-pencil"></button>
 
                     </p-card>

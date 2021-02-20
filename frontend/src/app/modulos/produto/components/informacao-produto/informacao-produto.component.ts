@@ -32,23 +32,11 @@ export class InformacaoProdutoComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Deseja editar mesmo esse produto?',
       accept: () => {
-        this.editar()
       }
     });
   }
 
-  editar() {
-    this.produtoService.editarProduto(this.produto)
-      .subscribe(() => {
-        alert('Produto editado!');
-        setTimeout(() => {
-          this.router.navigate(['/produtos']);
-        }, 1500)
-      }, erro => {
-        alert("dados inválidos");
-
-      });
-  }
+ 
 
   mostrarDialogEditar(id: number) {
     this.produtoService.buscarProdutoPorId(id)
