@@ -5,8 +5,9 @@
                 <div class="informacao-produto">
                     <p-card class="botao-editar">
                         Editar Produto:
-                        <button (click)="mostrarDialogEditar(produto.id)" pButton type="button"
+                        <button (click)="mostrarDialogEditar(produto.id)" [routerLink]="['editar' ,produto]" pButton type="button"
                             icon="pi pi-pencil"></button>
+
                     </p-card>
                     <div class="atributo p-shadow-1">
                         <h3>Descrição</h3>
@@ -26,7 +27,7 @@
 
                             <ng-template pTemplate="header">
             <tr>
-                <th>Perguntas sobre o Produto</th>
+                <th>Feedback</th>
             </tr>
             </ng-template>
             <ng-template pTemplate="body" let-produto>
@@ -47,8 +48,7 @@
             [routerLink]="['/produtos/listagem' , produto.id ]"></p-button>
     </div>
     <!-- <div class="p-d-flex p-jc-end">
-        <button pButton type="button" icon="pi pi-pencil" [routerLink]="['/eventos/formulario' , evento.id ]"></button>
-        <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-        <button pButton type="button" icon="pi pi-trash" (click)="confirm(evento.id)"></button>
+        <button pButton type="button" icon="pi pi-pencil" [routerLink]="['editar' , produto.id ]"></button>
+      
     </div> -->
 </p-card>

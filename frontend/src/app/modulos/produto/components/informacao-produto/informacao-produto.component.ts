@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ConfirmationService } from 'primeng';
 import { Produto } from 'src/app/dominio/produto';
 import { ProdutoService } from '../../services/produto.service';
 
@@ -15,15 +17,32 @@ export class InformacaoProdutoComponent implements OnInit {
   formularioEdicao: boolean;
 
 
-  constructor(private produtoService: ProdutoService) { }
+  constructor(
+    private produtoService: ProdutoService,
+    private confirmationService: ConfirmationService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+
+
   }
+
+  confirm() {
+    this.confirmationService.confirm({
+      message: 'Deseja editar mesmo esse produto?',
+      accept: () => {
+      }
+    });
+  }
+
+ 
 
   mostrarDialogEditar(id: number) {
     this.produtoService.buscarProdutoPorId(id)
       .subscribe(produto => {
         this.produto = produto;
+        console.log(this.produto);
         this.mostrarDialog(true);
       });
   }

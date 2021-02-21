@@ -1,5 +1,3 @@
-import { Categoria } from "./categoria";
-import { TipoSituacao } from "./tipo-situacao";
 
 export class Produto {
 

@@ -1,5 +1,5 @@
 <p-card>
-    <h2>Cadastro de Produto</h2>
+    <h2>Edição de produto</h2>
 
     <form [formGroup]="formProduto">
 
@@ -50,7 +50,7 @@
             <br>
 
             <!-- <p-splitButton [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" label="Save"
-                icon="pi pi-check" (onClick)="salvar()" [model]="items"></p-splitButton> -->
+                    icon="pi pi-check" (onClick)="" [model]="items"></p-splitButton> -->
 
             <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 
@@ -58,8 +58,7 @@
 
         </div>
 
-        <button (click)="salvar()" pButton icon="pi pi-check" type="button"
-            [label]="edicao ?'Editar' : 'Cadastrar' "></button>
     </form>
+    <button (click)="confirm()" pButton icon="pi pi-check" [label]="edicao ?'Editar' : 'Cadastrar' "></button>
 
 </p-card>
