@@ -38,7 +38,8 @@ export class ProdutoCadastroComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
-    private router: Router) { }
+    private router: Router,
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
 
@@ -61,6 +62,19 @@ export class ProdutoCadastroComponent implements OnInit {
         this.buscarProduto(params.id);
       }
     });
+  }
+
+  addSingle() {
+    this.messageService.add({ severity: 'success', summary: 'Cadastro de Produto', detail: 'Cadastro realizado' });
+  }
+
+  addMultiple() {
+    this.messageService.addAll([{ severity: 'success', summary: 'Cadastro de Produto', detail: 'Cadastro realizado' },
+    { severity: 'info', summary: 'Editado!', detail: 'O produto foi editado com sucesso' }]);
+  }
+
+  clear() {
+    this.messageService.clear();
   }
 
   showDialog() {
@@ -114,10 +128,10 @@ export class ProdutoCadastroComponent implements OnInit {
       this.produtoService.editarProduto(this.produto).subscribe(
         produto => {
           this.produto = produto;
-          alert("Produto salvo com sucesso");
-          setTimeout(() => {
+          this.addMultiple();
+           setTimeout(() => {
             this.router.navigate(['/produtos'])
-          }, 1500)
+          }, 1800)
         }, erro => {
           alert("dados inválidos")
 
@@ -126,11 +140,11 @@ export class ProdutoCadastroComponent implements OnInit {
 
       this.produtoService.salvarProduto(this.produto)
         .subscribe(produto => {
-          alert('Produto salvo!');
+          this.addSingle();
           this.fecharDialog(produto);
           setTimeout(() => {
             this.router.navigate(['/produtos']);
-          }, 1000);
+          }, 1800);
         }, erro => {
           alert('Dados inválidos!')
         });

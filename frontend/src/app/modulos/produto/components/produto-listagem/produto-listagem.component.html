@@ -1,8 +1,8 @@
 <h1>Listagem de produtos</h1>
 
-<div class="p-d-flex p-jc-end">
+<!-- <div class="p-d-flex p-jc-end">
     <button routerLink="cadastro" pButton type="button" label="Adicionar Produto"></button>
-</div>
+</div> -->
 
 <p-card>
     <p-table [value]="produtos">
@@ -22,7 +22,11 @@
                 <td>{{produto.categoria}}</td>
                 <td>
                     <button (click)="confirmarDeletarProduto(produto.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
+                    <p-toast></p-toast>
+
                     <button id="botao-info" class="p-ml-2" (click)="showDialog(produto.id)" pButton type="button" icon="pi pi-info-circle"></button>
+                    <p-toast></p-toast>
+
                 </td>
             </tr>
         </ng-template>
