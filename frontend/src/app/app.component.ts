@@ -56,7 +56,7 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
         this.items = [
             { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/home'] },
             { label: 'Produtos', icon: 'pi pi-shopping-cart', routerLink: ['/produtos'] },
-            { label: 'Edit', icon: 'pi pi-fw pi-pencil' },
+            { label: 'Edit', icon: 'pi pi-fw pi-pencil', routerLink: ['/produtos/editar']},
             { label: 'Documentation', icon: 'pi pi-fw pi-file' },
             { label: 'Settings', icon: 'pi pi-fw pi-cog' }
         ];
