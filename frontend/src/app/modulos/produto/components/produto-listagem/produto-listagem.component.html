@@ -21,10 +21,8 @@
                 <td>{{produto.preco | currency:"BRL"}}</td>
                 <td>{{produto.categoria}}</td>
                 <td>
-                    <button (click)="confirmarDeletarProduto(produto.id)" class="p-ml-2" pButton type="button"
-                        icon="pi pi-trash"></button>
-                    <button id="botao-info" class="p-ml-2" (click)="showDialog(produto.id)" pButton type="button"
-                        icon="pi pi-info-circle"></button>
+                    <button (click)="confirmarDeletarProduto(produto.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
+                    <button id="botao-info" class="p-ml-2" (click)="showDialog(produto.id)" pButton type="button" icon="pi pi-info-circle"></button>
                 </td>
             </tr>
         </ng-template>
