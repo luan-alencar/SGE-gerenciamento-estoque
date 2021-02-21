@@ -19,7 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProdutoServico {
 
-    private final CategoriaRepositorio categoriaRepositorio;
     private final ProdutoRepositorio produtoRepositorio;
     private final ProdutoMapper produtoMapper;
 
