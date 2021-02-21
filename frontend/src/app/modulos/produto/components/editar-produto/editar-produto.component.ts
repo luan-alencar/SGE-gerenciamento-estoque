@@ -34,7 +34,6 @@ export class EditarProdutoComponent implements OnInit {
     private produtoServico: ProdutoService,
     private fb: FormBuilder,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -59,9 +58,17 @@ export class EditarProdutoComponent implements OnInit {
     });
   }
 
+  private buscarProdutos() {
+    this.produtoServico.buscarTodosProdutos();
+  }
+
   fecharDialog() {
     this.exibirDialog = false;
     this.buscarTodosProduto();
+  }
+
+  showDialog() {
+    this.display = true;
   }
 
   buscarTodosProduto() {
@@ -71,17 +78,9 @@ export class EditarProdutoComponent implements OnInit {
       }));
   }
 
-  showDialog() {
-    this.display = true;
-  }
-
   buscarProduto(id: number) {
     this.produtoServico.buscarProdutoPorId(id)
       .subscribe(produto => this.produto = produto);
-  }
-
-  private buscarProdutos() {
-    this.produtoServico.buscarTodosProdutos();
   }
 
   buscarTipoSituacao() {
@@ -99,6 +98,15 @@ export class EditarProdutoComponent implements OnInit {
       });
   }
 
+  confirm() {
+    this.confirmationService.confirm({
+      message: 'Deseja confirmar a edição do produto?',
+      accept: () => {
+        this.editar();
+      }
+    });
+  }
+
   editar() {
     this.produtoServico.editarProduto(this.produto)
       .subscribe(() => {
@@ -107,17 +115,8 @@ export class EditarProdutoComponent implements OnInit {
           this.router.navigate(['/produtos']);
         }, 1500)
       }, erro => {
-        alert("dados inválidos");
+        alert("Dados inválidos");
 
       });
-  }
-
-  confirm() {
-    this.confirmationService.confirm({
-      message: 'Deseja confirmar a edição do produto?',
-      accept: () => {
-        this.editar();
-      }
-    });
   }
 }

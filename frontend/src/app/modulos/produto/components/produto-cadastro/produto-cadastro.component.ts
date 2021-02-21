@@ -128,8 +128,11 @@ export class ProdutoCadastroComponent implements OnInit {
         .subscribe(produto => {
           alert('Produto salvo!');
           this.fecharDialog(produto);
-        }, (erro: HttpErrorResponse) => {
-          alert(erro.error.message)
+          setTimeout(() => {
+            this.router.navigate(['/produtos']);
+          }, 1000);
+        }, erro => {
+          alert('Dados inválidos!')
         });
     }
     console.log(this.produto);
