@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, OnDestroy, OnInit, NgZone } from '@angular/core';
-import { ScrollPanel } from 'primeng';
+import { MenuItem, ScrollPanel } from 'primeng';
 import { MenusService, MenuOrientation } from '@nuvem/primeng-components';
 
 @Component({
@@ -7,6 +7,10 @@ import { MenusService, MenuOrientation } from '@nuvem/primeng-components';
     templateUrl: './app.component.html'
 })
 export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
+
+    items: MenuItem[];
+
+    activeItem: MenuItem;
 
     layoutCompact = true;
 
@@ -49,12 +53,24 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
     ngOnInit() {
         this.zone.runOutsideAngular(() => { this.bindRipple(); });
 
+        this.items = [
+            { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/home'] },
+            { label: 'Produtos', icon: 'pi pi-shopping-cart', routerLink: ['/produtos'] },
+            { label: 'Edit', icon: 'pi pi-fw pi-pencil', routerLink: ['/produtos/editar']},
+            { label: 'Documentation', icon: 'pi pi-fw pi-file' },
+            { label: 'Settings', icon: 'pi pi-fw pi-cog' }
+        ];
+
+        this.activeItem = this.items[0];
+
 
         this.menuService.itens = [
             { label: 'Home', icon: 'dashboard', routerLink: ['/home'] },
-            { label: 'Produtos', icon: 'dashboard', routerLink: ['/produtos'] }
+            { label: 'Produtos', icon: 'pi pi-shopping-cart', routerLink: ['/produtos'] }
 
         ];
+
+
     }
 
     bindRipple() {
