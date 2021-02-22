@@ -6,13 +6,24 @@
             <div class="p-grid">
                 <div class="p-col-6">
                     <p-card>
+
                         <ng-template pTemplate="header">
                             Header content here
                         </ng-template>
+
                         Body Content
+
+                        <br>
+
+                        <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+                        <button type="button" (click)="show()" pButton icon="pi pi-info-circle" label="Show"></button>
+
+
                         <ng-template pTemplate="footer">
                             Footer content here
                         </ng-template>
+
                     </p-card>
                 </div>
 

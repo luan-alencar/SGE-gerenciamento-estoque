@@ -54,15 +54,37 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
         this.zone.runOutsideAngular(() => { this.bindRipple(); });
 
         this.items = [
-            { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/home'] },
-            { label: 'Produtos', icon: 'pi pi-shopping-cart', routerLink: ['/produtos'] },
-            { label: 'Cadastrar', icon: 'pi pi-plus', routerLink: ['/produtos/cadastro']},
-            { label: 'Documentation', icon: 'pi pi-fw pi-file' },
-            { label: 'Settings', icon: 'pi pi-fw pi-cog' }
+            {
+                icon: 'pi pi-bars',
+                items: [
+                    {
+                        label: 'Home', routerLink: ['/home']
+                    },
+
+                    {
+                        label: 'Novo',
+                        icon: 'pi pi-fw pi-plus',
+                        items: [
+                            { label: 'Cadastro de produtos', routerLink: ['/produtos/cadastro'] },
+                            { label: 'Other' },
+                        ]
+                    },
+
+                    { label: 'Estoque', routerLink: ['/produtos'] },
+                    { label: 'Quit' }
+                ]
+            },
+            {
+                label: 'Edit',
+                icon: 'pi pi-fw pi-pencil',
+                items: [
+                    { label: 'Delete', icon: 'pi pi-fw pi-trash' },
+                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
+                ]
+            }
         ];
 
         this.activeItem = this.items[0];
-
 
         this.menuService.itens = [
             { label: 'Home', icon: 'dashboard', routerLink: ['/home'] },

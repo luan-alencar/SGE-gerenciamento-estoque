@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogService } from 'primeng';
+import { ProdutoListagemComponent } from './../../modulos/produto/components/produto-listagem/produto-listagem.component';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +11,9 @@ export class HomeComponent implements OnInit {
 
   data: any;
 
-  constructor() {
+  display = false;
+
+  constructor(private dialogService: DialogService) {
     this.data = {
       labels: ['Em estoque', 'Baixo estoque', 'Fora de estoque'],
       datasets: [
@@ -31,5 +35,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  showDialog() {
+    this.display = true;
+  }
+
+  show() {
+    const ref = this.dialogService.open(ProdutoListagemComponent, {
+        header: 'Choose a Car',
+        width: '70%'
+    });
+}
 
 }
