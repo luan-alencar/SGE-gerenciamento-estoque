@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogService } from 'primeng';
+import { ProdutoListagemComponent } from './../../modulos/produto/components/produto-listagem/produto-listagem.component';
 
 @Component({
   selector: 'app-home',
@@ -31,5 +33,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
 }

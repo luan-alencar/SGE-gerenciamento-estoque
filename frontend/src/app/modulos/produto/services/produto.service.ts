@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Categoria } from 'src/app/dominio/categoria';
-import { Produto } from 'src/app/dominio/produto';
 import { TipoSituacao } from 'src/app/dominio/tipo-situacao';
 import { environment } from 'src/environments/environment';
+import { Produto } from './../../../dominio/produto';
 
 @Injectable()
 export class ProdutoService {

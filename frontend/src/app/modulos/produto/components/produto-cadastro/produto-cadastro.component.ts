@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -64,6 +63,10 @@ export class ProdutoCadastroComponent implements OnInit {
     });
   }
 
+  private buscarProdutos() {
+    this.produtoService.buscarTodosProdutos();
+  }
+
   addSingle() {
     this.messageService.add({ severity: 'success', summary: 'Cadastro de Produto', detail: 'Cadastro realizado' });
   }
@@ -77,6 +80,8 @@ export class ProdutoCadastroComponent implements OnInit {
     this.messageService.clear();
   }
 
+
+
   showDialog() {
     this.display = true;
   }
@@ -84,10 +89,6 @@ export class ProdutoCadastroComponent implements OnInit {
   buscarProduto(id: number) {
     this.produtoService.buscarProdutoPorId(id)
       .subscribe(produto => this.produto = produto);
-  }
-
-  private buscarProdutos() {
-    this.produtoService.buscarTodosProdutos();
   }
 
   buscarTipoSituacao() {
@@ -124,31 +125,16 @@ export class ProdutoCadastroComponent implements OnInit {
       return;
     }
 
-    if (this.edicao) {
-      this.produtoService.editarProduto(this.produto).subscribe(
-        produto => {
-          this.produto = produto;
-          this.addMultiple();
-           setTimeout(() => {
-            this.router.navigate(['/produtos'])
-          }, 1800)
-        }, erro => {
-          alert("dados inválidos")
-
-        });
-    } else {
-
-      this.produtoService.salvarProduto(this.produto)
-        .subscribe(produto => {
-          this.addSingle();
-          this.fecharDialog(produto);
-          setTimeout(() => {
-            this.router.navigate(['/produtos']);
-          }, 1800);
-        }, erro => {
-          alert('Dados inválidos!')
-        });
-    }
+    this.produtoService.salvarProduto(this.produto)
+      .subscribe(produto => {
+        this.addSingle();
+        this.fecharDialog(produto);
+        setTimeout(() => {
+          this.router.navigate(['/produtos']);
+        }, 1800);
+      }, erro => {
+        alert('Dados inválidos!')
+      });
     console.log(this.produto);
   }
 

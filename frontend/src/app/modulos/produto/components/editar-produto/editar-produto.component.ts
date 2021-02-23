@@ -14,15 +14,8 @@ import { Produto } from './../../../../dominio/produto';
 })
 export class EditarProdutoComponent implements OnInit {
 
-  formProduto: FormGroup
-
-  produto = new Produto();
-  formularioEdicao: boolean;
   exibirDialog = false;
-  produtos: Produto[] = [];
-  @Input() edicao = false;
-  @Output() produtoSalvo = new EventEmitter<Produto>();
-  @Output() display = false;
+  formProduto: FormGroup;
 
   tipoSituacaoLista: TipoSituacao[] = [];
   tipoSituacao: TipoSituacao;
@@ -30,12 +23,19 @@ export class EditarProdutoComponent implements OnInit {
   categoria: Categoria;
   categorias: Categoria[] = [];
 
+  @Input() produto = new Produto();
+  produtos: Produto[] = [];
+  @Input() edicao = false;
+  @Output() produtoSalvo = new EventEmitter<Produto>();
+  @Output() display = false;
+
   constructor(
     private produtoServico: ProdutoService,
     private fb: FormBuilder,
     private confirmationService: ConfirmationService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -61,6 +61,21 @@ export class EditarProdutoComponent implements OnInit {
   private buscarProdutos() {
     this.produtoServico.buscarTodosProdutos();
   }
+
+
+  addSingle() {
+    this.messageService.add({ severity: 'success', summary: 'Cadastro de Produto', detail: 'Cadastro realizado' });
+  }
+
+  addMultiple() {
+    this.messageService.addAll([{ severity: 'success', summary: 'Cadastro de Produto', detail: 'Cadastro realizado' },
+    { severity: 'info', summary: 'Editado!', detail: 'O produto foi editado com sucesso' }]);
+  }
+
+  clear() {
+    this.messageService.clear();
+  }
+
 
   fecharDialog() {
     this.exibirDialog = false;
@@ -110,10 +125,10 @@ export class EditarProdutoComponent implements OnInit {
   editar() {
     this.produtoServico.editarProduto(this.produto)
       .subscribe(() => {
-        alert('Produto editado!');
+        this.addSingle();
         setTimeout(() => {
           this.router.navigate(['/produtos']);
-        }, 1500)
+        }, 1800)
       }, erro => {
         alert("Dados inválidos");
 
