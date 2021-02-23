@@ -61,6 +61,8 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
                         label: 'Home', routerLink: ['/home']
                     },
 
+
+
                     {
                         label: 'Novo',
                         icon: 'pi pi-fw pi-plus',
@@ -74,6 +76,7 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
                     { label: 'Quit' }
                 ]
             },
+
             {
                 label: 'Edit',
                 icon: 'pi pi-fw pi-pencil',
