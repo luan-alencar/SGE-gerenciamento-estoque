@@ -57,7 +57,7 @@
         <!-- Insertes da tabela Categoria com valores já fixos -->
         <insert tableName="categoria">
             <column name="id" value="1"/>
-            <column name="descricao" value="Acessórios"/>
+            <column name="descricao" value="Bebidas"/>
         </insert>
         <insert tableName="categoria">
             <column name="id" value="2"/>
@@ -65,87 +65,15 @@
         </insert>
         <insert tableName="categoria">
             <column name="id" value="3"/>
-            <column name="descricao" value="Vestuário"/>
+            <column name="descricao" value="Acessórios"/>
         </insert>
         <insert tableName="categoria">
             <column name="id" value="4"/>
-            <column name="descricao" value="Fitness"/>
+            <column name="descricao" value="Vestuário"/>
         </insert>
     </changeSet>
 
-    <changeSet id="3" author="luan.augusto">
-        <createTable tableName="estado">
-            <column name="id" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="nome" type="VARCHAR(50)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addPrimaryKey tableName="estado" columnNames="id" constraintName="pk_estado"/>
-    </changeSet>
-
-    <changeSet id="4" author="luan.augusuto">
-        <createTable tableName="cidade">
-            <column name="id" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="nome" type="VARCHAR(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="id_estado" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addPrimaryKey tableName="cidade" columnNames="id" constraintName="pk_cidade"/>
-        <addForeignKeyConstraint baseTableName="cidade" baseColumnNames="id_estado" constraintName="fk_cidade"
-                                 referencedTableName="estado"
-                                 referencedColumnNames="id"/>
-    </changeSet>
-
-    <changeSet id="5" author="luan.augusto">
-        <createTable tableName="endereco">
-            <column name="id" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="bairro" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="cep" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="complemento" type="VARCHAR(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="logradouro" type="VARCHAR(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="numero" type="INT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="id_usuario" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="id_cidade" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="id_estado" type="NUMBER">
-                <constraints nullable="true"/>
-            </column>
-        </createTable>
-        <addPrimaryKey tableName="endereco" columnNames="id" constraintName="pk_endereco"/>
-        <addForeignKeyConstraint baseTableName="endereco" baseColumnNames="id_usuario" constraintName="fk_endereco"
-                                 referencedTableName="usuario"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="endereco" baseColumnNames="id_cidade" constraintName="fk_cidade"
-                                 referencedTableName="cidade"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="endereco" baseColumnNames="id_estado" constraintName="fk_estado" referencedTableName="estado"
-                                 referencedColumnNames="id"/>
-    </changeSet>
-
     <changeSet id="12" author="luan.augusto">
-
         <createTable tableName="tipo_situacao">
             <column name="id" type="NUMBER">
                 <constraints nullable="false"/>
@@ -190,6 +118,9 @@
                 <constraints/>
             </column>
             <column name="quantidade" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_aquisicao" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
             <column name="id_tipo_situacao" type="NUMBER">

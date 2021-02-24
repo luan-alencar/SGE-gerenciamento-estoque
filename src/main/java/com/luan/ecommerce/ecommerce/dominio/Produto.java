@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -29,6 +30,9 @@ public class Produto implements Serializable {
 
     @Column(name = "quantidade")
     private Integer quantidade;
+
+    @Column(name="data_aquisicao")
+    private LocalDateTime dataAquisicao;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_situacao")
