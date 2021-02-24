@@ -6,6 +6,7 @@ export class Produto {
     preco: number;
     descricao: string;
     quantidade: number;
+    dataAquisicao: Date;
     tipoSituacao: number;
     categoria: number;
 

@@ -8,6 +8,7 @@ import { MenusService, MenuOrientation } from '@nuvem/primeng-components';
 })
 export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
 
+    
     items: MenuItem[];
 
     activeItem: MenuItem;

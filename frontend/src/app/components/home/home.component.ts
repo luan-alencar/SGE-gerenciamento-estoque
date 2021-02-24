@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogService } from 'primeng';
-import { ProdutoListagemComponent } from './../../modulos/produto/components/produto-listagem/produto-listagem.component';
+
 
 @Component({
   selector: 'app-home',
@@ -9,7 +8,28 @@ import { ProdutoListagemComponent } from './../../modulos/produto/components/pro
 })
 export class HomeComponent implements OnInit {
 
+  value1: number = 0;
+
+  value2: number = 50;
+
+  value3: number = 75;
+
+  value4: number = 10;
+
+  value5: number = 40;
+
+  value6: number = 60;
+
+  value7: number = 40;
+
+  value8: number = 60;
+
+  value9: number = 50;
+
   data: any;
+
+  value = 0;
+
 
   constructor() {
     this.data = {
