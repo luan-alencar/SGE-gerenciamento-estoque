@@ -1,64 +1,72 @@
 <p-card>
     <h2>Cadastro de Produto</h2>
 
+    <br>
     <form [formGroup]="formProduto">
 
-        <div class="p-fluid p-formgrid p-grid">
+        <div class="p-fluid p-grid">
 
-            <div class="p-field p-col-12 p-md-6 ui-float-label">
-                <input id="float-input" placeholder="Nome" class="input" type="text" [(ngModel)]="produto.nome"
-                    formControlName="nome" pInputText>
+            <div class="p-col-12 p-md-4" > 
+                <div class="p-inputgroup">
+                    <span class="p-float-label">
+                        <input type="text" pInputText [(ngModel)]="produto.nome" formControlName="nome"
+                        placeholder="Nome">
+                    </span> 
+                </div>
             </div>
 
-            <br>
 
-            <div class="p-field p-col-12 p-md-6 ui-float-label">
-                <textarea type="text" rows="4" placeholder="Descrição" [(ngModel)]="produto.descricao"
-                    formControlName="descricao" pInputTextarea></textarea>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input type="text" pInputText [(ngModel)]="produto.descricao" formControlName="descricao">
+                    <label for="descricao">descricao</label>
+                </span>
             </div>
 
-            <br>
+            <div class="p-field p-col-12 p-md-4">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">$</span>
+                    <input type="text" pInputText [(ngModel)]="produto.preco" formControlName="preco">
+                    <span class="p-inputgroup-addon">.00</span>
+                </div>
 
-            <div class="p-field p-col-12 p-md-6  ui-float-label">
-                <input class="input " type="number" pKeyFilter="pnum" [(ngModel)]="produto.preco" size="30"
-                    formControlName="preco" placeholder="Preço:" pInputText />
             </div>
 
-            <br>
+            <div class="p-inputgroup">
 
-            <div class="p-field p-col-12 p-md-6 ui-float-label">
-                <input id="quantidade" type="number" placeholder="Quantidade" [(ngModel)]="produto.quantidade"
-                    formControlName="quantidade" pInputText>
+                <input type="text" pInputText [(ngModel)]="produto.quantidade" formControlName="quantidade"
+                    placeholder="quantidade">
             </div>
 
-            <br>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
 
-            <div class="p-field p-col-12 p-md-6 ui-float-label">
-                <p-dropdown [options]="categorias" [(ngModel)]="categoria" placeholder="Categorias"
-                    formControlName="categoria" optionLabel="descricao" optionValue="id">
-                </p-dropdown>
+                    <div class="p-field p-col-12 p-md-6">
+                        <input class="input" type="datetime-local" [(ngModel)]="produto.dataAquisicao"
+                            placeholder="Data e hora:" formControlName="dataAquisicao" pInputText />
+                    </div>
+                </span>
             </div>
 
-            <br>
-
-            <div class="p-field p-col-12 p-md-6 ui-float-label">
-                <p-dropdown [options]="tipoSituacaoLista" [(ngModel)]="tipoSituacao" placeholder="Estoque"
-                    formControlName="tipoSituacao" optionLabel="descricao" optionValue="id">
-                </p-dropdown>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-dropdown [options]="categorias" placeholder="Categoria" [(ngModel)]="categoria"
+                        formControlName="categoria" optionLabel="descricao" optionValue="id"></p-dropdown>
+                </span>
             </div>
 
-            <br>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
 
-            <!-- <p-splitButton [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" label="Save"
-                icon="pi pi-check" (onClick)="salvar()" [model]="items"></p-splitButton> -->
+                    <p-dropdown [options]="tipoSituacaoLista" placeholder="tipoSituacao" [(ngModel)]="tipoSituacao"
+                        formControlName="tipoSituacao" optionLabel="descricao" optionValue="id"></p-dropdown>
 
-            <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-
-            <br>
-
+                </span>
+            </div>
         </div>
 
-        <button (click)="salvar()" pButton icon="pi pi-check" type="button" [label]="edicao ?'Editar' : 'Cadastrar' ">
+
+        <button (click)="salvar()" pButton icon="pi pi-save" type="button" [label]="edicao ?'Editar' : 'Cadastrar' ">
         </button>
         <p-toast></p-toast>
 

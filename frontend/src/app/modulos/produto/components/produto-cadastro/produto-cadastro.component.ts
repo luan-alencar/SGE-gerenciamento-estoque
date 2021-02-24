@@ -51,6 +51,7 @@ export class ProdutoCadastroComponent implements OnInit {
       preco: '',
       descricao: '',
       quantidade: '',
+      dataAquisicao: '',
       tipoSituacao: '',
       categoria: ''
     });
