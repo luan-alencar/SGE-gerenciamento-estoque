@@ -1,14 +1,17 @@
 <p-card>
     <h2>Cadastro de Produto</h2>
 
+    <br>
     <form [formGroup]="formProduto">
 
         <div class="p-fluid p-grid">
 
-            <div class="p-col-12 p-md-4">
+            <div class="p-col-12 p-md-4" > 
                 <div class="p-inputgroup">
-                    <span class="p-inputgroup-addon"><i class="pi pi-caret-right"></i></span>
-                    <input type="text" pInputText [(ngModel)]="produto.nome" formControlName="nome" placeholder="Nome">
+                    <span class="p-float-label">
+                        <input type="text" pInputText [(ngModel)]="produto.nome" formControlName="nome"
+                        placeholder="Nome">
+                    </span> 
                 </div>
             </div>
 
