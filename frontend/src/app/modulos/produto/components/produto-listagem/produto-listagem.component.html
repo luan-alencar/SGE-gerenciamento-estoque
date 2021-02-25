@@ -9,9 +9,9 @@
         <ng-template pTemplate="header">
             <tr>
                 <th>Nome</th>
-                <th>Quantidade</th>
+                <th>Descrioção</th>
                 <th>Preço</th>
-                <th>Estoque</th>
+                <th>Quantidade</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-produto>
@@ -19,12 +19,14 @@
                 <td>{{produto.nome}}</td>
                 <td>{{produto.descricao}}</td>
                 <td>{{produto.preco | currency:"BRL"}}</td>
-                <td>{{produto.categoria}}</td>
+                <td>{{produto.quantidade}}</td>
                 <td>
-                    <button (click)="confirmarDeletarProduto(produto.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
+                    <button (click)="confirmarDeletarProduto(produto.id)" class="p-ml-2" pButton type="button"
+                        icon="pi pi-trash"></button>
                     <p-toast></p-toast>
 
-                    <button id="botao-info" class="p-ml-2" (click)="showDialog(produto.id)" pButton type="button" icon="pi pi-info-circle"></button>
+                    <button id="botao-info" class="p-ml-2" (click)="showDialog(produto.id)" pButton type="button"
+                        icon="pi pi-info-circle"></button>
                     <p-toast></p-toast>
 
                 </td>

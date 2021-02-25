@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng';
+import { Categoria } from 'src/app/dominio/categoria';
 import { Produto } from 'src/app/dominio/produto';
 import { ProdutoService } from '../../services/produto.service';
 
@@ -12,7 +13,7 @@ import { ProdutoService } from '../../services/produto.service';
 export class InformacaoProdutoComponent implements OnInit {
 
   @Input() produto = new Produto();
-  @Input() categoria: string;
+  @Input() categoria: Categoria;
   exibirDialog = false;
   formularioEdicao: boolean;
 
@@ -36,7 +37,7 @@ export class InformacaoProdutoComponent implements OnInit {
     });
   }
 
- 
+
 
   mostrarDialogEditar(id: number) {
     this.produtoService.buscarProdutoPorId(id)
