@@ -70,12 +70,12 @@ export class ProdutoCadastroComponent implements OnInit {
   }
 
   addSingle() {
-    this.messageService.add({ severity: 'success', summary: 'Cadastro de Produto', detail: 'Cadastro realizado' });
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registered Product' });
   }
 
   addMultiple() {
-    this.messageService.addAll([{ severity: 'success', summary: 'Cadastro de Produto', detail: 'Cadastro realizado' },
-    { severity: 'info', summary: 'Editado!', detail: 'O produto foi editado com sucesso' }]);
+    this.messageService.addAll([{ severity: 'success', summary: 'Success', detail: 'Registered Product' },
+    { severity: 'info', summary: 'Success', detail: 'Edited Product' }]);
   }
 
   clear() {
@@ -109,7 +109,7 @@ export class ProdutoCadastroComponent implements OnInit {
 
   confirm() {
     this.confirmationService.confirm({
-      message: 'Deseja salvar mesmo esse produto?',
+      message: 'Do you want to save?',
       accept: () => {
         this.salvar()
       }

@@ -10,22 +10,28 @@ import { ProdutoService } from '../../services/produto.service';
 @Component({
   selector: 'app-produto-listagem',
   templateUrl: './produto-listagem.component.html',
-  styleUrls: ['./produto-listagem.component.css']
+  styleUrls: ['./produto-listagem.component.scss'],
 })
 export class ProdutoListagemComponent implements OnInit {
 
   formProduto: FormGroup;
 
   items: MenuItem[] = [];
+
   produtos: Produto[] = [];
+
   produto = new Produto();
+
   formularioEdicao: boolean;
+
   exibirDialog = false;
 
-  @Output() produtoSalvo = new EventEmitter<Produto>();
 
-  @Input() categoria = new Categoria();
-  @Output() display = false;
+  produtoSalvo = new EventEmitter<Produto>();
+
+  categoria = new Categoria();
+
+  display = false;
 
   produtoDialog: boolean;
 
@@ -35,8 +41,9 @@ export class ProdutoListagemComponent implements OnInit {
 
   submitted: boolean;
 
-  @Output() tipoSituacaoLista: TipoSituacao[] = [];
-  @Output() tipoSituacao: TipoSituacao;
+  tipoSituacaoLista: TipoSituacao[] = [];
+  
+  tipoSituacao: TipoSituacao;
 
   categorias: Categoria[] = [];
 
@@ -51,29 +58,29 @@ export class ProdutoListagemComponent implements OnInit {
 
     this.buscarProdutos();
 
+    this.statuses = [
+      { label: 'INSTOCK', value: 'instock' },
+      { label: 'LOWSTOCK', value: 'lowstock' },
+      { label: 'OUTOFSTOCK', value: 'outofstock' }
+    ];
+
   }
 
   private buscarProdutos() {
-    this.produtoService.buscarTodosProdutos();
+    this.produtoService.buscarTodosProdutos().subscribe(data => this.produtos = data);
   }
 
-  addSingle() {
-    this.messageService.add({ severity: 'success', summary: 'Delete de Produto', detail: 'Produto apagado com sucesso!' });
+  deleteSingle() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product Deleted' });
   }
 
   addMultiple() {
-    this.messageService.addAll([{ severity: 'success', summary: 'Cadastro de Produto', detail: 'Cadastro realizado' },
-    { severity: 'info', summary: 'Editado!', detail: 'O produto foi editado com sucesso' }]);
+    this.messageService.addAll([{ severity: 'success', summary: 'Success', detail: 'Registered Product' },
+    { severity: 'info', summary: 'Success', detail: 'Edited Product' }]);
   }
 
   clear() {
     this.messageService.clear();
-  }
-
-
-  mostrarDialog(edicao = false) {
-    this.exibirDialog = true;
-    this.formularioEdicao = edicao;
   }
 
   openNew() {
@@ -115,6 +122,44 @@ export class ProdutoListagemComponent implements OnInit {
     });
   }
 
+
+  mostrarDialogEditar(id: number) {
+    this.produtoService.buscarProdutoPorId(id)
+      .subscribe(produto => {
+        this.produto = produto;
+        this.mostrarDialog(true);
+      });
+  }
+
+  mostrarDialog(edicao = false) {
+    this.exibirDialog = true;
+    this.formularioEdicao = edicao;
+  }
+
+
+  fecharDialog(produtoSalvo: Produto) {
+    this.exibirDialog = false;
+    this.buscarProdutos();
+  }
+
+  confirmarDeletarProduto(id: number) {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir o usuário?',
+      accept: () => {
+        this.deletarProduto(id);
+      }
+    });
+  }
+
+  deletarProduto(id?: number) {
+    this.produtoService.deletarProduto(id)
+      .subscribe(() => {
+        this.deleteSingle();
+        this.buscarProdutos();
+      },
+        err => alert(err));
+  }
+
   deleteSelectedProducts() {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete the selected products?',
@@ -128,23 +173,7 @@ export class ProdutoListagemComponent implements OnInit {
     });
   }
 
-  editProduct(product: Produto) {
-    this.produto = { ...product };
-    this.produtoDialog = true;
-  }
 
-  deleteProduct(product: Produto) {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + product.nome + '?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.produtos = this.produtos.filter(val => val.id !== product.id);
-        this.produto = new Produto();
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-      }
-    });
-  }
 
   hideDialog() {
     this.produtoDialog = false;
@@ -163,7 +192,7 @@ export class ProdutoListagemComponent implements OnInit {
 
     this.produtoService.salvarProduto(this.produto)
       .subscribe(produto => {
-        this.addSingle();
+        this.deleteSingle();
         this.fecharDialog(produto);
         setTimeout(() => {
           this.router.navigate(['/produtos']);
@@ -176,7 +205,4 @@ export class ProdutoListagemComponent implements OnInit {
 
 
 
-  fecharDialog(produtoSalvo: Produto) {
-    this.produtoSalvo.emit(produtoSalvo);
-  }
 }
