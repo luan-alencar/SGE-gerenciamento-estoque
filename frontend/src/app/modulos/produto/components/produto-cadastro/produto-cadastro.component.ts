@@ -17,6 +17,7 @@ import { ProdutoService } from '../../services/produto.service';
 })
 export class ProdutoCadastroComponent implements OnInit {
 
+
   formProduto: FormGroup;
 
   tipoSituacaoLista: TipoSituacao[] = [];
@@ -80,7 +81,6 @@ export class ProdutoCadastroComponent implements OnInit {
   clear() {
     this.messageService.clear();
   }
-
 
 
   showDialog() {

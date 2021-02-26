@@ -1,57 +1,207 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng';
+import { Categoria } from 'src/app/dominio/categoria';
+import { Produto } from 'src/app/dominio/produto';
+import { TipoSituacao } from 'src/app/dominio/tipo-situacao';
+import { ProdutoService } from './../../modulos/produto/services/produto.service';
 
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  providers: [MessageService, ConfirmationService]
+
 })
 export class HomeComponent implements OnInit {
 
-  value1: number = 0;
 
-  value2: number = 50;
+  produtoDialog: boolean;
 
-  value3: number = 75;
+  selecionarProdutos: Produto[] = [];
 
-  value4: number = 10;
+  submitted: boolean;
 
-  value5: number = 40;
+  statuses: any[];
 
-  value6: number = 60;
+  formProduto: FormGroup;
 
-  value7: number = 40;
+  tipoSituacaoLista: TipoSituacao[] = [];
+  tipoSituacao: TipoSituacao;
 
-  value8: number = 60;
+  categoria: Categoria;
+  categorias: Categoria[] = [];
 
-  value9: number = 50;
+  @Input() produto = new Produto();
+  produtos: Produto[] = [];
+  @Input() edicao = false;
+  @Output() produtoSalvo = new EventEmitter<Produto>();
+  @Output() display = false;
 
-  data: any;
+  constructor(
 
-  value = 0;
-
-
-  constructor() {
-    this.data = {
-      labels: ['Em estoque', 'Baixo estoque', 'Fora de estoque'],
-      datasets: [
-        {
-          data: [300, 50, 100],
-          backgroundColor: [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56"
-          ],
-          hoverBackgroundColor: [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56"
-          ]
-        }]
-    };
-  }
+    private produtoService: ProdutoService,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private confirmationService: ConfirmationService,
+    private router: Router,
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
+
+    this.buscarProdutos();
+    this.buscarCategorias();
+    this.buscarTipoSituacao();
+
+    this.produtoService.buscarTodosProdutos();
+
+    this.statuses = [
+      { label: 'INSTOCK', value: 'instock' },
+      { label: 'LOWSTOCK', value: 'lowstock' },
+      { label: 'OUTOFSTOCK', value: 'outofstock' }
+    ];
+
+    this.formProduto = this.fb.group({
+      nome: '',
+      preco: '',
+      descricao: '',
+      quantidade: '',
+      dataAquisicao: '',
+      tipoSituacao: '',
+      categoria: ''
+    });
+
+    this.route.params.subscribe(params => {
+      if (params.id) {
+        this.edicao = true;
+        this.buscarProduto(params.id);
+      }
+    });
+  }
+
+  private buscarProdutos() {
+    this.produtoService.buscarTodosProdutos();
+  }
+
+  addSingle() {
+    this.messageService.add({ severity: 'success', summary: 'Cadastro de Produto', detail: 'Cadastro realizado' });
+  }
+
+  addMultiple() {
+    this.messageService.addAll([{ severity: 'success', summary: 'Cadastro de Produto', detail: 'Cadastro realizado' },
+    { severity: 'info', summary: 'Editado!', detail: 'O produto foi editado com sucesso' }]);
+  }
+
+  clear() {
+    this.messageService.clear();
+  }
+
+
+
+  showDialog() {
+    this.display = true;
+  }
+
+  buscarProduto(id: number) {
+    this.produtoService.buscarProdutoPorId(id)
+      .subscribe(produto => this.produto = produto);
+  }
+
+  buscarTipoSituacao() {
+    this.produtoService.buscarTodasSituacoes()
+      .subscribe((tipoSituacao: TipoSituacao[]) => {
+        this.tipoSituacaoLista = tipoSituacao;
+      });
+  }
+
+  buscarCategorias() {
+    this.produtoService.buscarTodasCategorias()
+      .subscribe((categorias: Categoria[]) => {
+        this.categorias = categorias;
+        console.log(categorias);
+      });
+  }
+
+  confirm() {
+    this.confirmationService.confirm({
+      message: 'Deseja salvar mesmo esse produto?',
+      accept: () => {
+        this.salvar()
+      }
+    });
+  }
+
+  openNew() {
+    this.produto = new Produto();
+    this.submitted = false;
+    this.produtoDialog = true;
+  }
+
+  deleteSelectedProducts() {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete the selected products?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.produtos = this.produtos.filter(val => !this.selecionarProdutos.includes(val));
+        this.selecionarProdutos = null;
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+      }
+    });
+  }
+
+  editProduct(product: Produto) {
+    this.produto = { ...product };
+    this.produtoDialog = true;
+  }
+
+  deleteProduct(product: Produto) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + product.nome + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.produtos = this.produtos.filter(val => val.id !== product.id);
+        this.produto = new Produto();
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+      }
+    });
+  }
+
+  hideDialog() {
+    this.produtoDialog = false;
+    this.submitted = false;
+  }
+
+  salvar() {
+
+    this.produto.categoria = this.categoria.id;
+    this.produto.tipoSituacao = this.tipoSituacao.id;
+
+    if (this.formProduto.invalid) {
+      alert('formulario invalido');
+      return;
+    }
+
+    this.produtoService.salvarProduto(this.produto)
+      .subscribe(produto => {
+        this.addSingle();
+        this.fecharDialog(produto);
+        setTimeout(() => {
+          this.router.navigate(['/produtos']);
+        }, 1800);
+      }, erro => {
+        alert('Dados inválidos!')
+      });
+    console.log(this.produto);
+  }
+
+
+
+  fecharDialog(produtoSalvo: Produto) {
+    this.produtoSalvo.emit(produtoSalvo);
   }
 
 
