@@ -5,7 +5,7 @@ import { ConfirmationService, MessageService } from 'primeng';
 import { Categoria } from 'src/app/dominio/categoria';
 import { TipoSituacao } from 'src/app/dominio/tipo-situacao';
 import { ProdutoService } from '../../services/produto.service';
-import { Produto } from './../../../../dominio/produto';
+import { Produto } from '../../../../dominio/produto';
 
 @Component({
   selector: 'app-editar-produto',

@@ -1,91 +1,56 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Categoria } from 'src/app/dominio/categoria';
 import { Produto } from 'src/app/dominio/produto';
 import { TipoSituacao } from 'src/app/dominio/tipo-situacao';
-import { ProdutoService } from '../../modules/produto/services/produto.service';
-
+import { ProdutoService } from '../../services/produto.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styles: [`
-  :host ::ng-deep .p-dialog .product-image {
-      width: 150px;
-      margin: 0 auto 2rem auto;
-      display: block;
-  }
-`],
-  styleUrls: ['./home.component.scss'],
-  providers: [MessageService, ConfirmationService]
-
+  selector: 'app-produto-listagem',
+  templateUrl: './produto-listagem.component.html',
+  styleUrls: ['./produto-listagem.component.css']
 })
-export class HomeComponent implements OnInit {
+export class ProdutoListagemComponent implements OnInit {
 
+  formProduto: FormGroup;
+
+  items: MenuItem[] = [];
+  produtos: Produto[] = [];
+  produto = new Produto();
+  formularioEdicao: boolean;
+  exibirDialog = false;
+
+  @Output() produtoSalvo = new EventEmitter<Produto>();
+
+  @Input() categoria = new Categoria();
+  @Output() display = false;
 
   produtoDialog: boolean;
+
+  statuses: any[];
 
   selecionarProdutos: Produto[] = [];
 
   submitted: boolean;
 
-  statuses: any[];
+  @Output() tipoSituacaoLista: TipoSituacao[] = [];
+  @Output() tipoSituacao: TipoSituacao;
 
-  formProduto: FormGroup;
-
-  tipoSituacaoLista: TipoSituacao[] = [];
-  tipoSituacao: TipoSituacao;
-
-  categoria: Categoria;
   categorias: Categoria[] = [];
 
-  @Input() produto = new Produto();
-  produtos: Produto[] = [];
-  @Input() edicao = false;
-  @Output() produtoSalvo = new EventEmitter<Produto>();
-  @Output() display = false;
-
   constructor(
-
     private produtoService: ProdutoService,
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
     private router: Router,
-    private messageService: MessageService) { }
+    private messageService: MessageService
+  ) { }
 
   ngOnInit(): void {
 
     this.buscarProdutos();
-    this.buscarCategorias();
-    this.buscarTipoSituacao();
 
-    this.produtoService.buscarTodosProdutos();
-
-    this.statuses = [
-      { label: 'INSTOCK', value: 'instock' },
-      { label: 'LOWSTOCK', value: 'lowstock' },
-      { label: 'OUTOFSTOCK', value: 'outofstock' }
-    ];
-
-    this.formProduto = this.fb.group({
-      nome: '',
-      preco: '',
-      descricao: '',
-      quantidade: '',
-      dataAquisicao: '',
-      tipoSituacao: '',
-      categoria: ''
-    });
-
-    this.route.params.subscribe(params => {
-      if (params.id) {
-        this.edicao = true;
-        this.buscarProduto(params.id);
-      }
-    });
   }
 
   private buscarProdutos() {
@@ -93,7 +58,7 @@ export class HomeComponent implements OnInit {
   }
 
   addSingle() {
-    this.messageService.add({ severity: 'success', summary: 'Cadastro de Produto', detail: 'Cadastro realizado' });
+    this.messageService.add({ severity: 'success', summary: 'Delete de Produto', detail: 'Produto apagado com sucesso!' });
   }
 
   addMultiple() {
@@ -105,6 +70,11 @@ export class HomeComponent implements OnInit {
     this.messageService.clear();
   }
 
+
+  mostrarDialog(edicao = false) {
+    this.exibirDialog = true;
+    this.formularioEdicao = edicao;
+  }
 
   openNew() {
     this.produto = new Produto();
@@ -209,6 +179,4 @@ export class HomeComponent implements OnInit {
   fecharDialog(produtoSalvo: Produto) {
     this.produtoSalvo.emit(produtoSalvo);
   }
-
-
 }
