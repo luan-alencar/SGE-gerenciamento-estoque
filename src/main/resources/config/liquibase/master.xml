@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <include file="/config/liquibase/changelog/v00.0004_adicionando_data_produto_e_categorias.xml"
+    <include file="/config/liquibase/changelog/v00.0005_adicionando_coluna_byte_produto.xml"
              relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

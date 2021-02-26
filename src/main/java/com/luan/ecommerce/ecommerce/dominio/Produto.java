@@ -31,7 +31,10 @@ public class Produto implements Serializable {
     @Column(name = "quantidade")
     private Integer quantidade;
 
-    @Column(name="data_aquisicao")
+    @Column(name = "imagem")
+    private Integer imagem;
+
+    @Column(name = "data_aquisicao")
     private LocalDateTime dataAquisicao;
 
     @ManyToOne(fetch = FetchType.LAZY)
