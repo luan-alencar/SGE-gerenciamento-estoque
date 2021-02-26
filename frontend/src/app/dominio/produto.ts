@@ -6,10 +6,13 @@ export class Produto {
     preco: number;
     descricao: string;
     quantidade: number;
-    imagem: number;
+    imagem: string;
     dataAquisicao: Date;
     tipoSituacao: number;
     categoria: number;
+    rating?:number;
+    inventoryStatus?:string;
+
 
     constructor() { }
 }
