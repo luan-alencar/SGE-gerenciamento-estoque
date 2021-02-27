@@ -63,7 +63,7 @@ import { SharedModule } from './shared/shared.module';
         RadioButtonModule,
         InputNumberModule,
         ConfirmDialogModule,
-        InputTextareaModule,
+        InputTextareaModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }, ProdutoService

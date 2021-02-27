@@ -23,7 +23,6 @@ import { ProdutoService } from './services/produto.service';
     CommonModule,
     ProdutoRoutingModule,
     ReactiveFormsModule,
-    ProdutoRoutingModule,
     SharedModule,
     HttpClientModule,
     CardModule,
