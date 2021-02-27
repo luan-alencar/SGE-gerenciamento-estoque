@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginSuccessComponent } from '@nuvem/angular-base';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { HomeComponent } from './components/home/home.component';
-import { ProdutoListagemComponent } from './modulos/produto/components/produto-listagem/produto-listagem.component';
-import { ProdutoModule } from './modulos/produto/produto.module';
+import { ProdutoListagemComponent } from './modules/produto/components/produto-listagem/produto-listagem.component';
+import { ProdutoModule } from './modules/produto/produto.module';
 
 const routes: Routes = [
 

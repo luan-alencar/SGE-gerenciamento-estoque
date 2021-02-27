@@ -5,13 +5,20 @@ import { ConfirmationService, MessageService } from 'primeng';
 import { Categoria } from 'src/app/dominio/categoria';
 import { Produto } from 'src/app/dominio/produto';
 import { TipoSituacao } from 'src/app/dominio/tipo-situacao';
-import { ProdutoService } from './../../modulos/produto/services/produto.service';
+import { ProdutoService } from '../../modules/produto/services/produto.service';
 
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styles: [`
+  :host ::ng-deep .p-dialog .product-image {
+      width: 150px;
+      margin: 0 auto 2rem auto;
+      display: block;
+  }
+`],
+  styleUrls: ['./home.component.scss'],
   providers: [MessageService, ConfirmationService]
 
 })
@@ -99,6 +106,11 @@ export class HomeComponent implements OnInit {
   }
 
 
+  openNew() {
+    this.produto = new Produto();
+    this.submitted = false;
+    this.produtoDialog = true;
+  }
 
   showDialog() {
     this.display = true;
@@ -131,12 +143,6 @@ export class HomeComponent implements OnInit {
         this.salvar()
       }
     });
-  }
-
-  openNew() {
-    this.produto = new Produto();
-    this.submitted = false;
-    this.produtoDialog = true;
   }
 
   deleteSelectedProducts() {

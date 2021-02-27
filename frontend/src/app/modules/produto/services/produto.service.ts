@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Categoria } from 'src/app/dominio/categoria';
 import { TipoSituacao } from 'src/app/dominio/tipo-situacao';
 import { environment } from 'src/environments/environment';
-import { Produto } from './../../../dominio/produto';
+import { Produto } from '../../../dominio/produto';
 
 @Injectable()
 export class ProdutoService {

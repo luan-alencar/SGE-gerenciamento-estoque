@@ -59,7 +59,7 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
                 icon: 'pi pi-bars',
                 items: [
                     {
-                        label: 'Home', routerLink: ['/home']
+                        label: 'Home', routerLink: ['']
                     },
 
 

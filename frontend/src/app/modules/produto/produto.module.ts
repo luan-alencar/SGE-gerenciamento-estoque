@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InputNumberModule } from 'primeng';
 import { CardModule } from 'primeng/card';
 import { SharedModule } from '../../shared/shared.module';
 import { EditarProdutoComponent } from './components/editar-produto/editar-produto.component';
@@ -22,10 +23,10 @@ import { ProdutoService } from './services/produto.service';
     CommonModule,
     ProdutoRoutingModule,
     ReactiveFormsModule,
-    ProdutoRoutingModule,
     SharedModule,
     HttpClientModule,
-    CardModule
+    CardModule,
+    InputNumberModule
   ]
 })
 export class ProdutoModule { }

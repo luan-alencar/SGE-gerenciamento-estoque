@@ -1,4 +1,4 @@
-import { ProdutoService } from './modulos/produto/services/produto.service';
+import { ProdutoService } from './modules/produto/services/produto.service';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -32,7 +32,6 @@ import { SharedModule } from './shared/shared.module';
         BlockUIModule.forRoot({
             message: "Carregando..."
         }),
-        BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
         SharedModule,
@@ -45,7 +44,6 @@ import { SharedModule } from './shared/shared.module';
         MenuModule,
         ReactiveFormsModule,
         FormsModule,
-        BrowserModule,
         BrowserAnimationsModule,
         TableModule,
         CalendarModule,
@@ -62,11 +60,10 @@ import { SharedModule } from './shared/shared.module';
         FileUploadModule,
         ToolbarModule,
         RatingModule,
-        FormsModule,
         RadioButtonModule,
         InputNumberModule,
         ConfirmDialogModule,
-        InputTextareaModule,
+        InputTextareaModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }, ProdutoService
