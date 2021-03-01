@@ -49,6 +49,13 @@
             </div>
         </div>
         <div class="p-field p-grid">
+            <label for="field2"><strong>RG: <strong class="asterisco">*</strong></strong> </label>
+            <div class="p-col">
+                <input id="field2" class="input" type="text" [(ngModel)]="usuario.rg" placeholder="RG:"
+                    formControlName="rg"/>
+            </div>
+        </div>
+        <div class="p-field p-grid">
             <label for="field3"><strong>E-mail: <strong class="asterisco">*</strong></strong></label>
             <div class="p-col">
                 <input id="field3" class="input" type="email" [(ngModel)]="usuario.email" placeholder="Email:"

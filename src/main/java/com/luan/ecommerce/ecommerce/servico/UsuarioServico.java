@@ -21,6 +21,7 @@ public class UsuarioServico {
 
     private final UsuarioRepositorio usuarioRepositorio;
     private final UsuarioMapper usuarioMapper;
+    private static final LocalDate DIA_DE_HOJE = LocalDate.now();
     private final ProdutorServico produtorServico;
 
     public List<UsuarioDTO> listar() {
@@ -40,18 +41,46 @@ public class UsuarioServico {
         return usuarioMapper.toDto(usuario);
     }
 
+    public void criarEmailCadastro(String email, String chave) {
+
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Cadastro SGE");
+        emailDTO.setCorpo("Parabéns você se cadastrou no SGE com SUCESSO! Sua chave é " + chave);
+        emailDTO.setDestinatario(email);
+        emailDTO.setCopias(new ArrayList<>());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        this.produtorServico.enviarEmail(emailDTO);
+    }
+
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) {
-        usuarioDTO.setTipoUsuario(false);
-        validarDadosCadastrais(usuarioDTO);
-        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
-        validarDadosNull(usuarioDTO);
-        validarIdade(usuarioDTO);
-        enviarEmailCadastro(usuario);
-        usuarioRepositorio.save(usuario);
-        enviarEmailCadastro(usuario);
+        usuarioDTO.setAdmin(false);
+        Usuario usuario = verificarPost(usuarioDTO);
+        usuario = usuarioRepositorio.save(usuario);
+        criarEmailCadastro(usuario.getEmail(), usuario.getChave());
         return usuarioMapper.toDto(usuario);
     }
+
+    public Usuario verificarPost(UsuarioDTO usuarioDTO) {
+
+        if (!usuarioRepositorio.findByEmail(usuarioDTO.getEmail()).isEmpty()) {
+            throw new RegraDeNegocioException("O email já foi cadastrado");
+        }
+
+        if (!usuarioRepositorio.findByCpf(usuarioDTO.getCpf()).isEmpty()) {
+            throw new RegraDeNegocioException("Cpf já cadastrado");
+        }
+
+        //EXCEPTION IDADE ERRADA (OBS: EVENTUALMENTE MUDAR PARA LOCALDATE)
+        if (usuarioDTO.getDataNascimento().isAfter(DIA_DE_HOJE)) {
+            throw new RegraDeNegocioException("Data de nascimento invalida");
+        }
+
+        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+        usuario.setChave(UUID.randomUUID().toString());
+        return usuario;
+    }
+
 
     public UsuarioDTO editar(UsuarioDTO usuarioDTO) throws RegraDeNegocioException {
         return usuarioMapper.toDto(usuarioRepositorio.save(usuarioMapper.toEntity(usuarioDTO)));
@@ -65,10 +94,10 @@ public class UsuarioServico {
     // Métodos privados de validacao
 
     // Metodo com servico de mensageria
-    private void enviarEmailCadastro(Usuario usuario) {
+    private void enviarEmailCadastro(Usuario usuario, String chave) {
         EmailDTO emailDTO = new EmailDTO();
-        emailDTO.setAssunto("Cadastro de usuário");
-        emailDTO.setCorpo("<h1> Você foi cadastrado com sucesso na plataforma</h1>!");
+        emailDTO.setAssunto("Cadastro de Funcionário");
+        emailDTO.setCorpo("<h1> Você foi cadastrado na plataforma</h1>! Sua chave de acesso: " + chave );
         emailDTO.setDestinatario(usuario.getEmail());
         emailDTO.setCopias(new ArrayList<>());
         emailDTO.getCopias().add(emailDTO.getDestinatario());
