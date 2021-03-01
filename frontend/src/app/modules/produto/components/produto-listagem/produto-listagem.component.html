@@ -2,8 +2,7 @@
 <div class="card">
     <p-toolbar styleClass="p-mb-4">
 
-        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"
-            routerLink="cadastro">
+        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()">
         </button>
         <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deletarProduto()"
             [disabled]="!selecionarProdutos || !selecionarProdutos.length"></button>
@@ -75,8 +74,10 @@
     </p-table>
 </div>
 
-<p-dialog [(visible)]="produtoDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+<p-dialog [(visible)]="produtoDialog" [style]="{width: '800px'}" header="Product Details" [modal]="true"
     styleClass="p-fluid">
+    <app-produto-cadastro [produto]="produto" (produtoSalvo)="fecharDialog($event)">
+
     <ng-template pTemplate="content">
 
         <div class="p-field">
@@ -142,12 +143,13 @@
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
         <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="salvar()"></button>
     </ng-template>
+</app-produto-cadastro>
 </p-dialog>
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 
 <!-- Dialog para editar um Produto -->
-<p-dialog header="Title" [(visible)]="exibirDialog">
+<p-dialog header="Editar" [(visible)]="exibirDialog">
     <app-produto-cadastro [produto]="produto" [edicao]="formularioEdicao" (produtoSalvo)="fecharDialog($event)">
     </app-produto-cadastro>
 </p-dialog>
