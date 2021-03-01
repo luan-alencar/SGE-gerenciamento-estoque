@@ -1,3 +1,4 @@
+import { UsuarioModule } from './modules/usuario/usuario.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginSuccessComponent } from '@nuvem/angular-base';
@@ -14,8 +15,8 @@ const routes: Routes = [
   },
 
   {
-    path: 'home',
-    component: HomeComponent
+    path: 'usuarios',
+    loadChildren: () => UsuarioModule,
   },
 
 

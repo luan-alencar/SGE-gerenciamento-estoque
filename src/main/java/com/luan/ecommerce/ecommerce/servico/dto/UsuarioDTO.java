@@ -3,6 +3,7 @@ package com.luan.ecommerce.ecommerce.servico.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -18,4 +19,6 @@ public class UsuarioDTO implements Serializable {
     private String email;
     private LocalDate dataNascimento;
     private Boolean tipoUsuario;
+    private String chave;
+    private Boolean admin;
 }

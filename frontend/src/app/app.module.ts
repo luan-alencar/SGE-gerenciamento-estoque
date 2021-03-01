@@ -18,6 +18,8 @@ import { AppFooterComponent } from './components/footer/app.footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { AppTopbarComponent } from './components/topbar/app.topbar.component';
 import { SharedModule } from './shared/shared.module';
+import { UsuarioService } from './modules/usuario/services/usuario.service';
+import { LoginComponent } from './shared/components/login/login.component';
 
 
 @NgModule({
@@ -66,7 +68,8 @@ import { SharedModule } from './shared/shared.module';
         InputTextareaModule
     ],
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy }, ProdutoService
+        { provide: LocationStrategy, useClass: HashLocationStrategy }, ProdutoService, UsuarioService, LoginComponent
+
     ],
     bootstrap: [AppComponent]
 })

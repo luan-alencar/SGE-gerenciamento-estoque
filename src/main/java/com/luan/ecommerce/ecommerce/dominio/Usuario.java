@@ -39,4 +39,10 @@ public class Usuario implements Serializable {
 
     @Column(name = "tipo_usuario")
     private Boolean tipoUsuario;
+
+    @Column(name = "chave")
+    private String chave;
+
+    @Column(name = "admin")
+    private Boolean admin;
 }

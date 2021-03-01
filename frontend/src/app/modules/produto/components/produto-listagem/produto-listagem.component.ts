@@ -174,8 +174,6 @@ export class ProdutoListagemComponent implements OnInit {
     });
   }
 
-
-
   hideDialog() {
     this.produtoDialog = false;
     this.submitted = false;

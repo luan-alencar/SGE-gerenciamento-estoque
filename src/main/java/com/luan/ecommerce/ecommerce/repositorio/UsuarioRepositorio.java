@@ -4,12 +4,15 @@ import com.luan.ecommerce.ecommerce.dominio.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
 
-    Usuario findByCpf(String cpf);
 
-    Usuario findByEmail(String email);
+    List<Usuario> findByCpf(String cpf);
 
-    Usuario findByRg(String rg);
+    List<Usuario> findByEmail(String email);
+
+    Usuario findByChave(String chave);
 }
