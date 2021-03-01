@@ -145,3 +145,9 @@
 </p-dialog>
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<!-- Dialog para editar um Produto -->
+<p-dialog header="Title" [(visible)]="exibirDialog">
+    <app-produto-cadastro [produto]="produto" [edicao]="formularioEdicao" (produtoSalvo)="fecharDialog($event)">
+    </app-produto-cadastro>
+</p-dialog>
