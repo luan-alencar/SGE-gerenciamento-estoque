@@ -128,6 +128,7 @@ export class ProdutoListagemComponent implements OnInit {
       .subscribe(produto => {
         this.produto = produto;
         this.mostrarDialog(true);
+        console.log(this.produto);
       });
   }
 
