@@ -28,9 +28,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="tipo_usuario" type="BOOLEAN">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
-            <column name="chave" type="VARCHAR(5)">
+            <column name="chave" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="admin" type="BOOLEAN">

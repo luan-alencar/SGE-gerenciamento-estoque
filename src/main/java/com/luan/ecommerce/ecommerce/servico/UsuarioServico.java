@@ -97,7 +97,7 @@ public class UsuarioServico {
     private void enviarEmailCadastro(Usuario usuario, String chave) {
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setAssunto("Cadastro de Funcionário");
-        emailDTO.setCorpo("<h1> Você foi cadastrado na plataforma</h1>!");
+        emailDTO.setCorpo("<h1> Você foi cadastrado na plataforma</h1>! Sua chave de acesso: " + chave );
         emailDTO.setDestinatario(usuario.getEmail());
         emailDTO.setCopias(new ArrayList<>());
         emailDTO.getCopias().add(emailDTO.getDestinatario());

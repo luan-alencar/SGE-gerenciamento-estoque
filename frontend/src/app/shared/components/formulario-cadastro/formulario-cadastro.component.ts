@@ -52,6 +52,7 @@ export class FormularioCadastroComponent implements OnInit {
     this.cadastroUsuario = this.fb.group({
       nome: ['', Validators.minLength(3)],
       cpf: ['', [Validators.minLength(11)]],
+      rg: ['', [Validators.minLength(10)]],
       email: ['', Validators.email],
       telefone: '',
       dataNascimento: '',
