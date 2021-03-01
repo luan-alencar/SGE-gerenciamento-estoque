@@ -2,6 +2,7 @@ package com.luan.ecommerce.ecommerce.servico;
 
 import com.luan.ecommerce.ecommerce.dominio.Usuario;
 import com.luan.ecommerce.ecommerce.repositorio.UsuarioRepositorio;
+import com.luan.ecommerce.ecommerce.servico.dto.ChaveDTO;
 import com.luan.ecommerce.ecommerce.servico.dto.EmailDTO;
 import com.luan.ecommerce.ecommerce.servico.dto.UsuarioDTO;
 import com.luan.ecommerce.ecommerce.servico.exception.RegraDeNegocioException;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -30,27 +32,24 @@ public class UsuarioServico {
                 .orElseThrow(() -> new RegraDeNegocioException("Usuário não existe!")));
     }
 
-    public UsuarioDTO buscarPorCpf(String cpf) {
-        return usuarioMapper.toDto(usuarioRepositorio.findByCpf(cpf));
+    public UsuarioDTO obterPorChave(ChaveDTO chaveDTO) {
+        Usuario usuario = usuarioRepositorio.findByChave(chaveDTO.getChave());
+        if (usuario == null) {
+            throw new RegraDeNegocioException("Não foi possível encontrar a chave informada");
+        }
+        return usuarioMapper.toDto(usuario);
     }
 
-    public UsuarioDTO buscarPorEmail(String email) {
-        return usuarioMapper.toDto(usuarioRepositorio.findByEmail(email));
-    }
-
-    public UsuarioDTO buscarPorRg(String rg) {
-        return usuarioMapper.toDto(usuarioRepositorio.findByRg(rg));
-    }
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) {
         usuarioDTO.setTipoUsuario(false);
+        validarDadosCadastrais(usuarioDTO);
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
         validarDadosNull(usuarioDTO);
         validarIdade(usuarioDTO);
-        validarCpf(usuarioDTO);
-        validarEmail(usuarioDTO);
         enviarEmailCadastro(usuario);
         usuarioRepositorio.save(usuario);
+        enviarEmailCadastro(usuario);
         return usuarioMapper.toDto(usuario);
     }
 
@@ -76,6 +75,24 @@ public class UsuarioServico {
         this.produtorServico.enviarEmail(emailDTO);
     }
 
+    private Usuario validarDadosCadastrais(UsuarioDTO usuarioDTO) {
+        if (!usuarioRepositorio.findByEmail(usuarioDTO.getEmail()).isEmpty()) {
+            throw new RegraDeNegocioException("O email já foi cadastrado");
+        }
+
+        if (!usuarioRepositorio.findByCpf(usuarioDTO.getCpf()).isEmpty()) {
+            throw new RegraDeNegocioException("Cpf já cadastrado");
+        }
+
+        //EXCEPTION IDADE ERRADA (OBS: EVENTUALMENTE MUDAR PARA LOCALDATE)
+        if (usuarioDTO.getDataNascimento().isAfter(LocalDate.now())) {
+            throw new RegraDeNegocioException("Data de nascimento invalida");
+        }
+
+        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+        usuario.setChave(UUID.randomUUID().toString());
+        return usuario;
+    }
 
     private void validarDadosNull(UsuarioDTO usuario) {
         if (usuario.getNome() == null) {
@@ -107,17 +124,61 @@ public class UsuarioServico {
                 .orElseThrow(() -> new RegraDeNegocioException("Usuário não encontrado"));
     }
 
-    private void validarEmail(UsuarioDTO usuarioDTO) {
-        Usuario usuario = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
-        if (usuario != null && !usuario.getId().equals(usuarioDTO.getId())) {
+    public Usuario validarDadosEdicao(UsuarioDTO usuarioDTO) {
+        if (usuarioDTO.getId() == null) {
+            throw new RegraDeNegocioException("Id inválido");
+        }
+
+        Usuario usuario = usuarioRepositorio.findById(usuarioDTO.getId())
+                .orElseThrow(() -> new RegraDeNegocioException("Usuario não existe"));
+
+        //CRIA LISTAS ONDE INSTANCIAS COM O MESMO CPF OU EMAIL DO DTO, REMOVENDO O USUARIO QUE VAI SER MODIFICADO//
+        List<Usuario> listaCpf = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
+        List<Usuario> listaEmail = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
+        //REMOVE USUARIO
+        listaCpf.remove(usuario);
+        listaEmail.remove(usuario);
+
+        // VERIFICAR CPF NULL
+
+        if (usuarioDTO.getCpf() == null) {
+            throw new RegraDeNegocioException("CPF Nulo");
+        }
+
+        if (usuarioDTO.getDataNascimento() == null) {
+            throw new RegraDeNegocioException("Data de nascimento nula.");
+        }
+
+        if (usuarioDTO.getEmail() == null) {
+            throw new RegraDeNegocioException("Email nulo");
+        }
+
+        if (usuarioDTO.getNome() == null) {
+            throw new RegraDeNegocioException("Nome nulo");
+        }
+
+        if (!listaEmail.isEmpty()) {
             throw new RegraDeNegocioException("Email já cadastrado");
         }
-    }
 
-    private void validarCpf(UsuarioDTO usuarioDTO) {
-        Usuario usuario = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
-        if (usuario != null && !usuario.getId().equals(usuarioDTO.getId())) {
+        if (!listaCpf.isEmpty()) {
             throw new RegraDeNegocioException("CPF já cadastrado");
         }
+
+        // EXCEPTION CPF INVALIDO
+        if (usuarioDTO.getCpf().length() != 14) {
+            throw new RegraDeNegocioException("CPF invalido");
+        }
+
+        //EXCEPTION IDADE ERRADA
+
+        if (usuarioDTO.getDataNascimento().isAfter(LocalDate.now())) {
+            throw new RegraDeNegocioException("Data de nascimento invalida.");
+        }
+
+        Usuario usuarioTemp = usuarioMapper.toEntity(usuarioDTO);
+        usuarioTemp.setChave(usuario.getChave());
+        return usuarioTemp;
     }
+
 }

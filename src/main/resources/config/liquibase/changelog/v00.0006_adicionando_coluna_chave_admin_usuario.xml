@@ -30,6 +30,12 @@
             <column name="tipo_usuario" type="BOOLEAN">
                 <constraints nullable="false"/>
             </column>
+            <column name="chave" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="admin" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
         <!-- Chave primária e Constantes de Usuário -->

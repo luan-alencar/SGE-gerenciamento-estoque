@@ -1,6 +1,8 @@
+import { LoginComponent } from './shared/components/login/login.component';
 import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, OnDestroy, OnInit, NgZone } from '@angular/core';
 import { MenuItem, ScrollPanel } from 'primeng';
 import { MenusService, MenuOrientation } from '@nuvem/primeng-components';
+import { Usuario } from './dominio/usuario';
 
 @Component({
     selector: 'app-root',
@@ -8,7 +10,10 @@ import { MenusService, MenuOrientation } from '@nuvem/primeng-components';
 })
 export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
 
-    
+    usuarioLogado: Usuario;
+
+    @ViewChild(LoginComponent) login;
+
     items: MenuItem[];
 
     activeItem: MenuItem;
@@ -91,12 +96,17 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
         this.activeItem = this.items[0];
 
         this.menuService.itens = [
-            { label: 'Home', icon: 'dashboard', routerLink: ['/home'] },
+            { label: 'Home', icon: 'dashboard', routerLink: [''] },
+            { label: 'Usuários', icon: 'perm_identity', routerLink:['/usuarios'] },
             { label: 'Produtos', icon: 'pi pi-shopping-cart', routerLink: ['/produtos'] }
 
         ];
 
 
+    }
+
+    logarUsuario(usuario) {
+        this.usuarioLogado = usuario;
     }
 
     bindRipple() {

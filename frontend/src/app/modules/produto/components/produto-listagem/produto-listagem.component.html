@@ -1,10 +1,10 @@
 <p-toast></p-toast>
-<div class="card">
+<div class="cards">
     <p-toolbar styleClass="p-mb-4">
 
         <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()">
         </button>
-        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deletarProduto()"
+        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()"
             [disabled]="!selecionarProdutos || !selecionarProdutos.length"></button>
 
         <ng-template pTemplate="right">
@@ -78,72 +78,75 @@
     styleClass="p-fluid">
     <app-produto-cadastro [produto]="produto" (produtoSalvo)="fecharDialog($event)">
 
-    <ng-template pTemplate="content">
+        <ng-template pTemplate="content">
 
-        <div class="p-field">
-            <label for="nome">Name</label>
-            <input type="text" pInputText id="nome" [(ngModel)]="produto.nome" required autofocus />
-            <small class="p-error" *ngIf="submitted && !produto.nome">Name is required.</small>
-        </div>
-        <div class="p-field">
-            <label for="description">Description</label>
-            <textarea id="description" pInputTextarea [(ngModel)]="produto.descricao" required rows="3"
-                cols="20"></textarea>
-        </div>
-        <div class="p-field">
-            <label for="tipoSituacaoLista">Inventory Status</label>
-            <p-dropdown [(ngModel)]="produto.tipoSituacao" inputId="inventoryStatus" [options]="tipoSituacaoLista"
-                placeholder="Select">
-                <!-- <ng-template let-option pTemplate="item">
+            <div class="p-field">
+                <label for="nome">Name</label>
+                <input type="text" pInputText id="nome" [(ngModel)]="produto.nome" required autofocus />
+                <small class="p-error" *ngIf="submitted && !produto.nome">Name is required.</small>
+            </div>
+            <div class="p-field">
+                <label for="description">Description</label>
+                <textarea id="description" pInputTextarea [(ngModel)]="produto.descricao" required rows="3"
+                    cols="20"></textarea>
+            </div>
+            <div class="p-field">
+                <label for="tipoSituacaoLista">Inventory Status</label>
+                <p-dropdown [(ngModel)]="produto.tipoSituacao" inputId="inventoryStatus" [options]="tipoSituacaoLista"
+                    placeholder="Select">
+                    <!-- <ng-template let-option pTemplate="item">
                     <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
                 </ng-template> -->
-            </p-dropdown>
-        </div>
+                </p-dropdown>
+            </div>
 
-        <div class="p-field">
-            <label class="p-mb-3">Category</label>
+            <div class="p-field">
+                <label class="p-mb-3">Category</label>
+                <div class="p-formgrid p-grid">
+                    <div class="p-field-radiobutton p-col-6">
+                        <p-radioButton id="category1" name="category" value="Accessories"
+                            [(ngModel)]="produto.categoria">
+                        </p-radioButton>
+                        <label for="category1">Accessories</label>
+                    </div>
+                    <div class="p-field-radiobutton p-col-6">
+                        <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="produto.categoria">
+                        </p-radioButton>
+                        <label for="category2">Clothing</label>
+                    </div>
+                    <div class="p-field-radiobutton p-col-6">
+                        <p-radioButton id="category3" name="category" value="Electronics"
+                            [(ngModel)]="produto.categoria">
+                        </p-radioButton>
+                        <label for="category3">Electronics</label>
+                    </div>
+                    <div class="p-field-radiobutton p-col-6">
+                        <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="produto.categoria">
+                        </p-radioButton>
+                        <label for="category4">Fitness</label>
+                    </div>
+                </div>
+            </div>
+
             <div class="p-formgrid p-grid">
-                <div class="p-field-radiobutton p-col-6">
-                    <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="produto.categoria">
-                    </p-radioButton>
-                    <label for="category1">Accessories</label>
+                <div class="p-field p-col">
+                    <label for="price">Price</label>
+                    <p-inputNumber id="preco" [(ngModel)]="produto.preco" mode="currency" currency="USD" locale="en-US">
+                    </p-inputNumber>
                 </div>
-                <div class="p-field-radiobutton p-col-6">
-                    <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="produto.categoria">
-                    </p-radioButton>
-                    <label for="category2">Clothing</label>
-                </div>
-                <div class="p-field-radiobutton p-col-6">
-                    <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="produto.categoria">
-                    </p-radioButton>
-                    <label for="category3">Electronics</label>
-                </div>
-                <div class="p-field-radiobutton p-col-6">
-                    <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="produto.categoria">
-                    </p-radioButton>
-                    <label for="category4">Fitness</label>
+                <div class="p-field p-col">
+                    <label for="quantity">Quantity</label>
+                    <p-inputNumber id="quantity" [(ngModel)]="produto.quantidade"></p-inputNumber>
                 </div>
             </div>
-        </div>
+        </ng-template>
 
-        <div class="p-formgrid p-grid">
-            <div class="p-field p-col">
-                <label for="price">Price</label>
-                <p-inputNumber id="preco" [(ngModel)]="produto.preco" mode="currency" currency="USD" locale="en-US">
-                </p-inputNumber>
-            </div>
-            <div class="p-field p-col">
-                <label for="quantity">Quantity</label>
-                <p-inputNumber id="quantity" [(ngModel)]="produto.quantidade"></p-inputNumber>
-            </div>
-        </div>
-    </ng-template>
-
-    <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="salvar()"></button>
-    </ng-template>
-</app-produto-cadastro>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                (click)="hideDialog()"></button>
+            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="salvar()"></button>
+        </ng-template>
+    </app-produto-cadastro>
 </p-dialog>
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

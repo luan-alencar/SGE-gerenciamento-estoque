@@ -8,7 +8,8 @@ export class Usuario {
     rg: string;
     email: string;
     dataNascimento: Date;
-    tipoUsuario: boolean;
+    tipoUsuario: string;
+    admin: boolean;
 
     constructor() { }
 }

@@ -1,5 +1,6 @@
 package com.luan.ecommerce.ecommerce.recurso;
 
+import com.luan.ecommerce.ecommerce.servico.dto.ChaveDTO;
 import com.luan.ecommerce.ecommerce.servico.UsuarioServico;
 import com.luan.ecommerce.ecommerce.servico.dto.UsuarioDTO;
 import lombok.RequiredArgsConstructor;
@@ -26,21 +27,6 @@ public class UsuarioRecurso {
         return ResponseEntity.ok(usuarioServico.buscarPorId(idUsuario));
     }
 
-    @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<UsuarioDTO> buscarPorCpf(String cpf) {
-        return ResponseEntity.ok(usuarioServico.buscarPorCpf(cpf));
-    }
-
-    @GetMapping("/email/{email}")
-    public ResponseEntity<UsuarioDTO> buscarPorEmail(String email) {
-        return new ResponseEntity<>(usuarioServico.buscarPorEmail(email), HttpStatus.OK);
-    }
-
-    @GetMapping("/rg/{rg}")
-    public ResponseEntity<UsuarioDTO> buscarPorRg(String rg) {
-        return new ResponseEntity<>(usuarioServico.buscarPorRg(rg), HttpStatus.OK);
-    }
-
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO usuarioDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioServico.salvar(usuarioDTO));
@@ -49,6 +35,11 @@ public class UsuarioRecurso {
     @PutMapping
     public ResponseEntity<UsuarioDTO> editar(@RequestBody UsuarioDTO usuarioDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioServico.editar(usuarioDTO));
+    }
+
+    @PostMapping("/login")
+    public  ResponseEntity<UsuarioDTO> obterUsuarioPorChave(@RequestBody ChaveDTO chaveDTO){
+        return  ResponseEntity.ok(usuarioServico.obterPorChave(chaveDTO));
     }
 
     @DeleteMapping("/{idUsuario}")
