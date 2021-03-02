@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AppComponent } from '../../app.component';
 import { Authentication, User } from '@nuvem/angular-base';
+import { Usuario } from 'src/app/dominio/usuario';
+import { LoginComponent } from 'src/app/shared/components/login/login.component';
 
 @Component({
     selector: 'app-topbar',
@@ -8,14 +10,31 @@ import { Authentication, User } from '@nuvem/angular-base';
 })
 export class AppTopbarComponent {
 
-    constructor(public app: AppComponent, private readonly _authentication: Authentication<User>) {
+    user = new Usuario();
+
+    constructor(
+        public app: AppComponent,
+        private readonly _authentication: Authentication<User>,
+        private loginComponent: LoginComponent) {
     }
 
-    get usuario() {
+    buscarNome() {
+
+        this.user = JSON.parse(localStorage.getItem('usuario'))
+        return this.user.nome
+
+    }
+    getUsuario() {
         return this._authentication.getUser();
     }
 
     isAuthenticated() {
         return this._authentication.isAuthenticated();
+    }
+
+
+    logout() {
+        this.loginComponent.logout()
+
     }
 }

@@ -1,4 +1,4 @@
-<!--div class="box">
+<div class="box">
     <form [formGroup]="cadastroUsuario" novalidate>
 
         <div class="p-grid p-dir-col">
@@ -16,7 +16,7 @@
             </div>
             <div class="p-field  p-col-12 p-md-6">
                 <label for="field4"  ><strong>(DDD) e Telefone: <strong class="asterisco">*</strong></strong></label>
-                <p-inputMask id="field4" [(ngModel)]="usuario.telefone" placeholder="Telefone" class="input" formControlName="Telefone"  mask="(99)99999-9999"></p-inputMask>
+                <p-inputMask id="field4" [(ngModel)]="usuario.rg" placeholder="Telefone" class="input" formControlName="rg"  mask="(99)99999-9999"></p-inputMask>
             </div>    
             <div class="p-field  p-col-12 p-md-6">
                 <label for="field5" class=""><strong>Data Nascimento: <strong class="asterisco">*</strong></strong></label>
@@ -30,7 +30,7 @@
         <button class="botao_cadastrar" (click)="salvar()" pButton type="button" [label]="edicao ?'Editar' : 'Enviar' "></button>
     </div>
     
-</div-->
+</div>
 
 <div>
     <form [formGroup]="cadastroUsuario" novalidate>

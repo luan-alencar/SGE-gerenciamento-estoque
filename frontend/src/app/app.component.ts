@@ -14,7 +14,7 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
 
     @ViewChild(LoginComponent) login;
 
-    items: MenuItem[];
+    items: MenuItem[] = [];
 
     activeItem: MenuItem;
 
