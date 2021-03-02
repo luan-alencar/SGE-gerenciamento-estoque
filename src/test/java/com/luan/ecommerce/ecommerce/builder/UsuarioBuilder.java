@@ -29,7 +29,6 @@ public class UsuarioBuilder extends ConstrutorDeEntidade<Usuario> {
         usuario.setEmail("test@test.com");
         usuario.setRg("31231222");
         usuario.setDataNascimento(LocalDate.of(1996, 11, 10));
-        usuario.setTipoUsuario(false);
 
         return usuario;
     }

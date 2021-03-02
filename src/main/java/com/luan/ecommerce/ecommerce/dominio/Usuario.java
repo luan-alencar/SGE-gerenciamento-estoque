@@ -37,8 +37,8 @@ public class Usuario implements Serializable {
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @Column(name = "tipo_usuario")
-    private Boolean tipoUsuario;
+    @Column(name = "telefone")
+    private String telefone;
 
     @Column(name = "chave")
     private String chave;
