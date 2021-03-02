@@ -104,7 +104,6 @@ public class UsuarioRecursoIT extends IntTestComum {
     public void editarTest() throws Exception {
         Usuario usuario = usuarioBuilder.construir();
         usuario.setNome("Alterando usuario");
-        usuario.setTipoUsuario(true);
         usuario.setEmail("test2@gmail.com");
         usuario.setCpf("234231234");
         usuario.setRg("232345234");

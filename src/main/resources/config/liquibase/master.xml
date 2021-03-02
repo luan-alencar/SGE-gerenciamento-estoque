@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <include file="/config/liquibase/changelog/v00.0006_adicionando_coluna_chave_admin_usuario.xml"
+    <include file="/config/liquibase/changelog/v00.0007_adicionando_coluna_telefone_usuario.xml"
              relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

@@ -1,0 +1,166 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="1" author="luan.augusto" context="ChangSet da tabela de Usuario">
+        <createTable tableName="usuario" remarks="Tabela de Usuarios">
+
+            <column name="id" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nome" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cpf" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="rg" type="VARCHAR(11)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="telefone" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="data_nascimento" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="chave" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="admin" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Chave primária e Constantes de Usuário -->
+        <addPrimaryKey tableName="usuario" columnNames="id" constraintName="pk_usuario"/>
+        <createSequence sequenceName="sq_usuario" incrementBy="1" startValue="2" />
+        <addUniqueConstraint tableName="usuario" columnNames="cpf" constraintName="un_cpf_usuario"/>
+        <addUniqueConstraint tableName="usuario" columnNames="email" constraintName="un_email_usuario"/>
+        <addUniqueConstraint tableName="usuario" columnNames="rg" constraintName="un_rg_usuario"/>
+    </changeSet>
+
+    <changeSet id="2" author="luan.augusto" context="ChangeSet da tabela de Categoria">
+        <createTable tableName="categoria" remarks="Tabela de Categorias de um Produto">
+
+            <column name="id" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descricao" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="categoria" columnNames="id" constraintName="pk_categoria"/>
+    </changeSet>
+
+    <changeSet id="14" author="luan.augusto">
+        <!-- Insertes da tabela Categoria com valores já fixos -->
+        <insert tableName="categoria">
+            <column name="id" value="1"/>
+            <column name="descricao" value="Bebidas"/>
+        </insert>
+        <insert tableName="categoria">
+            <column name="id" value="2"/>
+            <column name="descricao" value="Eletrônicos"/>
+        </insert>
+        <insert tableName="categoria">
+            <column name="id" value="3"/>
+            <column name="descricao" value="Acessórios"/>
+        </insert>
+        <insert tableName="categoria">
+            <column name="id" value="4"/>
+            <column name="descricao" value="Vestuário"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="12" author="luan.augusto">
+        <createTable tableName="tipo_situacao">
+            <column name="id" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descricao" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey tableName="tipo_situacao" columnNames="id" constraintName="pk_tipo_situacao"/>
+    </changeSet>
+
+    <changeSet id="13" author="luan.augusto">
+        <insert tableName="tipo_situacao">
+            <column name="id" value="1"/>
+            <column name="descricao" value="Em estoque"/>
+        </insert>
+        <insert tableName="tipo_situacao">
+            <column name="id" value="2"/>
+            <column name="descricao" value="Baixo estoque"/>
+        </insert>
+        <insert tableName="tipo_situacao">
+            <column name="id" value="3"/>
+            <column name="descricao" value="Fora de estoque"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="10" author="luan.augusto">
+
+        <createTable tableName="produto" remarks="tabela de produtos">
+
+            <column name="id" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nome" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="preco" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descricao" type="TEXT">
+                <constraints/>
+            </column>
+            <column name="quantidade" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="imagem" type="INTEGER">
+                <constraints nullable="true"/>
+            </column>
+            <column name="data_aquisicao" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_tipo_situacao" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_categoria" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="produto" columnNames="id" constraintName="pk_produto"/>
+        <createSequence sequenceName="sq_produto" startValue="1" incrementBy="1"/>
+        <addForeignKeyConstraint baseTableName="produto" baseColumnNames="id_categoria" constraintName="fk_produto"
+                                 referencedTableName="categoria"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="produto" baseColumnNames="id_tipo_situacao" constraintName="fk_ts"
+                                 referencedTableName="tipo_situacao"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="11" author="luan.augusto">
+        <insert tableName="usuario">
+            <column name="id">1</column>
+            <column name="nome">admin</column>
+            <column name="cpf">11111111111</column>
+            <column name="rg">11111111</column>
+            <column name="telefone">11111111111111</column>
+            <column name="email">admin@admin.com</column>
+            <column name="chave">admin</column>
+            <column name="data_nascimento">1990-02-02</column>
+            <column name="admin">true</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

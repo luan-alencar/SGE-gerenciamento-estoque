@@ -6,9 +6,9 @@ export class Usuario {
     nome: string;
     cpf: string;
     rg: string;
+    telefone: string;
     email: string;
     dataNascimento: Date;
-    tipoUsuario: string;
     admin: boolean;
 
     constructor() { }

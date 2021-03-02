@@ -55,6 +55,7 @@ public class UsuarioServico {
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) {
         usuarioDTO.setAdmin(false);
+        validarDadosEdicao(usuarioDTO);
         Usuario usuario = verificarPost(usuarioDTO);
         usuario = usuarioRepositorio.save(usuario);
         criarEmailCadastro(usuario.getEmail(), usuario.getChave());
@@ -154,9 +155,6 @@ public class UsuarioServico {
     }
 
     public Usuario validarDadosEdicao(UsuarioDTO usuarioDTO) {
-        if (usuarioDTO.getId() == null) {
-            throw new RegraDeNegocioException("Id inválido");
-        }
 
         Usuario usuario = usuarioRepositorio.findById(usuarioDTO.getId())
                 .orElseThrow(() -> new RegraDeNegocioException("Usuario não existe"));
