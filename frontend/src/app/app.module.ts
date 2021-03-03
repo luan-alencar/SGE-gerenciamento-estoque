@@ -20,7 +20,7 @@ import { AppTopbarComponent } from './components/topbar/app.topbar.component';
 import { SharedModule } from './shared/shared.module';
 import { UsuarioService } from './modules/usuario/services/usuario.service';
 import { LoginComponent } from './shared/components/login/login.component';
-import { UsuarioListagemComponent } from './components/usuario-listagem/usuario-listagem.component';
+import { UsuarioListagemComponent } from './modules/usuario/usuario-listagem/usuario-listagem.component';
 
 
 @NgModule({
