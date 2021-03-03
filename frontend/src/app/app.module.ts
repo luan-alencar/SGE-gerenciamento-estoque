@@ -20,6 +20,7 @@ import { AppTopbarComponent } from './components/topbar/app.topbar.component';
 import { SharedModule } from './shared/shared.module';
 import { UsuarioService } from './modules/usuario/services/usuario.service';
 import { LoginComponent } from './shared/components/login/login.component';
+import { UsuarioListagemComponent } from './components/usuario-listagem/usuario-listagem.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { LoginComponent } from './shared/components/login/login.component';
         AppTopbarComponent,
         AppFooterComponent,
         DiarioErrosComponent,
-        HomeComponent
+        HomeComponent,
+        UsuarioListagemComponent
     ],
     imports: [
         BlockUIModule.forRoot({

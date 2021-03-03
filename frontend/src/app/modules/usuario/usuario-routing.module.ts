@@ -1,11 +1,18 @@
-import { UsuarioFormularioComponent } from './usuario-formulario/usuario-formulario.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { UsuarioFormularioComponent } from './usuario-formulario/usuario-formulario.component';
+import { UsuarioListagemComponent } from './usuario-listagem/usuario-listagem.component';
 
 
 const routes: Routes = [
+
   {
     path: '',
+    component: UsuarioListagemComponent
+  },
+
+  {
+    path: 'cadastro',
     component: UsuarioFormularioComponent
   }
 ];
