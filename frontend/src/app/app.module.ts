@@ -1,15 +1,12 @@
-import { ProdutoService } from './modules/produto/services/produto.service';
-
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SecurityModule, VersionTagModule } from '@nuvem/angular-base';
 import { BreadcrumbModule, ErrorStackModule, MenuModule, PageNotificationModule } from '@nuvem/primeng-components';
 import { BlockUIModule } from 'ng-block-ui';
-import { TableModule, CalendarModule, SliderModule, DialogModule, MultiSelectModule, ContextMenuModule, DropdownModule, ButtonModule, ToastModule, InputTextModule, ProgressBarModule, FileUploadModule, ToolbarModule, RatingModule, RadioButtonModule, InputNumberModule, ConfirmDialogModule, InputTextareaModule } from 'primeng';
+import { ButtonModule, CalendarModule, ConfirmDialogModule, ContextMenuModule, DialogModule, DropdownModule, FileUploadModule, InputNumberModule, InputTextareaModule, InputTextModule, MultiSelectModule, ProgressBarModule, RadioButtonModule, RatingModule, SliderModule, TableModule, ToastModule, ToolbarModule } from 'primeng';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,10 +14,12 @@ import { DiarioErrosComponent } from './components/diario-erros/diario-erros.com
 import { AppFooterComponent } from './components/footer/app.footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { AppTopbarComponent } from './components/topbar/app.topbar.component';
-import { SharedModule } from './shared/shared.module';
+import { ProdutoService } from './modules/produto/services/produto.service';
 import { UsuarioService } from './modules/usuario/services/usuario.service';
-import { LoginComponent } from './shared/components/login/login.component';
 import { UsuarioListagemComponent } from './modules/usuario/usuario-listagem/usuario-listagem.component';
+import { LoginComponent } from './shared/components/login/login.component';
+import { SharedModule } from './shared/shared.module';
+
 
 
 @NgModule({
