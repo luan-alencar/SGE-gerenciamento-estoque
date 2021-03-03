@@ -97,7 +97,8 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
 
         this.menuService.itens = [
             { label: 'Home', icon: 'dashboard', routerLink: [''] },
-            { label: 'Financeiro', icon: 'shopping', routerLink:['/usuarios'] },
+            { label: 'Lembretes', icon: 'comment', routerLink: ['/lembretes'] },
+            { label: 'Financeiro', icon: 'shopping', routerLink: ['/usuarios'] },
             { label: 'Produtos', icon: 'table', routerLink: ['/produtos'] }
 
         ];
