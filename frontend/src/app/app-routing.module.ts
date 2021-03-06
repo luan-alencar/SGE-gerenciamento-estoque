@@ -1,3 +1,5 @@
+import { LembretesModule } from './modules/lembretes/lembretes.module';
+import { LembreteListagemComponent } from './modules/lembretes/components/lembrete-listagem/lembrete-listagem.component';
 import { UsuarioModule } from './modules/usuario/usuario.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -12,6 +14,11 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+
+  {
+    path: 'lembretes',
+    component: LembreteListagemComponent
   },
 
   {

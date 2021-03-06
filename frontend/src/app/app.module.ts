@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SecurityModule, VersionTagModule } from '@nuvem/angular-base';
 import { BreadcrumbModule, ErrorStackModule, MenuModule, PageNotificationModule } from '@nuvem/primeng-components';
 import { BlockUIModule } from 'ng-block-ui';
-import { ButtonModule, CalendarModule, ConfirmDialogModule, ContextMenuModule, DialogModule, DropdownModule, FileUploadModule, InputNumberModule, InputTextareaModule, InputTextModule, MultiSelectModule, ProgressBarModule, RadioButtonModule, RatingModule, SliderModule, TableModule, ToastModule, ToolbarModule } from 'primeng';
+import { TableModule, CalendarModule, SliderModule, DialogModule, MultiSelectModule, ContextMenuModule, DropdownModule, ButtonModule, ToastModule, InputTextModule, ProgressBarModule, FileUploadModule, ToolbarModule, RatingModule, RadioButtonModule, InputNumberModule, ConfirmDialogModule, InputTextareaModule } from 'primeng';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
