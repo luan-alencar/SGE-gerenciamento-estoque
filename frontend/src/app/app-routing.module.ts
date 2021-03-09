@@ -1,5 +1,3 @@
-import { LembretesModule } from './modules/lembretes/lembretes.module';
-import { LembreteListagemComponent } from './modules/lembretes/components/lembrete-listagem/lembrete-listagem.component';
 import { UsuarioModule } from './modules/usuario/usuario.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -17,15 +15,9 @@ const routes: Routes = [
   },
 
   {
-    path: 'lembretes',
-    component: LembreteListagemComponent
-  },
-
-  {
     path: 'usuarios',
     loadChildren: () => UsuarioModule,
   },
-
 
   {
     path: 'listagem',
