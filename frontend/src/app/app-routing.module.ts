@@ -1,13 +1,12 @@
-import { LembretesModule } from './modules/lembretes/lembretes.module';
-import { LembreteListagemComponent } from './modules/lembretes/components/lembrete-listagem/lembrete-listagem.component';
-import { UsuarioModule } from './modules/usuario/usuario.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginSuccessComponent } from '@nuvem/angular-base';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { HomeComponent } from './components/home/home.component';
+import { LembreteModule } from './modules/lembrete/lembrete.module';
 import { ProdutoListagemComponent } from './modules/produto/components/produto-listagem/produto-listagem.component';
 import { ProdutoModule } from './modules/produto/produto.module';
+import { UsuarioModule } from './modules/usuario/usuario.module';
 
 const routes: Routes = [
 
@@ -18,14 +17,13 @@ const routes: Routes = [
 
   {
     path: 'lembretes',
-    component: LembreteListagemComponent
+    loadChildren: () => LembreteModule
   },
 
   {
     path: 'usuarios',
     loadChildren: () => UsuarioModule,
   },
-
 
   {
     path: 'listagem',

@@ -14,6 +14,8 @@ import { DiarioErrosComponent } from './components/diario-erros/diario-erros.com
 import { AppFooterComponent } from './components/footer/app.footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { AppTopbarComponent } from './components/topbar/app.topbar.component';
+import { LembreteListagemComponent } from './modules/lembrete/components/lembrete-listagem/lembrete-listagem.component';
+import { EventService } from './modules/lembrete/services/event.service';
 import { ProdutoService } from './modules/produto/services/produto.service';
 import { UsuarioService } from './modules/usuario/services/usuario.service';
 import { UsuarioListagemComponent } from './modules/usuario/usuario-listagem/usuario-listagem.component';
@@ -29,7 +31,8 @@ import { SharedModule } from './shared/shared.module';
         AppFooterComponent,
         DiarioErrosComponent,
         HomeComponent,
-        UsuarioListagemComponent
+        UsuarioListagemComponent,
+        LembreteListagemComponent
     ],
     imports: [
         BlockUIModule.forRoot({
@@ -69,7 +72,7 @@ import { SharedModule } from './shared/shared.module';
         InputTextareaModule
     ],
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy }, ProdutoService, UsuarioService, LoginComponent
+        { provide: LocationStrategy, useClass: HashLocationStrategy }, ProdutoService, UsuarioService, LoginComponent, EventService
 
     ],
     bootstrap: [AppComponent]

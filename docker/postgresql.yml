@@ -1,9 +1,9 @@
 version: '2'
 services:
-  ecommerce-postgresql:
+  sge-postgresql:
     image: postgres:11.5
     environment:
-      - POSTGRES_USER=ecommerce
-      - POSTGRES_PASSWORD=ecommerce
+      - POSTGRES_USER=sge
+      - POSTGRES_PASSWORD=sge
     ports:
       - 5432:5432

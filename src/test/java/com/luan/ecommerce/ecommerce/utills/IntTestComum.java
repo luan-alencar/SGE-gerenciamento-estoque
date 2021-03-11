@@ -1,6 +1,6 @@
 package com.luan.ecommerce.ecommerce.utills;
 
-import com.luan.ecommerce.ecommerce.EcommerceApplication;
+import com.luan.ecommerce.ecommerce.ControleEstoqueApplication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.persistence.EntityManager;
 
-@SpringBootTest(classes = EcommerceApplication.class)
+@SpringBootTest(classes = ControleEstoqueApplication.class)
 @ExtendWith(SpringExtension.class)
 public abstract class IntTestComum {
 
