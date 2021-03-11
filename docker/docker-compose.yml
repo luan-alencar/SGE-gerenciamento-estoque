@@ -1,7 +1,7 @@
 version: '2'
 services:
-  ecommerce-postgresql:
+  sge-postgresql:
     extends:
       file: postgresql.yml
-      service: ecommerce-postgresql
-    container_name: ecommerce-postgresql
+      service: sge-postgresql
+    container_name: sge-postgresql

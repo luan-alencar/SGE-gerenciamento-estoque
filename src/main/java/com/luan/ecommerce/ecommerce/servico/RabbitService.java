@@ -1,6 +1,6 @@
 package com.luan.ecommerce.ecommerce.servico;
 
-import com.luan.ecommerce.ecommerce.EcommerceApplication;
+import com.luan.ecommerce.ecommerce.ControleEstoqueApplication;
 import com.luan.ecommerce.ecommerce.servico.dto.EmailDTO;
 import com.luan.ecommerce.ecommerce.servico.sink.SgeSink;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 @Service
-@EnableBinding(EcommerceApplication.class)
+@EnableBinding(ControleEstoqueApplication.class)
 @RequiredArgsConstructor
 public class RabbitService {
     private final EmailServico emailServico;

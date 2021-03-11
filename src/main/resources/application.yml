@@ -1,5 +1,5 @@
 application:
-  appName: ecommerce
+  appName: sge
 
   mail:
     endereco-remetente: plataformaecommercecg@gmail.com
@@ -7,7 +7,7 @@ application:
 
 spring:
   application:
-    name: ecommerce-service
+    name: sge-service
 
     cloud:
       stream:
@@ -17,9 +17,9 @@ spring:
 
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/ecommerce
-    username: ecommerce
-    password: ecommerce
+    url: jdbc:postgresql://localhost:5432/sge
+    username: sge
+    password: sge
 
     hikari:
       poolName: Hikari
