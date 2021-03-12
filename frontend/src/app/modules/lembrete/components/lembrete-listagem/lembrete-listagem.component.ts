@@ -14,6 +14,9 @@ export class LembreteListagemComponent implements OnInit {
   events: any[];
 
   options: any;
+  
+  header: any;
+
 
   constructor(private eventService: EventService) { }
 

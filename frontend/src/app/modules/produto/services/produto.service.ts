@@ -15,6 +15,10 @@ export class ProdutoService {
 
   constructor(private http: HttpClient) { }
 
+  buscarValorTotalMes(): Observable<number> {
+    return this.http.get<number>(`${this.url}`);
+  }
+
   buscarProdutoPorId(id: number): Observable<Produto> {
     return this.http.get<Produto>(`${this.url}/${id}`);
   }

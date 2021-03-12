@@ -2,10 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng';
+import { Subscription } from 'rxjs';
+import { AppConfig } from 'src/app/dominio/appconfig';
 import { Categoria } from 'src/app/dominio/categoria';
 import { Produto } from 'src/app/dominio/produto';
 import { TipoSituacao } from 'src/app/dominio/tipo-situacao';
-import { ProdutoService } from '../../modules/produto/services/produto.service';
+import { ProdutoService } from 'src/app/modules/produto/services/produto.service';
+import { AppConfigService } from 'src/app/services/appconfigservice';
 
 
 @Component({
@@ -19,11 +22,26 @@ import { ProdutoService } from '../../modules/produto/services/produto.service';
   }
 `],
   styleUrls: ['./home.component.scss'],
-  providers: [MessageService, ConfirmationService]
+  providers: [MessageService, ConfirmationService, AppConfigService]
 
 })
 export class HomeComponent implements OnInit {
 
+  @Input() produto = new Produto();
+
+  @Input() edicao = false;
+
+  @Output() produtoSalvo = new EventEmitter<Produto>();
+
+  @Output() display = false;
+
+  data: any;
+
+  chartOptions: any;
+
+  subscription: Subscription;
+
+  config: AppConfig;
 
   produtoDialog: boolean;
 
@@ -36,16 +54,14 @@ export class HomeComponent implements OnInit {
   formProduto: FormGroup;
 
   tipoSituacaoLista: TipoSituacao[] = [];
+
   tipoSituacao: TipoSituacao;
 
   categoria: Categoria;
+
   categorias: Categoria[] = [];
 
-  @Input() produto = new Produto();
   produtos: Produto[] = [];
-  @Input() edicao = false;
-  @Output() produtoSalvo = new EventEmitter<Produto>();
-  @Output() display = false;
 
   constructor(
 
@@ -54,7 +70,8 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
     private router: Router,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private configService: AppConfigService) { }
 
   ngOnInit(): void {
 
@@ -86,10 +103,61 @@ export class HomeComponent implements OnInit {
         this.buscarProduto(params.id);
       }
     });
+
+    this.data = {
+      labels: ['A', 'B', 'C'],
+      datasets: [
+        {
+          data: [300, 50, 100],
+          backgroundColor: [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56"
+          ],
+          hoverBackgroundColor: [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56"
+          ]
+        }
+      ]
+    };
+
+    this.config = this.configService.config;
+    this.updateChartOptions();
+    this.subscription = this.configService.configUpdate$.subscribe(config => {
+      this.config = config;
+      this.updateChartOptions();
+    });
+
   }
 
   private buscarProdutos() {
     this.produtoService.buscarTodosProdutos();
+  }
+
+  updateChartOptions() {
+    this.chartOptions = this.config && this.config.dark ? this.getDarkTheme() : this.getLightTheme();
+  }
+
+  getLightTheme() {
+    return {
+      legend: {
+        labels: {
+          fontColor: '#495057'
+        }
+      }
+    }
+  }
+
+  getDarkTheme() {
+    return {
+      legend: {
+        labels: {
+          fontColor: '#ebedef'
+        }
+      }
+    }
   }
 
   addSingle() {
@@ -104,7 +172,6 @@ export class HomeComponent implements OnInit {
   clear() {
     this.messageService.clear();
   }
-
 
   openNew() {
     this.produto = new Produto();
@@ -204,11 +271,8 @@ export class HomeComponent implements OnInit {
     console.log(this.produto);
   }
 
-
-
   fecharDialog(produtoSalvo: Produto) {
     this.produtoSalvo.emit(produtoSalvo);
   }
-
 
 }
