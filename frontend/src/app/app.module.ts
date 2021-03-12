@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { AppFooterComponent } from './components/footer/app.footer.component';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/home/components/home.component';
 import { AppTopbarComponent } from './components/topbar/app.topbar.component';
 import { EventService } from './modules/lembrete/services/event.service';
 import { ProdutoService } from './modules/produto/services/produto.service';
@@ -86,8 +86,7 @@ import { SharedModule } from './shared/shared.module';
         ProdutoService,
         UsuarioService,
         LoginComponent,
-        EventService,
-        AppConfigService
+        EventService
     ],
 
     bootstrap: [AppComponent]

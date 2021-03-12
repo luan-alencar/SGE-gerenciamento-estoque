@@ -7,8 +7,8 @@ import { AppConfig } from 'src/app/dominio/appconfig';
 import { Categoria } from 'src/app/dominio/categoria';
 import { Produto } from 'src/app/dominio/produto';
 import { TipoSituacao } from 'src/app/dominio/tipo-situacao';
+import { ProdutoService } from 'src/app/modules/produto/services/produto.service';
 import { AppConfigService } from 'src/app/services/appconfigservice';
-import { ProdutoService } from '../../modules/produto/services/produto.service';
 
 
 @Component({
@@ -22,7 +22,7 @@ import { ProdutoService } from '../../modules/produto/services/produto.service';
   }
 `],
   styleUrls: ['./home.component.scss'],
-  providers: [MessageService, ConfirmationService]
+  providers: [MessageService, ConfirmationService, AppConfigService]
 
 })
 export class HomeComponent implements OnInit {
